@@ -12,8 +12,8 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
-      {/* Top bar with contact info */}
-      <div className="bg-gradient-to-r from-brand-blue-900 to-brand-blue-800 text-white py-2">
+      {/* Top bar with contact info - reduced padding */}
+      <div className="bg-gradient-to-r from-brand-blue-900 to-brand-blue-800 text-white py-1">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
@@ -31,19 +31,19 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Main navigation */}
-      <nav className="container mx-auto px-4 py-0">
-        <div className="flex justify-between items-center py-4">
+      {/* Main navigation - reduced padding */}
+      <nav className="container mx-auto px-4">
+        <div className="flex justify-between items-center py-2">
           <Link to="/" className="flex items-center space-x-3">
             <img 
               src="/lovable-uploads/aabccf71-2753-49b9-82b4-62156d717089.png" 
               alt="Beasell Logo" 
-              className="h-24 w-auto object-contain"
+              className="h-16 w-auto object-contain"
             />
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             <Link 
               to="/"
               className={`transition-colors ${isActive('/') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}

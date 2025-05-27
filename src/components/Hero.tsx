@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
-    <section id="inicio" className="pt-24 pb-16 bg-gradient-to-br from-blue-50 via-white to-orange-50 overflow-hidden relative">
+    <section id="inicio" className="pt-20 pb-12 bg-gradient-to-br from-blue-50 via-white to-orange-50 overflow-hidden relative">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
@@ -14,62 +14,62 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
           {/* Content */}
-          <div className="space-y-10 animate-fade-in">
-            <div className="space-y-6">
-              <div className="inline-flex items-center bg-gradient-to-r from-orange-100 to-blue-100 text-blue-800 px-6 py-3 rounded-full text-sm font-semibold shadow-lg">
-                <Star className="h-5 w-5 mr-3 text-orange-500" />
+          <div className="space-y-8 animate-fade-in">
+            <div className="space-y-4">
+              <div className="inline-flex items-center bg-gradient-to-r from-orange-100 to-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                <Star className="h-4 w-4 mr-2 text-orange-500" />
                 Formadora #1 em Vendas em Angola
               </div>
               
-              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
                 Treinamento em vendas
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-700 to-orange-500"> para equipas</span>
                 <br />
                 de alta performance
               </h1>
               
-              <p className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-2xl">
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl">
                 Transforme sua equipa em vendedores de excelência através de formação prática e personalizada, 
                 adaptada ao mercado angolano. Com Beatriz Chavier, especialista em vendas.
               </p>
             </div>
 
             {/* Enhanced Stats */}
-            <div className="grid grid-cols-3 gap-8">
-              <div className="text-center bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="text-4xl font-bold text-blue-900 mb-2">500+</div>
-                <div className="text-sm text-gray-600 font-medium">Profissionais Formados</div>
+            <div className="grid grid-cols-3 gap-6">
+              <div className="text-center bg-white/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-3xl font-bold text-blue-900 mb-1">500+</div>
+                <div className="text-xs text-gray-600 font-medium">Profissionais Formados</div>
               </div>
-              <div className="text-center bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="text-4xl font-bold text-blue-900 mb-2">95%</div>
-                <div className="text-sm text-gray-600 font-medium">Taxa de Sucesso</div>
+              <div className="text-center bg-white/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-3xl font-bold text-blue-900 mb-1">95%</div>
+                <div className="text-xs text-gray-600 font-medium">Taxa de Sucesso</div>
               </div>
-              <div className="text-center bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="text-4xl font-bold text-blue-900 mb-2">50+</div>
-                <div className="text-sm text-gray-600 font-medium">Empresas Parceiras</div>
+              <div className="text-center bg-white/80 backdrop-blur-sm p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div className="text-3xl font-bold text-blue-900 mb-1">50+</div>
+                <div className="text-xs text-gray-600 font-medium">Empresas Parceiras</div>
               </div>
             </div>
 
             {/* Enhanced CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/servicos">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white px-10 py-5 text-lg shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto"
+                  className="bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white px-8 py-4 text-lg shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto"
                 >
                   Ver Formações
-                  <ArrowRight className="ml-3 h-6 w-6" />
+                  <ArrowRight className="ml-3 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/sobre">
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-10 py-5 text-lg shadow-xl hover:shadow-orange-500/25 transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto"
+                  className="border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-8 py-4 text-lg shadow-xl hover:shadow-orange-500/25 transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto"
                 >
-                  <Play className="mr-3 h-6 w-6" />
+                  <Play className="mr-3 h-5 w-5" />
                   Conhecer Beatriz
                 </Button>
               </Link>
@@ -90,21 +90,21 @@ const Hero = () => {
             </div>
             
             {/* Enhanced floating elements */}
-            <div className="absolute -top-6 -right-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-2xl shadow-2xl animate-pulse">
-              <Users className="h-8 w-8 mb-3" />
-              <div className="text-lg font-bold">Alta</div>
-              <div className="text-sm opacity-90">Performance</div>
+            <div className="absolute -top-4 -right-4 bg-gradient-to-br from-orange-500 to-orange-600 text-white p-4 rounded-2xl shadow-2xl animate-pulse">
+              <Users className="h-6 w-6 mb-2" />
+              <div className="text-sm font-bold">Alta</div>
+              <div className="text-xs opacity-90">Performance</div>
             </div>
             
-            <div className="absolute -bottom-6 -left-6 bg-gradient-to-br from-blue-900 to-blue-800 text-white p-6 rounded-2xl shadow-2xl animate-pulse">
-              <Trophy className="h-8 w-8 mb-3" />
-              <div className="text-lg font-bold">Resultados</div>
-              <div className="text-sm opacity-90">Comprovados</div>
+            <div className="absolute -bottom-4 -left-4 bg-gradient-to-br from-blue-900 to-blue-800 text-white p-4 rounded-2xl shadow-2xl animate-pulse">
+              <Trophy className="h-6 w-6 mb-2" />
+              <div className="text-sm font-bold">Resultados</div>
+              <div className="text-xs opacity-90">Comprovados</div>
             </div>
 
-            <div className="absolute top-1/2 -left-4 bg-gradient-to-br from-green-500 to-green-600 text-white p-4 rounded-xl shadow-xl animate-pulse">
-              <TrendingUp className="h-6 w-6 mb-2" />
-              <div className="text-sm font-semibold">+40%</div>
+            <div className="absolute top-1/2 -left-3 bg-gradient-to-br from-green-500 to-green-600 text-white p-3 rounded-xl shadow-xl animate-pulse">
+              <TrendingUp className="h-5 w-5 mb-1" />
+              <div className="text-xs font-semibold">+40%</div>
               <div className="text-xs opacity-90">Vendas</div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -103,9 +104,9 @@ const ContactForm = () => {
   ];
 
   return (
-    <section id="contacto" className="py-20 bg-gray-50">
+    <section id="contacto" className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Entre em <span className="text-blue-900">Contacto</span>
           </h2>
