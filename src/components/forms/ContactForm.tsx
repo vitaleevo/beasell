@@ -65,7 +65,16 @@ const ContactForm = () => {
   const watchedService = watch('service');
 
   const onSubmit = async (data: ContactFormData) => {
-    const result = await submitContact(data);
+    // Transform data to match the expected ContactFormData type in the hook
+    const transformedData = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      interest: data.service as 'individual' | 'empresarial' | 'workshop' | 'consultoria' | 'geral',
+      message: data.message,
+    };
+    
+    const result = await submitContact(transformedData);
     if (result.success) {
       reset();
     }
@@ -104,31 +113,31 @@ const ContactForm = () => {
   ];
 
   return (
-    <section id="contacto" className="py-12 bg-gray-50">
+    <section id="contacto" className="py-8 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">
             Entre em <span className="text-blue-900">Contacto</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Pronto para transformar sua carreira ou equipa? Fale connosco hoje mesmo.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Contact Form */}
           <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-2xl text-gray-900">Envie-nos uma Mensagem</CardTitle>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl text-gray-900">Envie-nos uma Mensagem</CardTitle>
               {selectedService && (
-                <p className="text-blue-900 font-medium">
+                <p className="text-blue-900 font-medium text-sm">
                   Interessado em: {serviceOptions.find(opt => opt.value === selectedService)?.label}
                 </p>
               )}
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
+            <CardContent className="pt-0">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-3">
                   <div>
                     <Input
                       placeholder="Seu nome completo"
@@ -136,7 +145,7 @@ const ContactForm = () => {
                       className={errors.name ? 'border-red-500' : ''}
                     />
                     {errors.name && (
-                      <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                      <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
                     )}
                   </div>
                   <div>
@@ -147,12 +156,12 @@ const ContactForm = () => {
                       className={errors.email ? 'border-red-500' : ''}
                     />
                     {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                      <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
                     )}
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-3">
                   <div>
                     <Input
                       placeholder="Telefone (ex: 926 238 518)"
@@ -160,7 +169,7 @@ const ContactForm = () => {
                       className={errors.phone ? 'border-red-500' : ''}
                     />
                     {errors.phone && (
-                      <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+                      <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
                     )}
                   </div>
                   <div>
@@ -188,23 +197,23 @@ const ContactForm = () => {
                     </SelectContent>
                   </Select>
                   {errors.service && (
-                    <p className="text-red-500 text-sm mt-1">{errors.service.message}</p>
+                    <p className="text-red-500 text-xs mt-1">{errors.service.message}</p>
                   )}
                 </div>
 
                 <div>
                   <Textarea
                     placeholder="Conte-nos mais sobre suas necessidades..."
-                    rows={4}
+                    rows={3}
                     {...register('message')}
                     className={errors.message ? 'border-red-500' : ''}
                   />
                   {errors.message && (
-                    <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+                    <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>
                   )}
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-3">
                   <Button
                     type="submit"
                     disabled={isSubmitting}
@@ -231,14 +240,14 @@ const ContactForm = () => {
           </Card>
 
           {/* Contact Information */}
-          <div className="space-y-8">
+          <div className="space-y-4">
             {contactInfo.map((item, index) => (
-              <Card key={index} className="bg-white/60 backdrop-blur-lg shadow-md border border-gray-200 rounded-lg p-6">
-                <div className="flex items-center mb-4">
-                  <item.icon className="h-6 w-6 text-blue-900 mr-3" />
-                  <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>
+              <Card key={index} className="bg-white/60 backdrop-blur-lg shadow-md border border-gray-200 rounded-lg p-4">
+                <div className="flex items-center mb-2">
+                  <item.icon className="h-5 w-5 text-blue-900 mr-3" />
+                  <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
                 </div>
-                <p className="text-gray-600">{item.content}</p>
+                <p className="text-gray-600 text-sm">{item.content}</p>
               </Card>
             ))}
           </div>
