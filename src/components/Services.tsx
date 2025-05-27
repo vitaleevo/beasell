@@ -1,8 +1,10 @@
+
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { User, Users, Presentation, HeadphonesIcon, Clock, MapPin, CheckCircle } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { User, Users, Presentation, HeadphonesIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import ServiceCard from './services/ServiceCard';
+import CourseCard from './services/CourseCard';
+import TrainingModalities from './services/TrainingModalities';
 
 const Services = () => {
   const navigate = useNavigate();
@@ -16,7 +18,6 @@ const Services = () => {
       price: "Desde 25.000 AOA",
       duration: "4-8 semanas",
       image: "/lovable-uploads/af9a6669-8dd6-41b8-bb8b-548fbf81a34a.png",
-      action: "contact",
       serviceType: "individual"
     },
     {
@@ -27,7 +28,6 @@ const Services = () => {
       price: "Sob consulta",
       duration: "2-12 semanas",
       image: "/lovable-uploads/90bb2b21-bbb6-4c39-9b32-4fdd01333270.png",
-      action: "contact",
       serviceType: "empresarial"
     },
     {
@@ -38,7 +38,6 @@ const Services = () => {
       price: "15.000 AOA",
       duration: "1-2 dias",
       image: "/lovable-uploads/bacd7dcc-ddf2-4bc3-a457-125fa18b7f04.png",
-      action: "contact",
       serviceType: "workshop"
     },
     {
@@ -49,7 +48,6 @@ const Services = () => {
       price: "Sob consulta",
       duration: "3-6 meses",
       image: "/lovable-uploads/503294f6-01e8-4bd8-86ac-2479dca24e4f.png",
-      action: "contact",
       serviceType: "consultoria"
     }
   ];
@@ -73,22 +71,7 @@ const Services = () => {
   ];
 
   const handleServiceAction = (serviceType: string) => {
-    // Scroll to contact form with pre-selected service type
     navigate('/contacto', { state: { selectedService: serviceType } });
-  };
-
-  const scrollToContact = () => {
-    const element = document.getElementById('contacto');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToCourses = () => {
-    const element = document.getElementById('cursos');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (
@@ -107,52 +90,18 @@ const Services = () => {
         {/* Main Services */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
           {services.map((service, index) => (
-            <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <div className="relative h-48 overflow-hidden rounded-t-lg">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute top-4 left-4 bg-white/90 p-2 rounded-lg">
-                  <service.icon className="h-6 w-6 text-blue-900" />
-                </div>
-              </div>
-              
-              <CardHeader>
-                <CardTitle className="text-xl text-gray-900">{service.title}</CardTitle>
-                <p className="text-gray-600">{service.description}</p>
-              </CardHeader>
-              
-              <CardContent className="space-y-4">
-                <ul className="space-y-2">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-gray-600">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center text-gray-500">
-                    <Clock className="h-4 w-4 mr-1" />
-                    {service.duration}
-                  </div>
-                  <div className="font-semibold text-blue-900">
-                    {service.price}
-                  </div>
-                </div>
-                
-                <Button 
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white"
-                  onClick={() => handleServiceAction(service.serviceType)}
-                >
-                  Saber Mais
-                </Button>
-              </CardContent>
-            </Card>
+            <ServiceCard
+              key={index}
+              icon={service.icon}
+              title={service.title}
+              description={service.description}
+              features={service.features}
+              price={service.price}
+              duration={service.duration}
+              image={service.image}
+              serviceType={service.serviceType}
+              onAction={handleServiceAction}
+            />
           ))}
         </div>
 
@@ -167,75 +116,18 @@ const Services = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {courses.map((course, index) => (
-              <div key={index} className="bg-gradient-to-br from-blue-50 to-orange-50 p-6 rounded-xl">
-                <h4 className="text-xl font-bold text-gray-900 mb-3">{course.title}</h4>
-                <p className="text-gray-600 mb-4">{course.description}</p>
-                <div className="space-y-2 mb-6">
-                  <div className="font-semibold text-blue-900 text-sm">Módulos:</div>
-                  {course.modules.map((module, idx) => (
-                    <div key={idx} className="flex items-center text-sm text-gray-600">
-                      <div className="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                      {module}
-                    </div>
-                  ))}
-                </div>
-                <Button 
-                  variant="outline" 
-                  className="w-full border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white"
-                  onClick={() => handleServiceAction('curso')}
-                >
-                  Inscrever-se
-                </Button>
-              </div>
+              <CourseCard
+                key={index}
+                title={course.title}
+                description={course.description}
+                modules={course.modules}
+                onAction={handleServiceAction}
+              />
             ))}
           </div>
         </div>
 
-        {/* Training Image Section */}
-        <div className="mt-16 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <img
-              src="/lovable-uploads/97ed134f-d9a7-4561-93e4-b8ddc88a446b.png"
-              alt="Formação prática em vendas"
-              className="w-full h-auto rounded-xl shadow-lg"
-            />
-          </div>
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900">Modalidades de Formação</h3>
-            <div className="space-y-4">
-              <div className="flex items-start">
-                <MapPin className="h-6 w-6 text-orange-500 mr-3 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Presencial</h4>
-                  <p className="text-gray-600">Formações no nosso centro em Luanda ou nas suas instalações</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <HeadphonesIcon className="h-6 w-6 text-orange-500 mr-3 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Online</h4>
-                  <p className="text-gray-600">Sessões virtuais interactivas com a mesma qualidade</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <Users className="h-6 w-6 text-orange-500 mr-3 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">In-Company</h4>
-                  <p className="text-gray-600">Formações customizadas na sua empresa</p>
-                </div>
-              </div>
-            </div>
-            <div className="pt-4">
-              <Button 
-                size="lg" 
-                className="bg-blue-900 hover:bg-blue-800 text-white"
-                onClick={() => handleServiceAction('modalidade')}
-              >
-                Solicitar Orçamento
-              </Button>
-            </div>
-          </div>
-        </div>
+        <TrainingModalities onAction={handleServiceAction} />
       </div>
     </section>
   );

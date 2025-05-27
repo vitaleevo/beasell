@@ -27,7 +27,7 @@ const ContactForm = () => {
   const location = useLocation();
   const selectedService = location.state?.selectedService;
   
-  const { submitForm, isSubmitting } = useContactForm();
+  const { submitContact, isSubmitting } = useContactForm();
   const { openWhatsApp } = useWhatsApp();
 
   const serviceOptions = [
@@ -64,8 +64,8 @@ const ContactForm = () => {
   const watchedService = watch('service');
 
   const onSubmit = async (data: ContactFormData) => {
-    const success = await submitForm(data);
-    if (success) {
+    const result = await submitContact(data);
+    if (result.success) {
       reset();
     }
   };
@@ -74,12 +74,9 @@ const ContactForm = () => {
     const formData = watch();
     const serviceLabel = serviceOptions.find(opt => opt.value === formData.service)?.label || 'Serviço não especificado';
     
-    openWhatsApp({
-      service: serviceLabel,
-      name: formData.name || 'Cliente',
-      phone: formData.phone || '',
-      company: formData.company || ''
-    });
+    const message = `Olá! Gostaria de mais informações sobre: ${serviceLabel}. Nome: ${formData.name || 'Cliente'}, Telefone: ${formData.phone || ''}, Empresa: ${formData.company || ''}`;
+    
+    openWhatsApp(message);
   };
 
   const contactInfo = [
