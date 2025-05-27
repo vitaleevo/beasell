@@ -1,22 +1,16 @@
 
 import React from 'react';
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const quickLinks = [
-    { name: "Início", section: "inicio" },
-    { name: "Sobre Nós", section: "sobre" },
-    { name: "Serviços", section: "servicos" },
-    { name: "Testemunhos", section: "testemunhos" },
-    { name: "Blog", section: "blog" },
-    { name: "Contacto", section: "contacto" }
+    { name: "Início", path: "/" },
+    { name: "Sobre Nós", path: "/sobre" },
+    { name: "Serviços", path: "/servicos" },
+    { name: "Testemunhos", path: "/testemunhos" },
+    { name: "Blog", path: "/blog" },
+    { name: "Contacto", path: "/contacto" }
   ];
 
   const services = [
@@ -74,12 +68,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <button
-                    onClick={() => scrollToSection(link.section)}
+                  <Link
+                    to={link.path}
                     className="text-gray-300 hover:text-orange-500 transition-colors duration-200"
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

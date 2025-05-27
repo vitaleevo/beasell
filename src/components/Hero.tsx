@@ -2,15 +2,9 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, ArrowRight, Star, Users, Trophy } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section id="inicio" className="pt-24 pb-12 bg-gradient-to-br from-blue-50 to-orange-50 overflow-hidden">
       <div className="container mx-auto px-4">
@@ -54,23 +48,25 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg" 
-                className="bg-blue-900 hover:bg-blue-800 text-white px-8 py-4 text-lg"
-                onClick={() => scrollToSection('servicos')}
-              >
-                Ver Formações
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-4 text-lg"
-                onClick={() => scrollToSection('sobre')}
-              >
-                <Play className="mr-2 h-5 w-5" />
-                Conhecer Beatriz
-              </Button>
+              <Link to="/servicos">
+                <Button 
+                  size="lg" 
+                  className="bg-blue-900 hover:bg-blue-800 text-white px-8 py-4 text-lg w-full sm:w-auto"
+                >
+                  Ver Formações
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/sobre">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-4 text-lg w-full sm:w-auto"
+                >
+                  <Play className="mr-2 h-5 w-5" />
+                  Conhecer Beatriz
+                </Button>
+              </Link>
             </div>
           </div>
 
