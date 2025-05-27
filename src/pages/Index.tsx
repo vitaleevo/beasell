@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
+import SEOHead from '../components/ui/seo-head';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Users, Trophy, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -28,6 +29,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead 
+        title="Beasell - Formação de Excelência em Vendas | Angola"
+        description="A Beasell oferece formação especializada em vendas para profissionais e empresas em Angola. Transforme sua carreira comercial com metodologia comprovada."
+        keywords="formação vendas angola, curso vendas luanda, treinamento comercial, consultoria vendas, beasell"
+        url="https://beasell.ao"
+      />
+      
       <Header />
       <Hero />
       
@@ -45,7 +53,7 @@ const Index = () => {
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-lg text-center">
+              <div key={index} className="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="bg-gradient-to-br from-blue-900 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                   <feature.icon className="h-8 w-8 text-white" />
                 </div>
@@ -57,7 +65,7 @@ const Index = () => {
 
           <div className="text-center">
             <Link to="/servicos">
-              <Button size="lg" className="bg-blue-900 hover:bg-blue-800 text-white px-8 py-4 text-lg">
+              <Button size="lg" className="bg-blue-900 hover:bg-blue-800 text-white px-8 py-4 text-lg hover:scale-105 transform transition-all duration-200">
                 Ver Todos os Serviços
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
