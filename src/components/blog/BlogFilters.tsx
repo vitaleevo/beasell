@@ -50,7 +50,7 @@ const BlogFilters = ({
               <SelectValue placeholder="Todas as categorias" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todas as categorias</SelectItem>
+              <SelectItem value="all">Todas as categorias</SelectItem>
               {categories.map((category) => (
                 <SelectItem key={category.id} value={category.slug}>
                   {category.name} ({category.count})
@@ -67,7 +67,7 @@ const BlogFilters = ({
               <SelectValue placeholder="Todos os anos" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todos os anos</SelectItem>
+              <SelectItem value="all">Todos os anos</SelectItem>
               {years.map((year) => (
                 <SelectItem key={year} value={year.toString()}>
                   {year}
@@ -84,7 +84,7 @@ const BlogFilters = ({
               <SelectValue placeholder="Qualquer duração" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Qualquer duração</SelectItem>
+              <SelectItem value="all">Qualquer duração</SelectItem>
               <SelectItem value="quick">Rápida (1-3 min)</SelectItem>
               <SelectItem value="medium">Média (4-7 min)</SelectItem>
               <SelectItem value="long">Longa (8+ min)</SelectItem>

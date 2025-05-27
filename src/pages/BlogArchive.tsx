@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -13,8 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 const BlogArchive = () => {
   const { posts } = useBlogActions();
-  const [selectedYear, setSelectedYear] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState('');
+  const [selectedYear, setSelectedYear] = useState('all');
+  const [selectedMonth, setSelectedMonth] = useState('all');
 
   const publishedPosts = posts.filter(post => post.published);
   
@@ -38,8 +37,8 @@ const BlogArchive = () => {
   // Filter posts by year and month
   const filteredPosts = publishedPosts.filter(post => {
     const postDate = new Date(post.date);
-    const yearMatch = selectedYear === '' || postDate.getFullYear().toString() === selectedYear;
-    const monthMatch = selectedMonth === '' || postDate.getMonth().toString() === selectedMonth;
+    const yearMatch = selectedYear === 'all' || postDate.getFullYear().toString() === selectedYear;
+    const monthMatch = selectedMonth === 'all' || postDate.getMonth().toString() === selectedMonth;
     return yearMatch && monthMatch;
   });
 
@@ -150,7 +149,7 @@ const BlogArchive = () => {
                   <SelectValue placeholder="Todos os anos" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Todos os anos</SelectItem>
+                  <SelectItem value="all">Todos os anos</SelectItem>
                   {years.map((year) => (
                     <SelectItem key={year} value={year.toString()}>
                       {year}
@@ -164,7 +163,7 @@ const BlogArchive = () => {
                   <SelectValue placeholder="Todos os meses" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Todos os meses</SelectItem>
+                  <SelectItem value="all">Todos os meses</SelectItem>
                   {months.map((month) => (
                     <SelectItem key={month.value} value={month.value}>
                       {month.label}
@@ -176,8 +175,8 @@ const BlogArchive = () => {
               <Button 
                 variant="outline" 
                 onClick={() => {
-                  setSelectedYear('');
-                  setSelectedMonth('');
+                  setSelectedYear('all');
+                  setSelectedMonth('all');
                 }}
               >
                 Limpar Filtros
@@ -215,8 +214,8 @@ const BlogArchive = () => {
               <Button 
                 variant="outline"
                 onClick={() => {
-                  setSelectedYear('');
-                  setSelectedMonth('');
+                  setSelectedYear('all');
+                  setSelectedMonth('all');
                 }}
               >
                 Ver Todos os Artigos
