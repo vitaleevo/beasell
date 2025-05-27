@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PageHero from './PageHero';
 import { BookOpen, Bell, Rss, PenTool, Lightbulb, TrendingUp } from 'lucide-react';
@@ -14,9 +13,9 @@ const BlogHero = () => {
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-10 left-10 w-40 h-40 bg-blue-500/20 rounded-full filter blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-purple-500/20 rounded-full filter blur-2xl animate-pulse delay-500"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-orange-500/20 rounded-full filter blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute top-10 left-10 w-80 h-80 bg-blue-500/20 rounded-full filter blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-64 h-64 bg-purple-500/20 rounded-full filter blur-2xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-orange-500/20 rounded-full filter blur-xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="relative z-10">
