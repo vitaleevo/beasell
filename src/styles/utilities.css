@@ -1,0 +1,106 @@
+
+/* Custom utility classes for brand colors */
+@layer utilities {
+  .bg-brand-blue {
+    background-color: hsl(var(--brand-blue));
+  }
+  
+  .bg-brand-orange {
+    background-color: hsl(var(--brand-orange));
+  }
+  
+  .text-brand-blue {
+    color: hsl(var(--brand-blue));
+  }
+  
+  .text-brand-orange {
+    color: hsl(var(--brand-orange));
+  }
+  
+  .border-brand-blue {
+    border-color: hsl(var(--brand-blue));
+  }
+  
+  .border-brand-orange {
+    border-color: hsl(var(--brand-orange));
+  }
+
+  /* Enhanced Animation Classes */
+  .animate-fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+
+  /* Hover Effects */
+  .hover-glow {
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+  
+  .hover-lift {
+    transition: transform 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-5px);
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--brand-blue)), hsl(var(--brand-orange)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer Effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  /* Touch target improvements */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Pulsing Elements */
+  .pulse-soft {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}

@@ -1,33 +1,16 @@
-
 import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import SEOHead from '../components/ui/seo-head';
+import FeaturesSection from '../components/home/FeaturesSection';
+import VideoSection from '../components/home/VideoSection';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Star, Users, Trophy, Target, Play, CheckCircle, Award, TrendingUp, Quote, Calendar, Clock, MapPin, Phone, Mail, Zap, BookOpen, Heart, Shield, Globe } from 'lucide-react';
+import { ArrowRight, Star, Users, Trophy, TrendingUp, Quote, Calendar, Clock, CheckCircle, Award, Heart, Shield, Globe, Phone, Mail, MapPin, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Index = () => {
-  const features = [
-    {
-      icon: Target,
-      title: "Formação Especializada",
-      description: "Metodologia única adaptada ao mercado angolano"
-    },
-    {
-      icon: Users,
-      title: "Experiência Comprovada",
-      description: "Mais de 500 profissionais formados com sucesso"
-    },
-    {
-      icon: Trophy,
-      title: "Resultados Garantidos",
-      description: "95% de taxa de satisfação dos nossos formandos"
-    }
-  ];
-
   const courses = [
     {
       title: "Técnicas Avançadas de Vendas",
@@ -92,100 +75,8 @@ const Index = () => {
       <Header />
       <Hero />
       
-      {/* Enhanced Features Section */}
-      <section className="py-12 sm:py-20 bg-gray-50 w-full">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16 animate-fade-in max-w-7xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Por que escolher a <span className="text-blue-900">Beasell</span>?
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              Somos especialistas em transformar profissionais em vendedores de excelência
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16 max-w-7xl mx-auto">
-            {features.map((feature, index) => (
-              <div key={index} className="bg-white p-6 sm:p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{animationDelay: `${index * 0.2}s`}}>
-                <div className="bg-gradient-to-br from-blue-900 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <feature.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center max-w-7xl mx-auto">
-            <Link to="/servicos">
-              <Button size="lg" className="bg-blue-900 hover:bg-blue-800 text-white px-8 py-4 text-lg hover:scale-105 transform transition-all duration-200">
-                Ver Todos os Serviços
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* YouTube Video Section */}
-      <section className="py-12 sm:py-20 bg-white w-full">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16 max-w-7xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Veja a <span className="text-orange-500">Beasell</span> em Ação
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              Descubra como transformamos profissionais através da nossa metodologia única
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center max-w-7xl mx-auto">
-            <div className="relative">
-              <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
-                <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  title="Formação Beasell - Transformando Vendedores"
-                  className="w-full h-full"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-orange-500 text-white p-4 rounded-xl shadow-xl">
-                <Play className="h-6 w-6" />
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                Metodologia Comprovada
-              </h3>
-              <p className="text-base sm:text-lg text-gray-600">
-                Nossa abordagem combina teoria e prática para garantir resultados reais e duradouros.
-              </p>
-              
-              <div className="space-y-4">
-                {[
-                  "Técnicas adaptadas ao mercado angolano",
-                  "Foco em resultados mensuráveis",
-                  "Acompanhamento pós-formação",
-                  "Certificação reconhecida"
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700">{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
-                Assistir Mais Vídeos
-                <Play className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FeaturesSection />
+      <VideoSection />
 
       {/* Enhanced Stats Section */}
       <section className="py-12 sm:py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-orange-500 text-white w-full">
