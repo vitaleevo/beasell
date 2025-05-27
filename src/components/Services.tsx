@@ -1,10 +1,12 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { User, Users, Presentation, HeadphonesIcon, Clock, MapPin, CheckCircle } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Services = () => {
+  const navigate = useNavigate();
+
   const services = [
     {
       icon: User,
@@ -13,7 +15,9 @@ const Services = () => {
       features: ["Avaliação individual", "Plano personalizado", "Mentoring 1:1", "Certificação"],
       price: "Desde 25.000 AOA",
       duration: "4-8 semanas",
-      image: "/lovable-uploads/af9a6669-8dd6-41b8-bb8b-548fbf81a34a.png"
+      image: "/lovable-uploads/af9a6669-8dd6-41b8-bb8b-548fbf81a34a.png",
+      action: "contact",
+      serviceType: "individual"
     },
     {
       icon: Users,
@@ -22,7 +26,9 @@ const Services = () => {
       features: ["Diagnóstico empresarial", "Formação in-company", "Material personalizado", "Relatório de resultados"],
       price: "Sob consulta",
       duration: "2-12 semanas",
-      image: "/lovable-uploads/90bb2b21-bbb6-4c39-9b32-4fdd01333270.png"
+      image: "/lovable-uploads/90bb2b21-bbb6-4c39-9b32-4fdd01333270.png",
+      action: "contact",
+      serviceType: "empresarial"
     },
     {
       icon: Presentation,
@@ -31,7 +37,9 @@ const Services = () => {
       features: ["Temas específicos", "Metodologia prática", "Grupos reduzidos", "Material didático"],
       price: "15.000 AOA",
       duration: "1-2 dias",
-      image: "/lovable-uploads/bacd7dcc-ddf2-4bc3-a457-125fa18b7f04.png"
+      image: "/lovable-uploads/bacd7dcc-ddf2-4bc3-a457-125fa18b7f04.png",
+      action: "contact",
+      serviceType: "workshop"
     },
     {
       icon: HeadphonesIcon,
@@ -40,7 +48,9 @@ const Services = () => {
       features: ["Análise de processos", "Estratégias customizadas", "Implementação assistida", "Monitoramento"],
       price: "Sob consulta",
       duration: "3-6 meses",
-      image: "/lovable-uploads/503294f6-01e8-4bd8-86ac-2479dca24e4f.png"
+      image: "/lovable-uploads/503294f6-01e8-4bd8-86ac-2479dca24e4f.png",
+      action: "contact",
+      serviceType: "consultoria"
     }
   ];
 
@@ -62,8 +72,20 @@ const Services = () => {
     }
   ];
 
+  const handleServiceAction = (serviceType: string) => {
+    // Scroll to contact form with pre-selected service type
+    navigate('/contacto', { state: { selectedService: serviceType } });
+  };
+
   const scrollToContact = () => {
     const element = document.getElementById('contacto');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToCourses = () => {
+    const element = document.getElementById('cursos');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -125,7 +147,7 @@ const Services = () => {
                 
                 <Button 
                   className="w-full bg-orange-500 hover:bg-orange-600 text-white"
-                  onClick={scrollToContact}
+                  onClick={() => handleServiceAction(service.serviceType)}
                 >
                   Saber Mais
                 </Button>
@@ -135,7 +157,7 @@ const Services = () => {
         </div>
 
         {/* Course Catalog */}
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+        <div id="cursos" className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">Catálogo de Cursos</h3>
             <p className="text-lg text-gray-600">
@@ -148,7 +170,7 @@ const Services = () => {
               <div key={index} className="bg-gradient-to-br from-blue-50 to-orange-50 p-6 rounded-xl">
                 <h4 className="text-xl font-bold text-gray-900 mb-3">{course.title}</h4>
                 <p className="text-gray-600 mb-4">{course.description}</p>
-                <div className="space-y-2">
+                <div className="space-y-2 mb-6">
                   <div className="font-semibold text-blue-900 text-sm">Módulos:</div>
                   {course.modules.map((module, idx) => (
                     <div key={idx} className="flex items-center text-sm text-gray-600">
@@ -157,6 +179,13 @@ const Services = () => {
                     </div>
                   ))}
                 </div>
+                <Button 
+                  variant="outline" 
+                  className="w-full border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white"
+                  onClick={() => handleServiceAction('curso')}
+                >
+                  Inscrever-se
+                </Button>
               </div>
             ))}
           </div>
@@ -195,6 +224,15 @@ const Services = () => {
                   <p className="text-gray-600">Formações customizadas na sua empresa</p>
                 </div>
               </div>
+            </div>
+            <div className="pt-4">
+              <Button 
+                size="lg" 
+                className="bg-blue-900 hover:bg-blue-800 text-white"
+                onClick={() => handleServiceAction('modalidade')}
+              >
+                Solicitar Orçamento
+              </Button>
             </div>
           </div>
         </div>

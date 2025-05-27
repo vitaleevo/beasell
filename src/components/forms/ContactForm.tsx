@@ -1,238 +1,252 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { ContactFormData } from '@/types/contact';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Phone, Mail, MapPin, Clock, Send, Loader2 } from 'lucide-react';
 import { useContactForm } from '@/hooks/useContactForm';
-import WhatsAppButton from '@/components/ui/WhatsAppButton';
-import { Loader2, Send } from 'lucide-react';
+import { useWhatsApp } from '@/hooks/useWhatsApp';
+import { useLocation } from 'react-router-dom';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
   email: z.string().email('Email inválido'),
-  phone: z.string().optional(),
-  interest: z.enum(['individual', 'empresarial', 'workshop', 'consultoria', 'geral']),
+  phone: z.string().min(9, 'Telefone deve ter pelo menos 9 dígitos'),
+  company: z.string().optional(),
+  service: z.string().min(1, 'Por favor selecione um serviço'),
   message: z.string().min(10, 'Mensagem deve ter pelo menos 10 caracteres'),
 });
 
-const ContactForm = () => {
-  const { submitContact, isSubmitting } = useContactForm();
-  const [formData, setFormData] = useState<Partial<ContactFormData>>({});
+type ContactFormData = z.infer<typeof contactSchema>;
 
-  const form = useForm<ContactFormData>({
+const ContactForm = () => {
+  const location = useLocation();
+  const selectedService = location.state?.selectedService;
+  
+  const { submitForm, isSubmitting } = useContactForm();
+  const { openWhatsApp } = useWhatsApp();
+
+  const serviceOptions = [
+    { value: 'individual', label: 'Formação Individual' },
+    { value: 'empresarial', label: 'Formação Empresarial' },
+    { value: 'workshop', label: 'Workshops Intensivos' },
+    { value: 'consultoria', label: 'Consultoria Comercial' },
+    { value: 'curso', label: 'Cursos Específicos' },
+    { value: 'modalidade', label: 'Informações sobre Modalidades' },
+    { value: 'outro', label: 'Outro' },
+  ];
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+    reset
+  } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      interest: 'geral',
-      message: '',
-    },
+      service: selectedService || '',
+    }
   });
 
+  // Set pre-selected service if available
+  useEffect(() => {
+    if (selectedService) {
+      setValue('service', selectedService);
+    }
+  }, [selectedService, setValue]);
+
+  const watchedService = watch('service');
+
   const onSubmit = async (data: ContactFormData) => {
-    setFormData(data);
-    const result = await submitContact(data);
-    
-    if (result.success) {
-      form.reset();
-      setFormData({});
+    const success = await submitForm(data);
+    if (success) {
+      reset();
     }
   };
 
-  const watchedValues = form.watch();
+  const handleWhatsAppContact = () => {
+    const formData = watch();
+    const serviceLabel = serviceOptions.find(opt => opt.value === formData.service)?.label || 'Serviço não especificado';
+    
+    openWhatsApp({
+      service: serviceLabel,
+      name: formData.name || 'Cliente',
+      phone: formData.phone || '',
+      company: formData.company || ''
+    });
+  };
+
+  const contactInfo = [
+    {
+      icon: MapPin,
+      title: "Localização",
+      content: "Rua de Talatona, Edifício Beasell, Luanda, Angola"
+    },
+    {
+      icon: Mail,
+      title: "Email",
+      content: "info@beasell.com"
+    },
+    {
+      icon: Phone,
+      title: "Telefone",
+      content: "+244 926 238 518"
+    },
+    {
+      icon: Clock,
+      title: "Horário",
+      content: "Seg-Sex: 9h às 18h"
+    }
+  ];
 
   return (
-    <div className="grid lg:grid-cols-2 gap-12">
-      <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-sm">
-        <CardHeader className="pb-8">
-          <CardTitle className="text-3xl text-gray-900 mb-4">
-            Envie sua <span className="text-brand-blue">Mensagem</span>
-          </CardTitle>
-          <p className="text-gray-600">
-            Preencha o formulário abaixo e responderemos em breve
+    <section id="contacto" className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Entre em <span className="text-blue-900">Contacto</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Pronto para transformar sua carreira ou equipa? Fale connosco hoje mesmo.
           </p>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="grid md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700">Nome Completo *</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Seu nome completo"
-                          className="h-12 px-4 border-gray-300 focus:border-brand-blue focus:ring-brand-blue"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-2xl text-gray-900">Envie-nos uma Mensagem</CardTitle>
+              {selectedService && (
+                <p className="text-blue-900 font-medium">
+                  Interessado em: {serviceOptions.find(opt => opt.value === selectedService)?.label}
+                </p>
+              )}
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Input
+                      placeholder="Seu nome completo"
+                      {...register('name')}
+                      className={errors.name ? 'border-red-500' : ''}
+                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <Input
+                      type="email"
+                      placeholder="Seu email"
+                      {...register('email')}
+                      className={errors.email ? 'border-red-500' : ''}
+                    />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Input
+                      placeholder="Telefone (ex: 926 238 518)"
+                      {...register('phone')}
+                      className={errors.phone ? 'border-red-500' : ''}
+                    />
+                    {errors.phone && (
+                      <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <Input
+                      placeholder="Empresa (opcional)"
+                      {...register('company')}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Select 
+                    value={watchedService} 
+                    onValueChange={(value) => setValue('service', value)}
+                  >
+                    <SelectTrigger className={errors.service ? 'border-red-500' : ''}>
+                      <SelectValue placeholder="Selecione o serviço de interesse" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {serviceOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {errors.service && (
+                    <p className="text-red-500 text-sm mt-1">{errors.service.message}</p>
                   )}
-                />
+                </div>
 
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700">Email *</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="seu@email.com"
-                          className="h-12 px-4 border-gray-300 focus:border-brand-blue focus:ring-brand-blue"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                <div>
+                  <Textarea
+                    placeholder="Conte-nos mais sobre suas necessidades..."
+                    rows={4}
+                    {...register('message')}
+                    className={errors.message ? 'border-red-500' : ''}
+                  />
+                  {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
                   )}
-                />
-              </div>
+                </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700">Telefone</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="tel"
-                          placeholder="+244 9XX XXX XXX"
-                          className="h-12 px-4 border-gray-300 focus:border-brand-blue focus:ring-brand-blue"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="flex gap-4">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="flex-1 bg-blue-900 hover:bg-blue-800 text-white"
+                  >
+                    {isSubmitting ? (
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <Send className="h-4 w-4 mr-2" />
+                    )}
+                    {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
+                  </Button>
+                  
+                  <Button
+                    type="button"
+                    onClick={handleWhatsAppContact}
+                    className="bg-green-600 hover:bg-green-700 text-white px-6"
+                  >
+                    WhatsApp
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
 
-                <FormField
-                  control={form.control}
-                  name="interest"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700">Área de Interesse *</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger className="h-12 px-4 border-gray-300 focus:border-brand-blue focus:ring-brand-blue">
-                            <SelectValue placeholder="Selecione uma opção" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="individual">Formação Individual</SelectItem>
-                          <SelectItem value="empresarial">Formação Empresarial</SelectItem>
-                          <SelectItem value="workshop">Workshop</SelectItem>
-                          <SelectItem value="consultoria">Consultoria</SelectItem>
-                          <SelectItem value="geral">Informações Gerais</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-sm font-medium text-gray-700">Mensagem *</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        rows={6}
-                        placeholder="Conte-nos sobre seus objetivos e como podemos ajudar..."
-                        className="px-4 py-3 border-gray-300 focus:border-brand-blue focus:ring-brand-blue resize-none"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex-1 h-12 bg-brand-blue hover:bg-brand-blue/90 text-white text-lg font-medium"
-                >
-                  {isSubmitting ? (
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  ) : (
-                    <Send className="mr-2 h-5 w-5" />
-                  )}
-                  {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
-                </Button>
-
-                <WhatsAppButton
-                  interest={watchedValues.interest}
-                  name={watchedValues.name}
-                  className="flex-1 h-12 text-lg font-medium"
-                  variant="outline"
-                />
-              </div>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-
-      {/* Contact Information Cards */}
-      <div className="space-y-6">
-        <div className="bg-gradient-to-br from-brand-blue to-brand-blue-700 text-white p-8 rounded-2xl shadow-xl">
-          <h3 className="text-2xl font-bold mb-6">Informações de Contacto</h3>
-          <div className="space-y-6">
-            <div>
-              <h4 className="font-semibold mb-2">📍 Localização</h4>
-              <p className="text-blue-100">Luanda, Angola<br />Talatona - Condomínio Jardim de Águas</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">📞 Telefone</h4>
-              <p className="text-blue-100">+244 926 238 518</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">✉️ Email</h4>
-              <p className="text-blue-100">info@beasell.ao</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">🕒 Horário</h4>
-              <div className="text-blue-100 space-y-1">
-                <p>Segunda a Sexta: 8h00 - 17h00</p>
-                <p>Sábado: 8h00 - 12h00</p>
-                <p>Domingo: Fechado</p>
-              </div>
-            </div>
+          {/* Contact Information */}
+          <div className="space-y-8">
+            {contactInfo.map((item, index) => (
+              <Card key={index} className="bg-white/60 backdrop-blur-lg shadow-md border border-gray-200 rounded-lg p-6">
+                <div className="flex items-center mb-4">
+                  <item.icon className="h-6 w-6 text-blue-900 mr-3" />
+                  <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>
+                </div>
+                <p className="text-gray-600">{item.content}</p>
+              </Card>
+            ))}
           </div>
         </div>
-
-        <div className="bg-gradient-to-br from-brand-orange to-brand-orange-600 text-white p-8 rounded-2xl shadow-xl">
-          <h3 className="text-xl font-bold mb-4">Resposta Rápida</h3>
-          <p className="mb-6 text-orange-100">
-            Precisa de uma resposta imediata? Contacte-nos via WhatsApp!
-          </p>
-          <WhatsAppButton
-            interest="geral"
-            className="w-full bg-white hover:bg-gray-100 text-green-600 font-semibold"
-          />
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
