@@ -18,14 +18,14 @@ const Hero = () => {
               </div>
               
               <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                Transforme sua
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-orange-500"> carreira</span>
+                Treinamento em vendas
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-orange-500"> para equipas</span>
                 <br />
-                em vendas
+                de alta performance
               </h1>
               
               <p className="text-xl text-gray-600 leading-relaxed">
-                Desenvolva competências comerciais através de formação prática e personalizada, 
+                Transforme sua equipa em vendedores de excelência através de formação prática e personalizada, 
                 adaptada ao mercado angolano. Com Beatriz Chavier, especialista em vendas.
               </p>
             </div>
@@ -83,8 +83,8 @@ const Hero = () => {
             {/* Floating elements */}
             <div className="absolute -top-4 -right-4 bg-orange-500 text-white p-4 rounded-xl shadow-lg animate-pulse">
               <Users className="h-6 w-6 mb-2" />
-              <div className="text-sm font-semibold">Especialista</div>
-              <div className="text-xs">em Vendas</div>
+              <div className="text-sm font-semibold">Alta</div>
+              <div className="text-xs">Performance</div>
             </div>
             
             <div className="absolute -bottom-4 -left-4 bg-blue-900 text-white p-4 rounded-xl shadow-lg animate-pulse">

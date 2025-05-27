@@ -8,17 +8,17 @@ const About = () => {
     {
       icon: Target,
       title: "Missão",
-      description: "Capacitar profissionais e empresas angolanas com competências de vendas de excelência, promovendo o crescimento sustentável do mercado nacional."
+      description: "Capacitar profissionais e empresas angolanas com treinamento em vendas de excelência, promovendo o crescimento sustentável do mercado nacional através de equipas de alta performance."
     },
     {
       icon: Eye,
       title: "Visão",
-      description: "Ser a referência em formação comercial em Angola, reconhecida pela qualidade e resultados práticos das nossas formações."
+      description: "Ser a referência em formação comercial em Angola, reconhecida pela qualidade e resultados práticos das nossas formações especializadas."
     },
     {
       icon: Heart,
       title: "Valores",
-      description: "Integridade, excelência, compromisso com resultados, adaptação cultural e desenvolvimento contínuo dos nossos formandos."
+      description: "Integridade, excelência, compromisso com resultados, adaptação cultural e desenvolvimento contínuo dos nossos formandos e equipas."
     }
   ];
 
@@ -33,11 +33,17 @@ const About = () => {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
+          <img 
+            src="/lovable-uploads/f0793518-7a6c-4991-9b60-ed1782287b96.png" 
+            alt="Beasell Logo" 
+            className="h-16 w-auto mx-auto mb-6"
+          />
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Sobre a <span className="text-blue-900">Beasell</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Conheça nossa história, valores e a expertise de Beatriz Chavier na formação de vendedores de sucesso
+            Especialistas em treinamento em vendas para equipas de alta performance. 
+            Conheça nossa história, valores e a expertise de Beatriz Chavier.
           </p>
         </div>
 
@@ -50,11 +56,12 @@ const About = () => {
             <p className="text-lg text-gray-600 leading-relaxed">
               Especialista em vendas e formação comercial com mais de uma década de experiência no mercado angolano. 
               Beatriz desenvolveu uma metodologia única que combina técnicas internacionais com as especificidades 
-              do mercado local.
+              do mercado local, focando em equipas de alta performance.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
               Formada em Gestão Comercial e com certificações internacionais em vendas, dedica-se à transformação 
-              de profissionais e equipas comerciais, focando sempre em resultados práticos e sustentáveis.
+              de profissionais e equipas comerciais, focando sempre em resultados práticos e sustentáveis através 
+              de treinamento especializado.
             </p>
             
             {/* Achievements */}
@@ -108,12 +115,12 @@ const About = () => {
               <h3 className="text-3xl font-bold text-gray-900">Nossa Metodologia</h3>
               <p className="text-lg text-gray-600 leading-relaxed">
                 Desenvolvemos uma abordagem única que combina teoria sólida com prática intensiva, 
-                adaptada às especificidades do mercado angolano.
+                especificamente adaptada para criar equipas de alta performance no mercado angolano.
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start">
                   <div className="bg-orange-500 w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-600">Diagnóstico personalizado das necessidades</span>
+                  <span className="text-gray-600">Diagnóstico personalizado das necessidades da equipa</span>
                 </li>
                 <li className="flex items-start">
                   <div className="bg-orange-500 w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
@@ -121,11 +128,11 @@ const About = () => {
                 </li>
                 <li className="flex items-start">
                   <div className="bg-orange-500 w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-600">Role-plays e simulações práticas</span>
+                  <span className="text-gray-600">Role-plays e simulações práticas em equipa</span>
                 </li>
                 <li className="flex items-start">
                   <div className="bg-orange-500 w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-600">Acompanhamento pós-formação</span>
+                  <span className="text-gray-600">Acompanhamento pós-formação e mentoring</span>
                 </li>
               </ul>
             </div>

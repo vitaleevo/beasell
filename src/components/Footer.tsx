@@ -19,7 +19,7 @@ const Footer = () => {
     "Workshops Intensivos",
     "Consultoria Comercial",
     "Mentoring Executivo",
-    "Vendas Online"
+    "Treinamento em Vendas"
   ];
 
   const socialLinks = [
@@ -37,12 +37,14 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <div>
-              <div className="text-3xl font-bold mb-4">
-                <span className="text-orange-500">Bea</span>sell
-              </div>
+              <img 
+                src="/lovable-uploads/938e4a08-1df3-48f7-876f-b8d847d0cf68.png" 
+                alt="Beasell Logo" 
+                className="h-12 w-auto mb-4"
+              />
               <p className="text-gray-300 leading-relaxed">
-                Transformamos profissionais em especialistas de vendas através de formação prática 
-                e personalizada, adaptada ao mercado angolano.
+                Treinamento em vendas para equipas de alta performance. Transformamos profissionais 
+                em especialistas de vendas através de formação prática e personalizada.
               </p>
             </div>
             
@@ -53,7 +55,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center text-gray-300">
                 <Phone className="h-5 w-5 mr-3 text-orange-500" />
-                <span>+244 923 456 789</span>
+                <span>+244 926 238 518</span>
               </div>
               <div className="flex items-center text-gray-300">
                 <Mail className="h-5 w-5 mr-3 text-orange-500" />

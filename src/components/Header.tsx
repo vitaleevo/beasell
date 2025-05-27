@@ -18,7 +18,7 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <Phone className="h-3 w-3" />
-              <span>+244 923 456 789</span>
+              <span>+244 926 238 518</span>
             </div>
             <div className="flex items-center space-x-1">
               <Mail className="h-3 w-3" />
@@ -34,8 +34,12 @@ const Header = () => {
       {/* Main navigation */}
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold text-blue-900">
-            <span className="text-orange-500">Bea</span>sell
+          <Link to="/" className="flex items-center space-x-3">
+            <img 
+              src="/lovable-uploads/aabccf71-2753-49b9-82b4-62156d717089.png" 
+              alt="Beasell Logo" 
+              className="h-8 w-auto"
+            />
           </Link>
           
           {/* Desktop Navigation */}
