@@ -40,7 +40,7 @@ const ServicesHero = () => {
       title="Nossos Serviços"
       subtitle="Formação de Excelência"
       description="Oferecemos uma gama completa de soluções de formação em vendas, adaptadas às necessidades específicas de cada cliente e do mercado angolano."
-      backgroundImage="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+      backgroundImage="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
       className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[80vh]"
     >
       {/* Background Elements */}

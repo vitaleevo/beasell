@@ -40,7 +40,7 @@ const ContactHero = () => {
       title="Entre em Contacto"
       subtitle="Estamos Aqui para Ajudar"
       description="Pronto para transformar sua carreira ou equipa em vendas? Fale connosco e descubra como podemos impulsionar seus resultados comerciais."
-      backgroundImage="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+      backgroundImage="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
       className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[80vh]"
     >
       {/* Background Elements */}

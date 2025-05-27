@@ -16,7 +16,7 @@ const TestimonialsHero = () => {
       title="Testemunhos"
       subtitle="Histórias de Sucesso"
       description="Descubra como profissionais e empresas transformaram seus resultados comerciais através das nossas formações especializadas."
-      backgroundImage="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+      backgroundImage="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
       className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[80vh]"
     >
       {/* Background Elements */}

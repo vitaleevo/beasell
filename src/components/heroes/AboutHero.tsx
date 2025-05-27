@@ -15,7 +15,7 @@ const AboutHero = () => {
       title="Sobre a Beasell"
       subtitle="Especialistas em Formação Comercial"
       description="Conheça a história da empresa líder em formação de vendas em Angola e da formadora Beatriz Chavier, especialista reconhecida no desenvolvimento de competências comerciais."
-      backgroundImage="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+      backgroundImage="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
       className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[80vh]"
     >
       {/* Background decorative elements */}

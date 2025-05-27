@@ -10,7 +10,7 @@ const BlogHero = () => {
       title="Blog & Recursos"
       subtitle="Conhecimento Especializado"
       description="Mantenha-se atualizado com as últimas tendências, estratégias e insights do mundo das vendas, adaptados ao mercado angolano."
-      backgroundImage="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+      backgroundImage="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
       className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange-600 text-white relative overflow-hidden min-h-[80vh]"
     >
       {/* Background Elements */}
