@@ -16,18 +16,19 @@ const TestimonialsHero = () => {
       title="Testemunhos"
       subtitle="Histórias de Sucesso"
       description="Descubra como profissionais e empresas transformaram seus resultados comerciais através das nossas formações especializadas."
-      className="bg-gradient-to-br from-blue-900 via-blue-800 to-orange-500 text-white relative overflow-hidden min-h-[70vh]"
+      backgroundImage="https://images.unsplash.com/photo-1500673922987-e212871fec22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+      className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[70vh]"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 right-20 w-40 h-40 bg-white/10 rounded-full filter blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-32 h-32 bg-orange-300/20 rounded-full filter blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-20 left-20 w-32 h-32 bg-brand-orange/20 rounded-full filter blur-2xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="relative z-10">
         {/* Featured Testimonial */}
         <div className="bg-white/15 backdrop-blur-lg rounded-3xl p-10 mt-16 max-w-3xl mx-auto border border-white/20 shadow-2xl">
-          <Quote className="h-16 w-16 text-orange-300 mb-6 mx-auto opacity-80" />
+          <Quote className="h-16 w-16 text-brand-orange mb-6 mx-auto opacity-80" />
           <div className="flex justify-center mb-6">
             {[...Array(featuredTestimonial.rating)].map((_, i) => (
               <Star key={i} className="h-6 w-6 text-yellow-400 fill-current mx-1" />

@@ -36,10 +36,10 @@ const About = () => {
           <img 
             src="/lovable-uploads/f0793518-7a6c-4991-9b60-ed1782287b96.png" 
             alt="Beasell Logo" 
-            className="h-20 w-auto mx-auto mb-8" // Aumentado de h-16 para h-20
+            className="h-40 w-auto mx-auto mb-8 object-contain"
           />
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Sobre a <span className="text-blue-900">Beasell</span>
+            Sobre a <span className="text-brand-blue">Beasell</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Especialistas em treinamento em vendas para equipas de alta performance. 
@@ -68,19 +68,19 @@ const About = () => {
             <div className="grid grid-cols-3 gap-4 pt-6">
               {achievements.map((achievement, index) => (
                 <div key={index} className="text-center p-4 bg-blue-50 rounded-lg">
-                  <achievement.icon className="h-8 w-8 text-blue-900 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-blue-900">{achievement.number}</div>
+                  <achievement.icon className="h-8 w-8 text-brand-blue mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-brand-blue">{achievement.number}</div>
                   <div className="text-sm text-gray-600">{achievement.text}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative flex justify-center">
             <img
               src="/lovable-uploads/f0abed31-5c2f-4ec4-b201-38181cb4cc67.png"
               alt="Beatriz Chavier apresentando formação"
-              className="w-full h-auto rounded-2xl shadow-xl"
+              className="w-full h-auto rounded-2xl shadow-xl object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
           </div>
@@ -91,7 +91,7 @@ const About = () => {
           {values.map((value, index) => (
             <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-8 text-center">
-                <div className="bg-gradient-to-br from-blue-900 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="bg-gradient-to-br from-brand-blue to-brand-orange w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                   <value.icon className="h-8 w-8 text-white" />
                 </div>
                 <h4 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h4>
@@ -104,11 +104,11 @@ const About = () => {
         {/* Methodology Section */}
         <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-3xl p-8 md:p-12">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="flex justify-center">
               <img
                 src="/lovable-uploads/55a9dff5-1780-4918-9ddb-b23bac4cdf75.png"
                 alt="Metodologia de formação Beasell"
-                className="w-full h-auto rounded-xl shadow-lg"
+                className="w-full h-auto rounded-xl shadow-lg object-cover object-center"
               />
             </div>
             <div className="space-y-6">
@@ -119,19 +119,19 @@ const About = () => {
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start">
-                  <div className="bg-orange-500 w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <div className="bg-brand-orange w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <span className="text-gray-600">Diagnóstico personalizado das necessidades da equipa</span>
                 </li>
                 <li className="flex items-start">
-                  <div className="bg-orange-500 w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <div className="bg-brand-orange w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <span className="text-gray-600">Técnicas de vendas adaptadas ao contexto local</span>
                 </li>
                 <li className="flex items-start">
-                  <div className="bg-orange-500 w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <div className="bg-brand-orange w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <span className="text-gray-600">Role-plays e simulações práticas em equipa</span>
                 </li>
                 <li className="flex items-start">
-                  <div className="bg-orange-500 w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <div className="bg-brand-orange w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
                   <span className="text-gray-600">Acompanhamento pós-formação e mentoring</span>
                 </li>
               </ul>

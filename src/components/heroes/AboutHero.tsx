@@ -5,8 +5,8 @@ import { Award, Users, Star, Target, TrendingUp, Heart } from 'lucide-react';
 
 const AboutHero = () => {
   const stats = [
-    { icon: Users, label: 'Profissionais Formados', value: '500+', color: 'from-blue-500 to-blue-600' },
-    { icon: Star, label: 'Taxa de Satisfação', value: '95%', color: 'from-yellow-500 to-orange-500' },
+    { icon: Users, label: 'Profissionais Formados', value: '500+', color: 'from-brand-blue to-brand-blue-600' },
+    { icon: Star, label: 'Taxa de Satisfação', value: '95%', color: 'from-brand-orange to-brand-orange-600' },
     { icon: Award, label: 'Anos de Experiência', value: '10+', color: 'from-green-500 to-emerald-600' },
   ];
 
@@ -15,12 +15,13 @@ const AboutHero = () => {
       title="Sobre a Beasell"
       subtitle="Especialistas em Formação Comercial"
       description="Conheça a história da empresa líder em formação de vendas em Angola e da formadora Beatriz Chavier, especialista reconhecida no desenvolvimento de competências comerciais."
+      backgroundImage="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
       className="bg-gradient-to-br from-blue-50 via-white to-orange-50 relative overflow-hidden min-h-[70vh]"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-10 w-32 h-32 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-pulse"></div>
-        <div className="absolute bottom-20 left-10 w-40 h-40 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-pulse delay-1000"></div>
+        <div className="absolute top-20 right-10 w-32 h-32 bg-brand-blue/20 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-pulse"></div>
+        <div className="absolute bottom-20 left-10 w-40 h-40 bg-brand-orange/20 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-pulse delay-1000"></div>
       </div>
 
       <div className="grid md:grid-cols-3 gap-8 mt-16 relative z-10">
@@ -38,12 +39,12 @@ const AboutHero = () => {
       {/* Additional mission elements */}
       <div className="grid md:grid-cols-3 gap-6 mt-12 relative z-10">
         <div className="bg-gradient-to-br from-blue-100 to-blue-50 p-6 rounded-xl border border-blue-200">
-          <Target className="h-8 w-8 text-blue-600 mb-3" />
+          <Target className="h-8 w-8 text-brand-blue mb-3" />
           <h3 className="font-bold text-gray-900 mb-2">Missão</h3>
           <p className="text-sm text-gray-600">Capacitar profissionais angolanos com excelência em vendas</p>
         </div>
         <div className="bg-gradient-to-br from-orange-100 to-orange-50 p-6 rounded-xl border border-orange-200">
-          <TrendingUp className="h-8 w-8 text-orange-600 mb-3" />
+          <TrendingUp className="h-8 w-8 text-brand-orange mb-3" />
           <h3 className="font-bold text-gray-900 mb-2">Visão</h3>
           <p className="text-sm text-gray-600">Ser referência em formação comercial em Angola</p>
         </div>

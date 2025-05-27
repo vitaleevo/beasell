@@ -30,7 +30,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-brand-blue-900 text-white">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
@@ -40,7 +40,7 @@ const Footer = () => {
               <img 
                 src="/lovable-uploads/938e4a08-1df3-48f7-876f-b8d847d0cf68.png" 
                 alt="Beasell Logo" 
-                className="h-16 w-auto mb-4" // Aumentado de h-12 para h-16
+                className="h-32 w-auto object-contain mb-4"
               />
               <p className="text-gray-300 leading-relaxed">
                 Treinamento em vendas para equipas de alta performance. Transformamos profissionais 
@@ -50,15 +50,15 @@ const Footer = () => {
             
             <div className="space-y-3">
               <div className="flex items-center text-gray-300">
-                <MapPin className="h-5 w-5 mr-3 text-orange-500" />
+                <MapPin className="h-5 w-5 mr-3 text-brand-orange" />
                 <span>Luanda, Angola - Talatona</span>
               </div>
               <div className="flex items-center text-gray-300">
-                <Phone className="h-5 w-5 mr-3 text-orange-500" />
+                <Phone className="h-5 w-5 mr-3 text-brand-orange" />
                 <span>+244 926 238 518</span>
               </div>
               <div className="flex items-center text-gray-300">
-                <Mail className="h-5 w-5 mr-3 text-orange-500" />
+                <Mail className="h-5 w-5 mr-3 text-brand-orange" />
                 <span>info@beasell.ao</span>
               </div>
             </div>
@@ -72,7 +72,7 @@ const Footer = () => {
                 <li key={index}>
                   <Link
                     to={link.path}
-                    className="text-gray-300 hover:text-orange-500 transition-colors duration-200"
+                    className="text-gray-300 hover:text-brand-orange transition-colors duration-200"
                   >
                     {link.name}
                   </Link>
@@ -87,7 +87,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {services.map((service, index) => (
                 <li key={index}>
-                  <span className="text-gray-300 hover:text-orange-500 transition-colors duration-200 cursor-pointer">
+                  <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer">
                     {service}
                   </span>
                 </li>
@@ -107,9 +107,9 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Seu email"
-                  className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:border-orange-500 text-white"
+                  className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:border-brand-orange text-white"
                 />
-                <button className="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-r-lg transition-colors">
+                <button className="bg-brand-orange hover:bg-brand-orange-600 px-4 py-2 rounded-r-lg transition-colors">
                   OK
                 </button>
               </div>
@@ -119,7 +119,7 @@ const Footer = () => {
                   <a
                     key={index}
                     href={social.url}
-                    className="bg-gray-800 hover:bg-orange-500 p-2 rounded-lg transition-colors duration-200"
+                    className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200"
                     aria-label={social.name}
                   >
                     <social.icon className="h-5 w-5" />

@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
       {/* Top bar with contact info */}
-      <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-2">
+      <div className="bg-gradient-to-r from-brand-blue-900 to-brand-blue-800 text-white py-2">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
@@ -38,7 +38,7 @@ const Header = () => {
             <img 
               src="/lovable-uploads/aabccf71-2753-49b9-82b4-62156d717089.png" 
               alt="Beasell Logo" 
-              className="h-12 w-auto" // Aumentado de h-8 para h-12
+              className="h-24 w-auto object-contain"
             />
           </Link>
           
@@ -46,36 +46,36 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               to="/"
-              className={`transition-colors ${isActive('/') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+              className={`transition-colors ${isActive('/') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
             >
               Início
             </Link>
             <Link 
               to="/sobre"
-              className={`transition-colors ${isActive('/sobre') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+              className={`transition-colors ${isActive('/sobre') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
             >
               Sobre Nós
             </Link>
             <Link 
               to="/servicos"
-              className={`transition-colors ${isActive('/servicos') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+              className={`transition-colors ${isActive('/servicos') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
             >
               Serviços
             </Link>
             <Link 
               to="/testemunhos"
-              className={`transition-colors ${isActive('/testemunhos') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+              className={`transition-colors ${isActive('/testemunhos') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
             >
               Testemunhos
             </Link>
             <Link 
               to="/blog"
-              className={`transition-colors ${isActive('/blog') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+              className={`transition-colors ${isActive('/blog') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
             >
               Blog
             </Link>
             <Link to="/contacto">
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+              <Button className="bg-brand-orange hover:bg-brand-orange-600 text-white">
                 Contacto
               </Button>
             </Link>
@@ -96,41 +96,41 @@ const Header = () => {
             <div className="flex flex-col space-y-4">
               <Link 
                 to="/"
-                className={`text-left transition-colors ${isActive('/') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+                className={`text-left transition-colors ${isActive('/') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Início
               </Link>
               <Link 
                 to="/sobre"
-                className={`text-left transition-colors ${isActive('/sobre') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+                className={`text-left transition-colors ${isActive('/sobre') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sobre Nós
               </Link>
               <Link 
                 to="/servicos"
-                className={`text-left transition-colors ${isActive('/servicos') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+                className={`text-left transition-colors ${isActive('/servicos') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Serviços
               </Link>
               <Link 
                 to="/testemunhos"
-                className={`text-left transition-colors ${isActive('/testemunhos') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+                className={`text-left transition-colors ${isActive('/testemunhos') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Testemunhos
               </Link>
               <Link 
                 to="/blog"
-                className={`text-left transition-colors ${isActive('/blog') ? 'text-blue-900 font-semibold' : 'text-gray-700 hover:text-blue-900'}`}
+                className={`text-left transition-colors ${isActive('/blog') ? 'text-brand-blue font-semibold' : 'text-gray-700 hover:text-brand-blue'}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blog
               </Link>
               <Link to="/contacto" onClick={() => setIsMenuOpen(false)}>
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white w-fit">
+                <Button className="bg-brand-orange hover:bg-brand-orange-600 text-white w-fit">
                   Contacto
                 </Button>
               </Link>

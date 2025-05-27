@@ -3,37 +3,12 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, User, ArrowRight, Download, BookOpen } from 'lucide-react';
+import { useBlogActions } from '@/hooks/useBlogActions';
 
 const Blog = () => {
-  const articles = [
-    {
-      title: "5 Técnicas de Vendas que Funcionam no Mercado Angolano",
-      excerpt: "Descubra as estratégias mais eficazes para vender no contexto empresarial angolano, considerando aspectos culturais e económicos únicos.",
-      date: "15 Nov 2024",
-      author: "Beatriz Chavier",
-      category: "Técnicas de Vendas",
-      readTime: "5 min",
-      image: "/lovable-uploads/0f26bbc2-4602-4f2a-9463-fdbec24a219c.png"
-    },
-    {
-      title: "Como Superar Objeções de Preço em Tempos Difíceis",
-      excerpt: "Estratégias práticas para lidar com resistências de preço e demonstrar valor aos seus clientes, mesmo em períodos económicos desafiantes.",
-      date: "10 Nov 2024",
-      author: "Beatriz Chavier",
-      category: "Gestão de Objeções",
-      readTime: "7 min",
-      image: "/lovable-uploads/edf977c0-1468-4d0e-8889-3ded3ae4f4fa.png"
-    },
-    {
-      title: "Vendas Consultivas: O Futuro do Sector Comercial",
-      excerpt: "Aprenda como a abordagem consultiva pode revolucionar seus resultados de vendas e criar relacionamentos duradouros com clientes.",
-      date: "5 Nov 2024",
-      author: "Beatriz Chavier",
-      category: "Vendas Consultivas",
-      readTime: "6 min",
-      image: "/lovable-uploads/fefff98b-a12c-4507-aa3f-9771c4fdb416.png"
-    }
-  ];
+  const { posts, getFeaturedPosts } = useBlogActions();
+  
+  const featuredPosts = getFeaturedPosts().slice(0, 3);
 
   const resources = [
     {
@@ -62,7 +37,7 @@ const Blog = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Blog e <span className="text-blue-900">Recursos</span>
+            Blog e <span className="text-brand-blue">Recursos</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Conteúdos exclusivos sobre vendas, estratégias comerciais e dicas práticas para o mercado angolano
@@ -71,21 +46,21 @@ const Blog = () => {
 
         {/* Featured Articles */}
         <div className="grid lg:grid-cols-3 gap-8 mb-16">
-          {articles.map((article, index) => (
+          {featuredPosts.map((article, index) => (
             <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <div className="relative h-48 overflow-hidden rounded-t-lg">
                 <img
                   src={article.image}
                   alt={article.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute top-4 left-4 bg-blue-900 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                <div className="absolute top-4 left-4 bg-brand-blue text-white px-3 py-1 rounded-full text-xs font-semibold">
                   {article.category}
                 </div>
               </div>
               
               <CardHeader>
-                <CardTitle className="text-lg leading-tight hover:text-blue-900 transition-colors">
+                <CardTitle className="text-lg leading-tight hover:text-brand-blue transition-colors">
                   {article.title}
                 </CardTitle>
                 <p className="text-gray-600 text-sm line-clamp-3">{article.excerpt}</p>
@@ -129,7 +104,7 @@ const Blog = () => {
                 {resources.map((resource, index) => (
                   <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <div className="flex items-center">
-                      <div className="bg-orange-500 p-2 rounded-lg mr-4">
+                      <div className="bg-brand-orange p-2 rounded-lg mr-4">
                         <Download className="h-5 w-5 text-white" />
                       </div>
                       <div>
@@ -138,7 +113,7 @@ const Blog = () => {
                         <span className="text-xs text-gray-500">{resource.type} • {resource.size}</span>
                       </div>
                     </div>
-                    <Button size="sm" className="bg-blue-900 hover:bg-blue-800 text-white">
+                    <Button size="sm" className="bg-brand-blue hover:bg-brand-blue-800 text-white">
                       Download
                     </Button>
                   </div>
@@ -146,11 +121,11 @@ const Blog = () => {
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative flex justify-center">
               <img
                 src="/lovable-uploads/bbac2429-c045-4267-9d9b-763feb318cf6.png"
                 alt="Recursos de formação Beasell"
-                className="w-full h-auto rounded-xl shadow-lg"
+                className="w-full h-auto rounded-xl shadow-lg object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
             </div>
@@ -158,7 +133,7 @@ const Blog = () => {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="mt-16 bg-gradient-to-r from-blue-900 to-orange-500 rounded-3xl p-8 md:p-12 text-center">
+        <div className="mt-16 bg-gradient-to-r from-brand-blue to-brand-orange rounded-3xl p-8 md:p-12 text-center">
           <BookOpen className="h-16 w-16 text-white mx-auto mb-6" />
           <h3 className="text-3xl font-bold text-white mb-4">
             Mantenha-se Actualizado
@@ -173,7 +148,7 @@ const Blog = () => {
               placeholder="Seu melhor email"
               className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <Button className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3">
+            <Button className="bg-white text-brand-blue hover:bg-gray-100 px-8 py-3">
               Subscrever
             </Button>
           </div>
