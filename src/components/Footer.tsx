@@ -34,11 +34,11 @@ const Footer = () => {
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
-          {/* Company Info */}
+          {/* Company Info - Updated with new orange logo */}
           <div className="space-y-6">
             <div>
               <img 
-                src="/lovable-uploads/938e4a08-1df3-48f7-876f-b8d847d0cf68.png" 
+                src="/lovable-uploads/0dd8ba84-d1c6-4b5e-96c5-0f5aabc480b0.png" 
                 alt="Beasell Logo" 
                 className="h-32 w-auto object-contain mb-4"
               />
