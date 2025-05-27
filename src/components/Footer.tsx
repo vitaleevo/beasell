@@ -40,7 +40,7 @@ const Footer = () => {
               <img 
                 src="/lovable-uploads/938e4a08-1df3-48f7-876f-b8d847d0cf68.png" 
                 alt="Beasell Logo" 
-                className="h-12 w-auto mb-4"
+                className="h-16 w-auto mb-4" // Aumentado de h-12 para h-16
               />
               <p className="text-gray-300 leading-relaxed">
                 Treinamento em vendas para equipas de alta performance. Transformamos profissionais 

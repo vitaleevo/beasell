@@ -38,7 +38,7 @@ const Header = () => {
             <img 
               src="/lovable-uploads/aabccf71-2753-49b9-82b4-62156d717089.png" 
               alt="Beasell Logo" 
-              className="h-8 w-auto"
+              className="h-12 w-auto" // Aumentado de h-8 para h-12
             />
           </Link>
           

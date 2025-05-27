@@ -36,7 +36,7 @@ const About = () => {
           <img 
             src="/lovable-uploads/f0793518-7a6c-4991-9b60-ed1782287b96.png" 
             alt="Beasell Logo" 
-            className="h-16 w-auto mx-auto mb-6"
+            className="h-20 w-auto mx-auto mb-8" // Aumentado de h-16 para h-20
           />
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Sobre a <span className="text-blue-900">Beasell</span>
