@@ -1,6 +1,6 @@
-
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { AdminUser, ServicePackage, AdminStats } from '@/types/admin';
+import { ContactSettings, ContactSubmission } from '@/types/contact';
 
 interface AdminState {
   user: AdminUser | null;
@@ -8,6 +8,8 @@ interface AdminState {
   services: ServicePackage[];
   stats: AdminStats;
   loading: boolean;
+  contactSettings: ContactSettings | null;
+  contactSubmissions: ContactSubmission[];
 }
 
 type AdminAction =
@@ -16,7 +18,9 @@ type AdminAction =
   | { type: 'SET_SERVICES'; payload: ServicePackage[] }
   | { type: 'UPDATE_SERVICE'; payload: ServicePackage }
   | { type: 'SET_STATS'; payload: AdminStats }
-  | { type: 'SET_LOADING'; payload: boolean };
+  | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'UPDATE_CONTACT_SETTINGS'; payload: ContactSettings }
+  | { type: 'ADD_CONTACT_SUBMISSION'; payload: ContactSubmission };
 
 const initialState: AdminState = {
   user: null,
@@ -24,6 +28,17 @@ const initialState: AdminState = {
   services: [],
   stats: { totalPosts: 0, publishedPosts: 0, totalServices: 0, monthlyViews: 0 },
   loading: false,
+  contactSettings: {
+    emailDestination: 'info@beasell.ao',
+    whatsappNumber: '+244926238518',
+    businessHours: {
+      weekdays: '8h00 - 17h00',
+      saturday: '8h00 - 12h00',
+      sunday: 'Fechado'
+    },
+    autoReplyMessage: 'Obrigado pelo seu contacto! Responderemos em breve.'
+  },
+  contactSubmissions: []
 };
 
 const mockServices: ServicePackage[] = [
@@ -79,6 +94,13 @@ const adminReducer = (state: AdminState, action: AdminAction): AdminState => {
       return { ...state, stats: action.payload };
     case 'SET_LOADING':
       return { ...state, loading: action.payload };
+    case 'UPDATE_CONTACT_SETTINGS':
+      return { ...state, contactSettings: action.payload };
+    case 'ADD_CONTACT_SUBMISSION':
+      return { 
+        ...state, 
+        contactSubmissions: [action.payload, ...state.contactSubmissions] 
+      };
     default:
       return state;
   }

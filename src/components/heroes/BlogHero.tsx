@@ -10,8 +10,8 @@ const BlogHero = () => {
       title="Blog & Recursos"
       subtitle="Conhecimento Especializado"
       description="Mantenha-se atualizado com as últimas tendências, estratégias e insights do mundo das vendas, adaptados ao mercado angolano."
-      backgroundImage="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-      className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange-600 text-white relative overflow-hidden min-h-[70vh]"
+      backgroundImage="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+      className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange-600 text-white relative overflow-hidden min-h-[80vh]"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -22,51 +22,51 @@ const BlogHero = () => {
 
       <div className="relative z-10">
         {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mt-16">
-          <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:bg-white/15 transition-all duration-300 hover:-translate-y-1">
-            <BookOpen className="h-12 w-12 text-brand-orange mb-6 mx-auto" />
-            <h3 className="font-bold mb-3 text-lg">Artigos Especializados</h3>
-            <p className="text-gray-200 text-sm leading-relaxed">Conteúdo profissional sobre vendas e estratégias comerciais</p>
+        <div className="grid md:grid-cols-3 gap-8 mt-20">
+          <div className="bg-white/15 backdrop-blur-sm p-10 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:-translate-y-2 shadow-xl">
+            <BookOpen className="h-16 w-16 text-brand-orange mb-8 mx-auto" />
+            <h3 className="font-bold mb-4 text-xl">Artigos Especializados</h3>
+            <p className="text-gray-200 leading-relaxed">Conteúdo profissional sobre vendas e estratégias comerciais adaptadas ao mercado angolano</p>
           </div>
           
-          <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:bg-white/15 transition-all duration-300 hover:-translate-y-1">
-            <Bell className="h-12 w-12 text-blue-400 mb-6 mx-auto" />
-            <h3 className="font-bold mb-3 text-lg">Newsletter Semanal</h3>
-            <p className="text-gray-200 text-sm leading-relaxed">Dicas exclusivas direto na sua caixa de email</p>
+          <div className="bg-white/15 backdrop-blur-sm p-10 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:-translate-y-2 shadow-xl">
+            <Bell className="h-16 w-16 text-blue-400 mb-8 mx-auto" />
+            <h3 className="font-bold mb-4 text-xl">Newsletter Semanal</h3>
+            <p className="text-gray-200 leading-relaxed">Dicas exclusivas e insights práticos direto na sua caixa de email todas as semanas</p>
           </div>
           
-          <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:bg-white/15 transition-all duration-300 hover:-translate-y-1">
-            <Rss className="h-12 w-12 text-green-400 mb-6 mx-auto" />
-            <h3 className="font-bold mb-3 text-lg">Recursos Gratuitos</h3>
-            <p className="text-gray-200 text-sm leading-relaxed">Downloads e materiais práticos para aplicar no dia a dia</p>
+          <div className="bg-white/15 backdrop-blur-sm p-10 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:-translate-y-2 shadow-xl">
+            <Rss className="h-16 w-16 text-green-400 mb-8 mx-auto" />
+            <h3 className="font-bold mb-4 text-xl">Recursos Gratuitos</h3>
+            <p className="text-gray-200 leading-relaxed">Downloads e materiais práticos para aplicar imediatamente no seu dia a dia comercial</p>
           </div>
         </div>
         
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 mt-12 justify-center">
-          <Button className="bg-gradient-to-r from-brand-orange to-brand-orange-600 hover:from-brand-orange-600 hover:to-brand-orange-700 text-white px-8 py-4 text-lg shadow-2xl hover:shadow-brand-orange/25 transition-all duration-300 hover:-translate-y-1">
+        <div className="flex flex-col sm:flex-row gap-6 mt-16 justify-center">
+          <Button className="bg-gradient-to-r from-brand-orange to-brand-orange-600 hover:from-brand-orange-600 hover:to-brand-orange-700 text-white px-10 py-6 text-lg shadow-2xl hover:shadow-brand-orange/25 transition-all duration-300 hover:-translate-y-1">
             <Bell className="mr-3 h-6 w-6" />
             Subscrever Newsletter
           </Button>
-          <Button variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg backdrop-blur-sm">
+          <Button variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-6 text-lg backdrop-blur-sm">
             <PenTool className="mr-3 h-6 w-6" />
             Ver Todos os Artigos
           </Button>
         </div>
 
         {/* Benefits */}
-        <div className="flex flex-wrap justify-center gap-6 mt-12">
-          <div className="flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-            <Lightbulb className="h-5 w-5 text-yellow-400 mr-2" />
-            <span className="text-sm font-medium">Insights Exclusivos</span>
+        <div className="flex flex-wrap justify-center gap-6 mt-16">
+          <div className="flex items-center bg-white/10 backdrop-blur-sm px-8 py-4 rounded-full border border-white/20">
+            <Lightbulb className="h-6 w-6 text-yellow-400 mr-3" />
+            <span className="font-medium">Insights Exclusivos</span>
           </div>
-          <div className="flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-            <TrendingUp className="h-5 w-5 text-green-400 mr-2" />
-            <span className="text-sm font-medium">Estratégias Comprovadas</span>
+          <div className="flex items-center bg-white/10 backdrop-blur-sm px-8 py-4 rounded-full border border-white/20">
+            <TrendingUp className="h-6 w-6 text-green-400 mr-3" />
+            <span className="font-medium">Estratégias Comprovadas</span>
           </div>
-          <div className="flex items-center bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-            <BookOpen className="h-5 w-5 text-blue-400 mr-2" />
-            <span className="text-sm font-medium">Conteúdo Prático</span>
+          <div className="flex items-center bg-white/10 backdrop-blur-sm px-8 py-4 rounded-full border border-white/20">
+            <BookOpen className="h-6 w-6 text-blue-400 mr-3" />
+            <span className="font-medium">Conteúdo Prático</span>
           </div>
         </div>
       </div>

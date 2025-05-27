@@ -16,49 +16,49 @@ const TestimonialsHero = () => {
       title="Testemunhos"
       subtitle="Histórias de Sucesso"
       description="Descubra como profissionais e empresas transformaram seus resultados comerciais através das nossas formações especializadas."
-      backgroundImage="https://images.unsplash.com/photo-1500673922987-e212871fec22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-      className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[70vh]"
+      backgroundImage="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+      className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[80vh]"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-40 h-40 bg-white/10 rounded-full filter blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-32 h-32 bg-brand-orange/20 rounded-full filter blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute top-20 right-20 w-80 h-80 bg-white/10 rounded-full filter blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-20 w-64 h-64 bg-brand-orange/20 rounded-full filter blur-2xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="relative z-10">
         {/* Featured Testimonial */}
-        <div className="bg-white/15 backdrop-blur-lg rounded-3xl p-10 mt-16 max-w-3xl mx-auto border border-white/20 shadow-2xl">
-          <Quote className="h-16 w-16 text-brand-orange mb-6 mx-auto opacity-80" />
-          <div className="flex justify-center mb-6">
+        <div className="bg-white/15 backdrop-blur-lg rounded-3xl p-12 mt-20 max-w-4xl mx-auto border border-white/20 shadow-2xl">
+          <Quote className="h-20 w-20 text-brand-orange mb-8 mx-auto opacity-80" />
+          <div className="flex justify-center mb-8">
             {[...Array(featuredTestimonial.rating)].map((_, i) => (
-              <Star key={i} className="h-6 w-6 text-yellow-400 fill-current mx-1" />
+              <Star key={i} className="h-8 w-8 text-yellow-400 fill-current mx-1" />
             ))}
           </div>
-          <p className="text-xl md:text-2xl italic mb-8 leading-relaxed text-center">
+          <p className="text-2xl md:text-3xl italic mb-10 leading-relaxed text-center">
             "{featuredTestimonial.content}"
           </p>
           <div className="text-center">
-            <div className="font-bold text-lg mb-1">{featuredTestimonial.name}</div>
-            <div className="text-blue-200">{featuredTestimonial.role}</div>
+            <div className="font-bold text-xl mb-2">{featuredTestimonial.name}</div>
+            <div className="text-blue-200 text-lg">{featuredTestimonial.role}</div>
           </div>
         </div>
 
         {/* Stats Row */}
-        <div className="grid md:grid-cols-3 gap-8 mt-16">
-          <div className="text-center bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
-            <Heart className="h-10 w-10 text-red-400 mx-auto mb-4" />
-            <div className="text-3xl font-bold mb-2">95%</div>
-            <div className="text-blue-200 text-sm">Satisfação dos Clientes</div>
+        <div className="grid md:grid-cols-3 gap-8 mt-20">
+          <div className="text-center bg-white/10 backdrop-blur-sm p-10 rounded-2xl border border-white/20 shadow-xl">
+            <Heart className="h-12 w-12 text-red-400 mx-auto mb-6" />
+            <div className="text-4xl font-bold mb-3">95%</div>
+            <div className="text-blue-200 text-lg">Satisfação dos Clientes</div>
           </div>
-          <div className="text-center bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
-            <Award className="h-10 w-10 text-yellow-400 mx-auto mb-4" />
-            <div className="text-3xl font-bold mb-2">40%</div>
-            <div className="text-blue-200 text-sm">Aumento Médio em Vendas</div>
+          <div className="text-center bg-white/10 backdrop-blur-sm p-10 rounded-2xl border border-white/20 shadow-xl">
+            <Award className="h-12 w-12 text-yellow-400 mx-auto mb-6" />
+            <div className="text-4xl font-bold mb-3">40%</div>
+            <div className="text-blue-200 text-lg">Aumento Médio em Vendas</div>
           </div>
-          <div className="text-center bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
-            <Users className="h-10 w-10 text-green-400 mx-auto mb-4" />
-            <div className="text-3xl font-bold mb-2">500+</div>
-            <div className="text-blue-200 text-sm">Profissionais Formados</div>
+          <div className="text-center bg-white/10 backdrop-blur-sm p-10 rounded-2xl border border-white/20 shadow-xl">
+            <Users className="h-12 w-12 text-green-400 mx-auto mb-6" />
+            <div className="text-4xl font-bold mb-3">500+</div>
+            <div className="text-blue-200 text-lg">Profissionais Formados</div>
           </div>
         </div>
       </div>
