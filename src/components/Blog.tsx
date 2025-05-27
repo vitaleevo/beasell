@@ -32,43 +32,43 @@ const Blog = () => {
   ];
 
   return (
-    <section id="blog" className="py-20 bg-gray-50">
+    <section id="blog" className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             Blog e <span className="text-brand-blue">Recursos</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Conteúdos exclusivos sobre vendas, estratégias comerciais e dicas práticas para o mercado angolano
           </p>
         </div>
 
         {/* Featured Articles */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid lg:grid-cols-3 gap-6 mb-12">
           {featuredPosts.map((article, index) => (
             <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative h-48 overflow-hidden rounded-t-lg">
+              <div className="relative h-40 overflow-hidden rounded-t-lg">
                 <img
                   src={article.image}
                   alt={article.title}
                   className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute top-4 left-4 bg-brand-blue text-white px-3 py-1 rounded-full text-xs font-semibold">
+                <div className="absolute top-3 left-3 bg-brand-blue text-white px-2 py-1 rounded-full text-xs font-semibold">
                   {article.category}
                 </div>
               </div>
               
-              <CardHeader>
-                <CardTitle className="text-lg leading-tight hover:text-brand-blue transition-colors">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base leading-tight hover:text-brand-blue transition-colors">
                   {article.title}
                 </CardTitle>
-                <p className="text-gray-600 text-sm line-clamp-3">{article.excerpt}</p>
+                <p className="text-gray-600 text-xs line-clamp-3">{article.excerpt}</p>
               </CardHeader>
               
-              <CardContent>
-                <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
-                  <div className="flex items-center space-x-4">
+              <CardContent className="pt-0">
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
+                  <div className="flex items-center space-x-3">
                     <div className="flex items-center">
                       <Calendar className="h-3 w-3 mr-1" />
                       {article.date}
@@ -81,9 +81,9 @@ const Blog = () => {
                   <span>{article.readTime}</span>
                 </div>
                 
-                <Button variant="outline" className="w-full group">
+                <Button variant="outline" size="sm" className="w-full group">
                   Ler Artigo
-                  <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-3 w-3 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </CardContent>
             </Card>
@@ -91,29 +91,29 @@ const Blog = () => {
         </div>
 
         {/* Free Resources Section */}
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-6">Recursos Gratuitos</h3>
-              <p className="text-lg text-gray-600 mb-8">
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Recursos Gratuitos</h3>
+              <p className="text-base text-gray-600 mb-6">
                 Materiais exclusivos para potencializar suas vendas. Downloads gratuitos 
                 com conteúdo de qualidade profissional.
               </p>
               
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {resources.map((resource, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <div className="flex items-center">
-                      <div className="bg-brand-orange p-2 rounded-lg mr-4">
-                        <Download className="h-5 w-5 text-white" />
+                      <div className="bg-brand-orange p-2 rounded-lg mr-3">
+                        <Download className="h-4 w-4 text-white" />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-gray-900">{resource.title}</h4>
-                        <p className="text-sm text-gray-600">{resource.description}</p>
+                        <h4 className="font-semibold text-gray-900 text-sm">{resource.title}</h4>
+                        <p className="text-xs text-gray-600">{resource.description}</p>
                         <span className="text-xs text-gray-500">{resource.type} • {resource.size}</span>
                       </div>
                     </div>
-                    <Button size="sm" className="bg-brand-blue hover:bg-brand-blue-800 text-white">
+                    <Button size="sm" className="bg-brand-blue hover:bg-brand-blue-800 text-white text-xs px-3 py-1.5">
                       Download
                     </Button>
                   </div>
@@ -133,27 +133,27 @@ const Blog = () => {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="mt-16 bg-gradient-to-r from-brand-blue to-brand-orange rounded-3xl p-8 md:p-12 text-center">
-          <BookOpen className="h-16 w-16 text-white mx-auto mb-6" />
-          <h3 className="text-3xl font-bold text-white mb-4">
+        <div className="mt-12 bg-gradient-to-r from-brand-blue to-brand-orange rounded-2xl p-6 md:p-8 text-center">
+          <BookOpen className="h-12 w-12 text-white mx-auto mb-4" />
+          <h3 className="text-2xl font-bold text-white mb-3">
             Mantenha-se Actualizado
           </h3>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-base text-blue-100 mb-6 max-w-2xl mx-auto">
             Receba semanalmente dicas exclusivas, estudos de caso e novidades do mundo das vendas
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input
               type="email"
               placeholder="Seu melhor email"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
+              className="flex-1 px-3 py-2 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white text-sm"
             />
-            <Button className="bg-white text-brand-blue hover:bg-gray-100 px-8 py-3">
+            <Button className="bg-white text-brand-blue hover:bg-gray-100 px-6 py-2 text-sm">
               Subscrever
             </Button>
           </div>
           
-          <p className="text-sm text-blue-200 mt-4">
+          <p className="text-xs text-blue-200 mt-3">
             Sem spam. Cancele a qualquer momento.
           </p>
         </div>

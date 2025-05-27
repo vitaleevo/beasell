@@ -75,20 +75,20 @@ const Services = () => {
   };
 
   return (
-    <section id="servicos" className="py-20 bg-gray-50">
+    <section id="servicos" className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             Nossos <span className="text-blue-900">Serviços</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Oferecemos soluções completas de formação em vendas, adaptadas às suas necessidades específicas
           </p>
         </div>
 
         {/* Main Services */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {services.map((service, index) => (
             <ServiceCard
               key={index}
@@ -106,15 +106,15 @@ const Services = () => {
         </div>
 
         {/* Course Catalog */}
-        <div id="cursos" className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">Catálogo de Cursos</h3>
-            <p className="text-lg text-gray-600">
+        <div id="cursos" className="bg-white rounded-2xl p-6 md:p-8 shadow-lg">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Catálogo de Cursos</h3>
+            <p className="text-base text-gray-600">
               Programas estruturados para diferentes níveis de experiência
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {courses.map((course, index) => (
               <CourseCard
                 key={index}
