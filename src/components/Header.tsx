@@ -44,12 +44,12 @@ const Header = () => {
       {/* Main navigation */}
       <nav className="container mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center py-3 lg:py-4">
-          {/* Logo - Updated with new image */}
+          {/* Logo - Optimized mobile sizing */}
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
             <img 
               src="/lovable-uploads/06b8610c-4417-45a9-a695-12f10b09eeab.png" 
               alt="Beasell Logo" 
-              className="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+              className="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain"
             />
           </Link>
           
