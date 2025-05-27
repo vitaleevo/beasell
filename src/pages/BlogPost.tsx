@@ -5,17 +5,27 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useBlogActions } from '@/hooks/useBlogActions';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, User, Clock, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, Calendar, User, Clock, Share2, Facebook, Twitter, Linkedin, Copy, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useToast } from '@/hooks/use-toast';
+import PostCard from '@/components/blog/PostCard';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { getPostBySlug, posts } = useBlogActions();
+  const { toast } = useToast();
   
   const post = slug ? getPostBySlug(slug) : null;
   const relatedPosts = posts
     .filter(p => p.id !== post?.id && p.category === post?.category && p.published)
     .slice(0, 3);
+
+  // Navigation between posts
+  const allPosts = posts.filter(p => p.published).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const currentIndex = allPosts.findIndex(p => p.id === post?.id);
+  const previousPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+  const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
   if (!post) {
     return (
@@ -41,12 +51,39 @@ const BlogPost = () => {
   const shareUrl = window.location.href;
   const shareTitle = post.title;
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(shareUrl);
+    toast({
+      title: 'Link copiado!',
+      description: 'O link do artigo foi copiado para a área de transferência.',
+    });
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
       
+      {/* Breadcrumbs */}
+      <div className="pt-24 pb-4 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <nav className="text-sm text-gray-600">
+            <div className="flex items-center space-x-2">
+              <Link to="/" className="hover:text-blue-900">Início</Link>
+              <span>/</span>
+              <Link to="/blog" className="hover:text-blue-900">Blog</Link>
+              <span>/</span>
+              <Link to={`/blog/categoria/${post.category.toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-blue-900">
+                {post.category}
+              </Link>
+              <span>/</span>
+              <span className="text-gray-900 truncate">{post.title}</span>
+            </div>
+          </nav>
+        </div>
+      </div>
+
       {/* Article Header */}
-      <div className="pt-24 pb-8 bg-gray-50">
+      <div className="pb-8 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <Link to="/blog" className="inline-flex items-center text-blue-900 hover:text-blue-700 mb-6">
@@ -54,9 +91,9 @@ const BlogPost = () => {
               Voltar ao Blog
             </Link>
             
-            <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium inline-block mb-4">
+            <Badge variant="secondary" className="bg-blue-100 text-blue-800 mb-4">
               {post.category}
-            </div>
+            </Badge>
             
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               {post.title}
@@ -75,6 +112,38 @@ const BlogPost = () => {
                 <Clock className="h-4 w-4 mr-2" />
                 {post.readTime}
               </div>
+            </div>
+
+            {/* Share Buttons - Top */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank')}
+              >
+                <Facebook className="h-4 w-4 mr-2" />
+                Facebook
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`, '_blank')}
+              >
+                <Twitter className="h-4 w-4 mr-2" />
+                Twitter
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank')}
+              >
+                <Linkedin className="h-4 w-4 mr-2" />
+                LinkedIn
+              </Button>
+              <Button variant="outline" size="sm" onClick={copyToClipboard}>
+                <Copy className="h-4 w-4 mr-2" />
+                Copiar Link
+              </Button>
             </div>
           </div>
         </div>
@@ -111,25 +180,22 @@ const BlogPost = () => {
                     <h3 className="text-lg font-semibold mb-4">Tags:</h3>
                     <div className="flex flex-wrap gap-2">
                       {post.tags.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
-                        >
+                        <Badge key={index} variant="outline" className="cursor-pointer hover:bg-gray-100">
                           #{tag}
-                        </span>
+                        </Badge>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {/* Share Buttons */}
+                {/* Share Buttons - Bottom */}
                 <div className="mt-8 pt-8 border-t">
-                  <h3 className="text-lg font-semibold mb-4">Compartilhar:</h3>
-                  <div className="flex space-x-4">
+                  <h3 className="text-lg font-semibold mb-4">Partilhar este artigo:</h3>
+                  <div className="flex flex-wrap gap-2">
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, '_blank')}
+                      onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank')}
                     >
                       <Facebook className="h-4 w-4 mr-2" />
                       Facebook
@@ -137,7 +203,7 @@ const BlogPost = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => window.open(`https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`, '_blank')}
+                      onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`, '_blank')}
                     >
                       <Twitter className="h-4 w-4 mr-2" />
                       Twitter
@@ -145,11 +211,48 @@ const BlogPost = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`, '_blank')}
+                      onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank')}
                     >
                       <Linkedin className="h-4 w-4 mr-2" />
                       LinkedIn
                     </Button>
+                    <Button variant="outline" size="sm" onClick={copyToClipboard}>
+                      <Copy className="h-4 w-4 mr-2" />
+                      Copiar Link
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Post Navigation */}
+                <div className="mt-12 pt-8 border-t">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {previousPost && (
+                      <Link to={`/blog/${previousPost.slug}`} className="group">
+                        <div className="flex items-center space-x-3 p-4 rounded-lg border hover:shadow-md transition-shadow">
+                          <ChevronLeft className="h-5 w-5 text-gray-400 group-hover:text-blue-900" />
+                          <div>
+                            <p className="text-sm text-gray-500 mb-1">Artigo anterior</p>
+                            <h4 className="font-medium text-gray-900 group-hover:text-blue-900 line-clamp-2">
+                              {previousPost.title}
+                            </h4>
+                          </div>
+                        </div>
+                      </Link>
+                    )}
+                    
+                    {nextPost && (
+                      <Link to={`/blog/${nextPost.slug}`} className="group">
+                        <div className="flex items-center space-x-3 p-4 rounded-lg border hover:shadow-md transition-shadow">
+                          <div className="flex-1">
+                            <p className="text-sm text-gray-500 mb-1">Próximo artigo</p>
+                            <h4 className="font-medium text-gray-900 group-hover:text-blue-900 line-clamp-2">
+                              {nextPost.title}
+                            </h4>
+                          </div>
+                          <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-blue-900" />
+                        </div>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
@@ -214,31 +317,7 @@ const BlogPost = () => {
               
               <div className="grid md:grid-cols-3 gap-8">
                 {relatedPosts.map((relatedPost) => (
-                  <Card key={relatedPost.id} className="hover:shadow-lg transition-shadow">
-                    <div className="relative h-48 overflow-hidden rounded-t-lg">
-                      <img
-                        src={relatedPost.image}
-                        alt={relatedPost.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <CardContent className="p-6">
-                      <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium inline-block mb-3">
-                        {relatedPost.category}
-                      </div>
-                      <h3 className="font-bold text-lg mb-3 leading-tight">
-                        {relatedPost.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                        {relatedPost.excerpt}
-                      </p>
-                      <Link to={`/blog/${relatedPost.slug}`}>
-                        <Button variant="outline" size="sm" className="w-full">
-                          Ler Artigo
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
+                  <PostCard key={relatedPost.id} post={relatedPost} variant="compact" />
                 ))}
               </div>
             </div>

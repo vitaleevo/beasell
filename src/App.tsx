@@ -15,6 +15,8 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Testimonials from "./pages/Testimonials";
 import Blog from "./pages/Blog";
+import BlogCategory from "./pages/BlogCategory";
+import BlogArchive from "./pages/BlogArchive";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
