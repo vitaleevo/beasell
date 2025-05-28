@@ -142,6 +142,16 @@ const App = () => (
                       <PriceManager />
                     </ProtectedRoute>
                   } />
+                  <Route path="/admin/cursos" element={
+                    <ProtectedRoute>
+                      <CourseManager />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="/admin/alunos" element={
+                    <ProtectedRoute>
+                      <StudentManager />
+                    </ProtectedRoute>
+                  } />
                   
                   {/* Student Routes */}
                   <Route path="/aluno/login" element={<StudentLogin />} />

@@ -1,125 +1,82 @@
-
 import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { 
-  LayoutDashboard, 
+  BarChart3, 
   FileText, 
   DollarSign, 
-  LogOut, 
-  Menu,
-  X
+  LogOut,
+  BookOpen,
+  Users
 } from 'lucide-react';
-import { useState } from 'react';
 
-interface AdminLayoutProps {
-  children: React.ReactNode;
-}
-
-const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
+const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const menuItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/admin' },
-    { icon: FileText, label: 'Gestão de Blog', path: '/admin/blog' },
-    { icon: DollarSign, label: 'Gestão de Preços', path: '/admin/precos' },
+  const navigation = [
+    { name: 'Dashboard', href: '/admin', icon: BarChart3 },
+    { name: 'Cursos', href: '/admin/cursos', icon: BookOpen },
+    { name: 'Alunos', href: '/admin/alunos', icon: Users },
+    { name: 'Blog', href: '/admin/blog', icon: FileText },
+    { name: 'Preços', href: '/admin/precos', icon: DollarSign },
   ];
 
-  const handleLogout = () => {
-    logout();
-    navigate('/admin/login');
-  };
-
   return (
-    <div className="min-h-screen bg-gray-100 flex">
-      {/* Sidebar */}
-      <div className={`bg-white shadow-lg transition-all duration-300 ${
-        sidebarOpen ? 'w-64' : 'w-64 -translate-x-full lg:translate-x-0'
-      } fixed lg:relative z-30 h-full`}>
-        <div className="p-6 border-b">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-blue-900">Admin Beasell</h2>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSidebarOpen(false)}
-              className="lg:hidden"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
-          <p className="text-sm text-gray-600 mt-1">Bem-vindo, {user?.username}</p>
-        </div>
-
-        <nav className="p-4">
-          {menuItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`flex items-center space-x-3 p-3 rounded-lg mb-2 transition-colors ${
-                location.pathname === item.path
-                  ? 'bg-blue-100 text-blue-900'
-                  : 'text-gray-600 hover:bg-gray-100'
-              }`}
-              onClick={() => setSidebarOpen(false)}
-            >
-              <item.icon className="h-5 w-5" />
-              <span>{item.label}</span>
-            </Link>
-          ))}
-        </nav>
-
-        <div className="absolute bottom-4 left-4 right-4">
-          <Button
-            variant="outline"
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center space-x-2"
-          >
-            <LogOut className="h-4 w-4" />
-            <span>Sair</span>
-          </Button>
-        </div>
-      </div>
-
-      {/* Overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <header className="bg-white shadow-sm border-b p-4">
-          <div className="flex items-center justify-between">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSidebarOpen(true)}
-              className="lg:hidden"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
+    <div className="min-h-screen bg-gray-50">
+      <nav className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <Link to="/admin" className="flex-shrink-0">
+                <img 
+                  src="/lovable-uploads/06b8610c-4417-45a9-a695-12f10b09eeab.png" 
+                  alt="Beasell" 
+                  className="h-8 w-auto"
+                />
+              </Link>
+              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                {navigation.map((item) => {
+                  const isActive = location.pathname === item.href;
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                        isActive
+                          ? 'border-blue-500 text-gray-900'
+                          : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                      }`}
+                    >
+                      <item.icon className="h-4 w-4 mr-2" />
+                      {item.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
             
             <div className="flex items-center space-x-4">
-              <Link to="/" className="text-blue-900 hover:text-blue-700">
-                Ver Site
-              </Link>
+              <span className="text-sm text-gray-700">Olá, {user?.username}</span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={logout}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Sair
+              </Button>
             </div>
           </div>
-        </header>
+        </div>
+      </nav>
 
-        {/* Content */}
-        <main className="flex-1 p-6">
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="px-4 py-6 sm:px-0">
           {children}
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };
