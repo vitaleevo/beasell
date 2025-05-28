@@ -25,8 +25,8 @@ const StudentCourses = () => {
   const { state } = useStudent();
   const { enrolledCourses, progress, courses } = state;
   const [filteredCourses, setFilteredCourses] = useState(enrolledCourses);
-  const [viewMode, setViewMode<'grid' | 'list'>('grid');
-  const [sortBy, setSortBy<'recent' | 'progress' | 'name'>('recent');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sortBy, setSortBy] = useState<'recent' | 'progress' | 'name'>('recent');
 
   const getLevelColor = (level: string) => {
     switch (level) {
