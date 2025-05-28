@@ -15,6 +15,7 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
+import Training from "./pages/Training";
 import Testimonials from "./pages/Testimonials";
 import Blog from "./pages/Blog";
 import BlogCategory from "./pages/BlogCategory";
