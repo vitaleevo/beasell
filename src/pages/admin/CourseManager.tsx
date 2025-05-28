@@ -1,10 +1,11 @@
-
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import CourseForm from '@/components/admin/CourseForm';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { 
   Plus, 
@@ -13,17 +14,19 @@ import {
   EyeOff, 
   Trash2, 
   Search,
-  Filter,
   BookOpen,
   Users,
   Clock,
   Star
 } from 'lucide-react';
+import { Course } from '@/types/student';
 
 const CourseManager = () => {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'published' | 'draft'>('all');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
 
   // Mock data para cursos
   const [courses, setCourses] = useState([
@@ -41,7 +44,8 @@ const CourseManager = () => {
       enrolledStudents: 156,
       rating: 4.8,
       createdAt: '2024-01-15',
-      lastUpdated: '2024-01-20'
+      lastUpdated: '2024-01-20',
+      modules: []
     },
     {
       id: '2',
@@ -57,9 +61,42 @@ const CourseManager = () => {
       enrolledStudents: 0,
       rating: 0,
       createdAt: '2024-02-01',
-      lastUpdated: '2024-02-01'
+      lastUpdated: '2024-02-01',
+      modules: []
     }
   ]);
+
+  const handleCreateCourse = (courseData: Omit<Course, 'id' | 'rating' | 'reviewsCount' | 'createdAt'>) => {
+    const newCourse: Course = {
+      ...courseData,
+      id: Date.now().toString(),
+      rating: 0,
+      reviewsCount: 0,
+      createdAt: new Date().toISOString().split('T')[0]
+    };
+    
+    setCourses(prev => [...prev, newCourse]);
+    setIsDialogOpen(false);
+    setEditingCourse(null);
+    toast({
+      title: 'Curso criado',
+      description: 'O curso foi criado com sucesso.',
+    });
+  };
+
+  const handleUpdateCourse = (courseData: Course) => {
+    setCourses(prev =>
+      prev.map(course =>
+        course.id === courseData.id ? courseData : course
+      )
+    );
+    setIsDialogOpen(false);
+    setEditingCourse(null);
+    toast({
+      title: 'Curso atualizado',
+      description: 'O curso foi atualizado com sucesso.',
+    });
+  };
 
   const handlePublishToggle = (courseId: string) => {
     setCourses(prev => 
@@ -102,7 +139,7 @@ const CourseManager = () => {
     total: courses.length,
     published: courses.filter(c => c.published).length,
     draft: courses.filter(c => !c.published).length,
-    totalStudents: courses.reduce((sum, c) => sum + c.enrolledStudents, 0)
+    totalStudents: courses.reduce((sum, c) => sum + (c.enrolledStudents || 0), 0)
   };
 
   return (
@@ -113,10 +150,33 @@ const CourseManager = () => {
             <h1 className="text-2xl font-bold text-gray-900">Gestão de Cursos</h1>
             <p className="text-gray-600">Gerencie todos os cursos da plataforma</p>
           </div>
-          <Button className="bg-blue-900 hover:bg-blue-800">
-            <Plus className="h-4 w-4 mr-2" />
-            Novo Curso
-          </Button>
+          
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                className="bg-blue-900 hover:bg-blue-800"
+                onClick={() => setEditingCourse(null)}
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Novo Curso
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>
+                  {editingCourse ? 'Editar Curso' : 'Criar Novo Curso'}
+                </DialogTitle>
+              </DialogHeader>
+              <CourseForm
+                course={editingCourse}
+                onSave={editingCourse ? handleUpdateCourse : handleCreateCourse}
+                onCancel={() => {
+                  setIsDialogOpen(false);
+                  setEditingCourse(null);
+                }}
+              />
+            </DialogContent>
+          </Dialog>
         </div>
 
         {/* Stats Cards */}
@@ -234,7 +294,7 @@ const CourseManager = () => {
                       
                       <div className="flex items-center space-x-1">
                         <Users className="h-4 w-4" />
-                        <span>{course.enrolledStudents} alunos</span>
+                        <span>{course.modules?.length || 0} módulos</span>
                       </div>
                       
                       {course.rating > 0 && (
@@ -249,7 +309,14 @@ const CourseManager = () => {
                   </div>
                   
                   <div className="flex items-center space-x-2">
-                    <Button variant="outline" size="sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => {
+                        setEditingCourse(course);
+                        setIsDialogOpen(true);
+                      }}
+                    >
                       <Edit className="h-4 w-4" />
                     </Button>
                     

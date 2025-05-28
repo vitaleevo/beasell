@@ -1,12 +1,14 @@
 
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import CategoryManager from '@/components/admin/CategoryManager';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useBlogActions } from '@/hooks/useBlogActions';
 import { BlogPost } from '@/types/blog';
-import { Plus, Edit, Trash2, Eye, Search } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye, Search, FileText, Tag } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const BlogManager = () => {
@@ -45,113 +47,133 @@ const BlogManager = () => {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Gestão de Blog</h1>
-            <p className="text-gray-600">Gerencie artigos e conteúdos do blog</p>
+            <p className="text-gray-600">Gerencie artigos, categorias e conteúdos do blog</p>
           </div>
-          
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button 
-                className="bg-blue-900 hover:bg-blue-800"
-                onClick={() => setEditingPost(null)}
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Novo Artigo
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>
-                  {editingPost ? 'Editar Artigo' : 'Criar Novo Artigo'}
-                </DialogTitle>
-              </DialogHeader>
-              <BlogEditor
-                post={editingPost}
-                onSave={editingPost ? handleUpdatePost : handleCreatePost}
-                onCancel={() => {
-                  setIsDialogOpen(false);
-                  setEditingPost(null);
-                }}
-              />
-            </DialogContent>
-          </Dialog>
         </div>
 
-        {/* Search */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-          <input
-            type="text"
-            placeholder="Buscar artigos..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        <Tabs defaultValue="posts" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="posts" className="flex items-center space-x-2">
+              <FileText className="h-4 w-4" />
+              <span>Artigos</span>
+            </TabsTrigger>
+            <TabsTrigger value="categories" className="flex items-center space-x-2">
+              <Tag className="h-4 w-4" />
+              <span>Categorias</span>
+            </TabsTrigger>
+          </TabsList>
 
-        {/* Posts List */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Artigos ({filteredPosts.length})</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {filteredPosts.map((post) => (
-                <div key={post.id} className="flex items-center justify-between p-4 border rounded-lg">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <h3 className="font-semibold">{post.title}</h3>
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        post.published 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {post.published ? 'Publicado' : 'Rascunho'}
-                      </span>
-                      {post.featured && (
-                        <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
-                          Destaque
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-gray-600 mb-2">{post.excerpt}</p>
-                    <div className="flex items-center space-x-4 text-xs text-gray-500">
-                      <span>{post.date}</span>
-                      <span>{post.category}</span>
-                      <span>{post.readTime}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(`/blog/${post.slug}`, '_blank')}
-                    >
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => {
-                        setEditingPost(post);
-                        setIsDialogOpen(true);
-                      }}
-                    >
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDeletePost(post.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              ))}
+          <TabsContent value="posts" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <input
+                  type="text"
+                  placeholder="Buscar artigos..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              
+              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button 
+                    className="bg-blue-900 hover:bg-blue-800"
+                    onClick={() => setEditingPost(null)}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Novo Artigo
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>
+                      {editingPost ? 'Editar Artigo' : 'Criar Novo Artigo'}
+                    </DialogTitle>
+                  </DialogHeader>
+                  <BlogEditor
+                    post={editingPost}
+                    onSave={editingPost ? handleUpdatePost : handleCreatePost}
+                    onCancel={() => {
+                      setIsDialogOpen(false);
+                      setEditingPost(null);
+                    }}
+                  />
+                </DialogContent>
+              </Dialog>
             </div>
-          </CardContent>
-        </Card>
+
+            {/* Posts List */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Artigos ({filteredPosts.length})</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {filteredPosts.map((post) => (
+                    <div key={post.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-3 mb-2">
+                          <h3 className="font-semibold">{post.title}</h3>
+                          <span className={`px-2 py-1 rounded-full text-xs ${
+                            post.published 
+                              ? 'bg-green-100 text-green-800' 
+                              : 'bg-yellow-100 text-yellow-800'
+                          }`}>
+                            {post.published ? 'Publicado' : 'Rascunho'}
+                          </span>
+                          {post.featured && (
+                            <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                              Destaque
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-gray-600 mb-2">{post.excerpt}</p>
+                        <div className="flex items-center space-x-4 text-xs text-gray-500">
+                          <span>{post.date}</span>
+                          <span>{post.category}</span>
+                          <span>{post.readTime}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(`/blog/${post.slug}`, '_blank')}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setEditingPost(post);
+                            setIsDialogOpen(true);
+                          }}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDeletePost(post.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="categories">
+            <CategoryManager />
+          </TabsContent>
+        </Tabs>
       </div>
     </AdminLayout>
   );

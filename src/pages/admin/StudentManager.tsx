@@ -1,10 +1,11 @@
-
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import StudentForm from '@/components/admin/StudentForm';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { 
   Search, 
@@ -16,13 +17,37 @@ import {
   TrendingUp,
   Users,
   UserPlus,
-  AlertTriangle
+  AlertTriangle,
+  Edit,
+  Trash2
 } from 'lucide-react';
+
+interface StudentData {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  status: string;
+  subscription: {
+    plan: string;
+    startDate: string;
+    endDate: string;
+    status: string;
+  };
+  enrolledCourses: number;
+  completedCourses: number;
+  totalHours: number;
+  lastLogin: string;
+  registrationDate: string;
+  phone: string;
+}
 
 const StudentManager = () => {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'blocked' | 'expired'>('all');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingStudent, setEditingStudent] = useState<StudentData | null>(null);
 
   // Mock data para alunos
   const [students, setStudents] = useState([
@@ -84,6 +109,50 @@ const StudentManager = () => {
       phone: '+244 900 000 003'
     }
   ]);
+
+  const handleCreateStudent = (studentData: any) => {
+    const newStudent: StudentData = {
+      ...studentData,
+      id: Date.now().toString(),
+      enrolledCourses: 0,
+      completedCourses: 0,
+      totalHours: 0,
+      lastLogin: new Date().toISOString(),
+      registrationDate: new Date().toISOString()
+    };
+    
+    setStudents(prev => [...prev, newStudent]);
+    setIsDialogOpen(false);
+    setEditingStudent(null);
+    toast({
+      title: 'Aluno criado',
+      description: 'O aluno foi criado com sucesso.',
+    });
+  };
+
+  const handleUpdateStudent = (studentData: any) => {
+    setStudents(prev =>
+      prev.map(student =>
+        student.id === studentData.id ? { ...student, ...studentData } : student
+      )
+    );
+    setIsDialogOpen(false);
+    setEditingStudent(null);
+    toast({
+      title: 'Aluno atualizado',
+      description: 'Os dados do aluno foram atualizados com sucesso.',
+    });
+  };
+
+  const handleDeleteStudent = (studentId: string) => {
+    if (window.confirm('Tem certeza que deseja excluir este aluno? Esta ação não pode ser desfeita.')) {
+      setStudents(prev => prev.filter(student => student.id !== studentId));
+      toast({
+        title: 'Aluno removido',
+        description: 'O aluno foi removido com sucesso.',
+      });
+    }
+  };
 
   const handleBlockStudent = (studentId: string) => {
     setStudents(prev =>
@@ -152,10 +221,33 @@ const StudentManager = () => {
             <h1 className="text-2xl font-bold text-gray-900">Gestão de Alunos</h1>
             <p className="text-gray-600">Gerencie todos os alunos da plataforma</p>
           </div>
-          <Button className="bg-blue-900 hover:bg-blue-800">
-            <UserPlus className="h-4 w-4 mr-2" />
-            Adicionar Aluno
-          </Button>
+          
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                className="bg-blue-900 hover:bg-blue-800"
+                onClick={() => setEditingStudent(null)}
+              >
+                <UserPlus className="h-4 w-4 mr-2" />
+                Adicionar Aluno
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>
+                  {editingStudent ? 'Editar Aluno' : 'Adicionar Novo Aluno'}
+                </DialogTitle>
+              </DialogHeader>
+              <StudentForm
+                student={editingStudent}
+                onSave={editingStudent ? handleUpdateStudent : handleCreateStudent}
+                onCancel={() => {
+                  setIsDialogOpen(false);
+                  setEditingStudent(null);
+                }}
+              />
+            </DialogContent>
+          </Dialog>
         </div>
 
         {/* Stats Cards */}
@@ -289,6 +381,17 @@ const StudentManager = () => {
                   </div>
                   
                   <div className="flex items-center space-x-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => {
+                        setEditingStudent(student);
+                        setIsDialogOpen(true);
+                      }}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    
                     <Button variant="outline" size="sm">
                       <Mail className="h-4 w-4" />
                     </Button>
@@ -300,6 +403,15 @@ const StudentManager = () => {
                       className={student.status === 'blocked' ? 'text-green-600 hover:text-green-700' : 'text-red-600 hover:text-red-700'}
                     >
                       {student.status === 'blocked' ? <UserCheck className="h-4 w-4" /> : <UserX className="h-4 w-4" />}
+                    </Button>
+                    
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleDeleteStudent(student.id)}
+                      className="text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
