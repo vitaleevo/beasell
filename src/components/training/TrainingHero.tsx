@@ -1,20 +1,27 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Star, Users, Trophy, Target, PlayCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 const TrainingHero = () => {
-  const stats = [
-    { number: "500+", label: "Alunos Formados", icon: Users },
-    { number: "95%", label: "Taxa de Satisfação", icon: Star },
-    { number: "50+", label: "Empresas Parceiras", icon: Trophy },
-    { number: "40%", label: "Aumento Médio Vendas", icon: Target }
-  ];
-
-  return (
-    <section className="pt-24 pb-16 bg-gradient-to-br from-blue-900 via-blue-800 to-orange-500 text-white relative overflow-hidden">
+  const stats = [{
+    number: "500+",
+    label: "Alunos Formados",
+    icon: Users
+  }, {
+    number: "95%",
+    label: "Taxa de Satisfação",
+    icon: Star
+  }, {
+    number: "50+",
+    label: "Empresas Parceiras",
+    icon: Trophy
+  }, {
+    number: "40%",
+    label: "Aumento Médio Vendas",
+    icon: Target
+  }];
+  return <section className="pt-24 pb-16 bg-gradient-to-br from-blue-900 via-blue-800 to-orange-500 text-white relative overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-black/20"></div>
       </div>
@@ -41,25 +48,21 @@ const TrainingHero = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg font-semibold">
+            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:text-blue-900 px-8 py-4 text-lg font-semibold bg-slate-300 hover:bg-slate-200">
               Ver Demo Gratuita
               <PlayCircle className="ml-2 h-5 w-5" />
             </Button>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
+            {stats.map((stat, index) => <div key={index} className="text-center">
                 <stat.icon className="h-8 w-8 mx-auto mb-2 text-orange-300" />
                 <div className="text-2xl font-bold">{stat.number}</div>
                 <div className="text-sm text-blue-200">{stat.label}</div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default TrainingHero;
