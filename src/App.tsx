@@ -28,6 +28,8 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import BlogManager from "./pages/admin/BlogManager";
 import PriceManager from "./pages/admin/PriceManager";
+import CourseManager from "./pages/admin/CourseManager";
+import StudentManager from "./pages/admin/StudentManager";
 
 // Student Pages
 import StudentLogin from "./pages/student/StudentLogin";
