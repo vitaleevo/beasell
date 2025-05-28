@@ -116,6 +116,11 @@ const App = () => (
                       <Blog />
                     </PageWrapper>
                   } />
+                  <Route path="/blog/arquivo" element={
+                    <PageWrapper>
+                      <BlogArchive />
+                    </PageWrapper>
+                  } />
                   <Route path="/blog/:slug" element={
                     <PageWrapper>
                       <BlogPost />
