@@ -48,7 +48,7 @@ const TrainingHero = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:text-blue-900 px-8 py-4 text-lg font-semibold bg-slate-50">
+            <Button size="lg" variant="outline" className="border-2 border-white px-8 py-4 text-lg font-semibold bg-slate-200 hover:bg-slate-100 text-slate-900">
               Ver Demo Gratuita
               <PlayCircle className="ml-2 h-5 w-5" />
             </Button>
