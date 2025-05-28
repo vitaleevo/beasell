@@ -20,6 +20,7 @@ import {
   Star
 } from 'lucide-react';
 import { Course } from '@/types/student';
+import { CourseWithExtras } from '@/types/local';
 
 const CourseManager = () => {
   const { toast } = useToast();
@@ -28,8 +29,8 @@ const CourseManager = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
 
-  // Mock data para cursos
-  const [courses, setCourses] = useState([
+  // Mock data para cursos with proper typing
+  const [courses, setCourses] = useState<CourseWithExtras[]>([
     {
       id: '1',
       title: 'Técnicas Avançadas de Vendas',
@@ -39,13 +40,18 @@ const CourseManager = () => {
       duration: '8 horas',
       level: 'Avançado',
       category: 'Vendas',
+      modules: [],
       price: 250000,
+      currency: 'AOA',
       published: true,
-      enrolledStudents: 156,
-      rating: 4.8,
       createdAt: '2024-01-15',
-      lastUpdated: '2024-01-20',
-      modules: []
+      rating: 4.8,
+      reviewsCount: 156,
+      tags: ['vendas', 'angola', 'estratégias'],
+      prerequisites: ['Conhecimentos básicos de vendas'],
+      learningObjectives: ['Dominar técnicas avançadas de closing'],
+      enrolledStudents: 156,
+      lastUpdated: '2024-01-20'
     },
     {
       id: '2',
@@ -56,23 +62,30 @@ const CourseManager = () => {
       duration: '6 horas',
       level: 'Intermediário',
       category: 'Atendimento',
+      modules: [],
       price: 180000,
+      currency: 'AOA',
       published: false,
-      enrolledStudents: 0,
-      rating: 0,
       createdAt: '2024-02-01',
-      lastUpdated: '2024-02-01',
-      modules: []
+      rating: 0,
+      reviewsCount: 0,
+      tags: ['atendimento', 'cliente'],
+      prerequisites: [],
+      learningObjectives: ['Melhorar habilidades de atendimento'],
+      enrolledStudents: 0,
+      lastUpdated: '2024-02-01'
     }
   ]);
 
   const handleCreateCourse = (courseData: Omit<Course, 'id' | 'rating' | 'reviewsCount' | 'createdAt'>) => {
-    const newCourse: Course = {
+    const newCourse: CourseWithExtras = {
       ...courseData,
       id: Date.now().toString(),
       rating: 0,
       reviewsCount: 0,
-      createdAt: new Date().toISOString().split('T')[0]
+      createdAt: new Date().toISOString().split('T')[0],
+      enrolledStudents: 0,
+      lastUpdated: new Date().toISOString().split('T')[0]
     };
     
     setCourses(prev => [...prev, newCourse]);
@@ -85,9 +98,15 @@ const CourseManager = () => {
   };
 
   const handleUpdateCourse = (courseData: Course) => {
+    const updatedCourse: CourseWithExtras = {
+      ...courseData,
+      enrolledStudents: courses.find(c => c.id === courseData.id)?.enrolledStudents || 0,
+      lastUpdated: new Date().toISOString().split('T')[0]
+    };
+    
     setCourses(prev =>
       prev.map(course =>
-        course.id === courseData.id ? courseData : course
+        course.id === courseData.id ? updatedCourse : course
       )
     );
     setIsDialogOpen(false);

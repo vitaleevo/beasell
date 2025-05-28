@@ -21,104 +21,149 @@ import {
   Edit,
   Trash2
 } from 'lucide-react';
-
-interface StudentData {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  status: string;
-  subscription: {
-    plan: string;
-    startDate: string;
-    endDate: string;
-    status: string;
-  };
-  enrolledCourses: number;
-  completedCourses: number;
-  totalHours: number;
-  lastLogin: string;
-  registrationDate: string;
-  phone: string;
-}
+import { Student } from '@/types/student';
+import { StudentWithExtras } from '@/types/local';
 
 const StudentManager = () => {
   const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'blocked' | 'expired'>('all');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingStudent, setEditingStudent] = useState<StudentData | null>(null);
+  const [editingStudent, setEditingStudent] = useState<Student | null>(null);
 
-  // Mock data para alunos
-  const [students, setStudents] = useState([
+  // Mock data para alunos with proper typing
+  const [students, setStudents] = useState<StudentWithExtras[]>([
     {
       id: '1',
       name: 'Ana Silva',
       email: 'ana@exemplo.com',
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b5c5?w=400',
-      status: 'active',
+      enrolledCourses: ['1', '2', '3'],
+      favoriteCourses: ['1'],
+      wishlistCourses: [],
+      progress: {},
+      points: 100,
+      badges: [],
+      certificates: [],
+      settings: {
+        emailNotifications: true,
+        pushNotifications: true,
+        autoplay: true,
+        playbackSpeed: 1,
+        language: 'pt',
+        theme: 'light',
+        privacy: {
+          showProgress: true,
+          showCertificates: true,
+          showBadges: true
+        }
+      },
+      createdAt: '2024-01-01',
+      lastLoginAt: '2024-01-20',
+      phone: '+244 900 000 001',
       subscription: {
         plan: 'Premium',
         startDate: '2024-01-01',
         endDate: '2024-12-31',
         status: 'active'
       },
-      enrolledCourses: 3,
       completedCourses: 1,
       totalHours: 25,
-      lastLogin: '2024-01-20',
-      registrationDate: '2024-01-01',
-      phone: '+244 900 000 001'
+      registrationDate: '2024-01-01'
     },
     {
       id: '2',
       name: 'Pedro Santos',
       email: 'pedro@exemplo.com',
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
-      status: 'expired',
+      enrolledCourses: ['1'],
+      favoriteCourses: [],
+      wishlistCourses: [],
+      progress: {},
+      points: 50,
+      badges: [],
+      certificates: [],
+      settings: {
+        emailNotifications: true,
+        pushNotifications: false,
+        autoplay: true,
+        playbackSpeed: 1,
+        language: 'pt',
+        theme: 'light',
+        privacy: {
+          showProgress: true,
+          showCertificates: true,
+          showBadges: true
+        }
+      },
+      createdAt: '2023-12-01',
+      lastLoginAt: '2024-01-16',
+      phone: '+244 900 000 002',
       subscription: {
         plan: 'Básico',
         startDate: '2023-12-01',
         endDate: '2024-01-15',
         status: 'expired'
       },
-      enrolledCourses: 1,
       completedCourses: 0,
       totalHours: 5,
-      lastLogin: '2024-01-16',
-      registrationDate: '2023-12-01',
-      phone: '+244 900 000 002'
+      registrationDate: '2023-12-01'
     },
     {
       id: '3',
       name: 'Maria Costa',
       email: 'maria@exemplo.com',
       avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
-      status: 'blocked',
+      enrolledCourses: ['1', '2'],
+      favoriteCourses: [],
+      wishlistCourses: [],
+      progress: {},
+      points: 20,
+      badges: [],
+      certificates: [],
+      settings: {
+        emailNotifications: false,
+        pushNotifications: false,
+        autoplay: true,
+        playbackSpeed: 1,
+        language: 'pt',
+        theme: 'dark',
+        privacy: {
+          showProgress: false,
+          showCertificates: false,
+          showBadges: false
+        }
+      },
+      createdAt: '2024-01-01',
+      lastLoginAt: '2024-01-18',
+      phone: '+244 900 000 003',
       subscription: {
         plan: 'Premium',
         startDate: '2024-01-01',
         endDate: '2024-12-31',
         status: 'blocked'
       },
-      enrolledCourses: 2,
       completedCourses: 0,
       totalHours: 2,
-      lastLogin: '2024-01-18',
-      registrationDate: '2024-01-01',
-      phone: '+244 900 000 003'
+      registrationDate: '2024-01-01'
     }
   ]);
 
-  const handleCreateStudent = (studentData: any) => {
-    const newStudent: StudentData = {
+  const handleCreateStudent = (studentData: Student) => {
+    const newStudent: StudentWithExtras = {
       ...studentData,
       id: Date.now().toString(),
-      enrolledCourses: 0,
+      enrolledCourses: studentData.enrolledCourses || [],
       completedCourses: 0,
       totalHours: 0,
-      lastLogin: new Date().toISOString(),
-      registrationDate: new Date().toISOString()
+      lastLoginAt: new Date().toISOString(),
+      registrationDate: new Date().toISOString(),
+      subscription: {
+        plan: 'Básico',
+        startDate: new Date().toISOString().split('T')[0],
+        endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        status: 'active'
+      }
     };
     
     setStudents(prev => [...prev, newStudent]);
@@ -130,10 +175,17 @@ const StudentManager = () => {
     });
   };
 
-  const handleUpdateStudent = (studentData: any) => {
+  const handleUpdateStudent = (studentData: Student) => {
+    const existingStudent = students.find(s => s.id === studentData.id);
+    const updatedStudent: StudentWithExtras = {
+      ...existingStudent,
+      ...studentData,
+      lastLoginAt: new Date().toISOString()
+    };
+    
     setStudents(prev =>
       prev.map(student =>
-        student.id === studentData.id ? { ...student, ...studentData } : student
+        student.id === studentData.id ? updatedStudent : student
       )
     );
     setIsDialogOpen(false);
@@ -160,10 +212,9 @@ const StudentManager = () => {
         student.id === studentId
           ? {
               ...student,
-              status: student.status === 'blocked' ? 'active' : 'blocked',
               subscription: {
-                ...student.subscription,
-                status: student.status === 'blocked' ? 'active' : 'blocked'
+                ...student.subscription!,
+                status: student.subscription?.status === 'blocked' ? 'active' : 'blocked'
               }
             }
           : student
@@ -172,8 +223,8 @@ const StudentManager = () => {
 
     const student = students.find(s => s.id === studentId);
     toast({
-      title: student?.status === 'blocked' ? 'Aluno desbloqueado' : 'Aluno bloqueado',
-      description: student?.status === 'blocked'
+      title: student?.subscription?.status === 'blocked' ? 'Aluno desbloqueado' : 'Aluno bloqueado',
+      description: student?.subscription?.status === 'blocked'
         ? 'O aluno pode acessar a plataforma novamente'
         : 'O aluno foi bloqueado e não pode mais acessar',
     });
@@ -201,16 +252,16 @@ const StudentManager = () => {
     const matchesSearch = student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          student.email.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesFilter = filterStatus === 'all' || student.status === filterStatus;
+    const matchesFilter = filterStatus === 'all' || student.subscription?.status === filterStatus;
     
     return matchesSearch && matchesFilter;
   });
 
   const stats = {
     total: students.length,
-    active: students.filter(s => s.status === 'active').length,
-    expired: students.filter(s => s.status === 'expired').length,
-    blocked: students.filter(s => s.status === 'blocked').length
+    active: students.filter(s => s.subscription?.status === 'active').length,
+    expired: students.filter(s => s.subscription?.status === 'expired').length,
+    blocked: students.filter(s => s.subscription?.status === 'blocked').length
   };
 
   return (
@@ -348,12 +399,12 @@ const StudentManager = () => {
                       </div>
                       
                       <div className="flex items-center space-x-2">
-                        <Badge className={getStatusColor(student.status)}>
-                          {getStatusText(student.status)}
+                        <Badge className={getStatusColor(student.subscription?.status || 'unknown')}>
+                          {getStatusText(student.subscription?.status || 'unknown')}
                         </Badge>
                         
                         <Badge variant="outline" className="text-xs">
-                          {student.subscription.plan}
+                          {student.subscription?.plan || 'N/A'}
                         </Badge>
                       </div>
                     </div>
@@ -361,21 +412,21 @@ const StudentManager = () => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3 text-sm text-gray-600">
                       <div className="flex items-center space-x-1">
                         <TrendingUp className="h-4 w-4" />
-                        <span>{student.enrolledCourses} cursos</span>
+                        <span>{student.enrolledCourses?.length || 0} cursos</span>
                       </div>
                       
                       <div className="flex items-center space-x-1">
                         <Calendar className="h-4 w-4" />
-                        <span>Exp: {new Date(student.subscription.endDate).toLocaleDateString()}</span>
+                        <span>Exp: {student.subscription?.endDate ? new Date(student.subscription.endDate).toLocaleDateString() : 'N/A'}</span>
                       </div>
                       
                       <div className="flex items-center space-x-1">
                         <Phone className="h-4 w-4" />
-                        <span>{student.phone}</span>
+                        <span>{student.phone || 'N/A'}</span>
                       </div>
                       
                       <div>
-                        <span>Último login: {new Date(student.lastLogin).toLocaleDateString()}</span>
+                        <span>Último login: {new Date(student.lastLoginAt).toLocaleDateString()}</span>
                       </div>
                     </div>
                   </div>
@@ -400,9 +451,9 @@ const StudentManager = () => {
                       variant="outline" 
                       size="sm"
                       onClick={() => handleBlockStudent(student.id)}
-                      className={student.status === 'blocked' ? 'text-green-600 hover:text-green-700' : 'text-red-600 hover:text-red-700'}
+                      className={student.subscription?.status === 'blocked' ? 'text-green-600 hover:text-green-700' : 'text-red-600 hover:text-red-700'}
                     >
-                      {student.status === 'blocked' ? <UserCheck className="h-4 w-4" /> : <UserX className="h-4 w-4" />}
+                      {student.subscription?.status === 'blocked' ? <UserCheck className="h-4 w-4" /> : <UserX className="h-4 w-4" />}
                     </Button>
                     
                     <Button 
