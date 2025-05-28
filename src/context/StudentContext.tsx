@@ -155,15 +155,17 @@ const initialState: StudentState = {
 const studentReducer = (state: StudentState, action: StudentAction): StudentState => {
   switch (action.type) {
     case 'LOGIN':
+      // Verificações de segurança para evitar erros de undefined
       const enrolledCourses = state.courses.filter(course => 
-        action.payload.enrolledCourses.includes(course.id)
+        action.payload?.enrolledCourses?.includes(course.id) ?? false
       );
       const favoriteCourses = state.courses.filter(course => 
-        action.payload.favoriteCourses.includes(course.id)
+        action.payload?.favoriteCourses?.includes(course.id) ?? false
       );
       const wishlistCourses = state.courses.filter(course => 
-        action.payload.wishlistCourses.includes(course.id)
+        action.payload?.wishlistCourses?.includes(course.id) ?? false
       );
+      
       return { 
         ...state, 
         student: action.payload, 
@@ -171,7 +173,7 @@ const studentReducer = (state: StudentState, action: StudentAction): StudentStat
         enrolledCourses,
         favoriteCourses,
         wishlistCourses,
-        progress: action.payload.progress
+        progress: action.payload?.progress || {}
       };
 
     case 'LOGOUT':
@@ -191,13 +193,13 @@ const studentReducer = (state: StudentState, action: StudentAction): StudentStat
       if (state.student) {
         const updatedStudent = {
           ...state.student,
-          favoriteCourses: [...state.student.favoriteCourses, action.payload]
+          favoriteCourses: [...(state.student.favoriteCourses || []), action.payload]
         };
         return {
           ...state,
           student: updatedStudent,
           favoriteCourses: state.courses.filter(course => 
-            updatedStudent.favoriteCourses.includes(course.id)
+            updatedStudent.favoriteCourses?.includes(course.id) ?? false
           )
         };
       }
@@ -207,13 +209,13 @@ const studentReducer = (state: StudentState, action: StudentAction): StudentStat
       if (state.student) {
         const updatedStudent = {
           ...state.student,
-          favoriteCourses: state.student.favoriteCourses.filter(id => id !== action.payload)
+          favoriteCourses: (state.student.favoriteCourses || []).filter(id => id !== action.payload)
         };
         return {
           ...state,
           student: updatedStudent,
           favoriteCourses: state.courses.filter(course => 
-            updatedStudent.favoriteCourses.includes(course.id)
+            updatedStudent.favoriteCourses?.includes(course.id) ?? false
           )
         };
       }
