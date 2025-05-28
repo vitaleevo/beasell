@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -31,6 +32,8 @@ import PriceManager from "./pages/admin/PriceManager";
 import StudentLogin from "./pages/student/StudentLogin";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentCourses from "./pages/student/StudentCourses";
+import CourseDetail from "./pages/student/CourseDetail";
+import StudentProfile from "./pages/student/StudentProfile";
 
 // Blog Post Page
 import BlogPost from "./pages/BlogPost";
@@ -144,6 +147,16 @@ const App = () => (
                   <Route path="/aluno/cursos" element={
                     <StudentProtectedRoute>
                       <StudentCourses />
+                    </StudentProtectedRoute>
+                  } />
+                  <Route path="/aluno/curso/:courseId" element={
+                    <StudentProtectedRoute>
+                      <CourseDetail />
+                    </StudentProtectedRoute>
+                  } />
+                  <Route path="/aluno/perfil" element={
+                    <StudentProtectedRoute>
+                      <StudentProfile />
                     </StudentProtectedRoute>
                   } />
                   
