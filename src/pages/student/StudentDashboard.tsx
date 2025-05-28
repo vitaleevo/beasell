@@ -5,15 +5,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useStudent } from '@/context/StudentContext';
+import StudentLayout from '@/components/student/StudentLayout';
+import AdvancedDashboard from '@/components/student/AdvancedDashboard';
+import BadgesPanel from '@/components/student/BadgesPanel';
 import { 
   BookOpen, 
   Clock, 
   Award, 
   Play,
   TrendingUp,
-  Calendar
+  Calendar,
+  Zap
 } from 'lucide-react';
-import StudentLayout from '@/components/student/StudentLayout';
 
 const StudentDashboard = () => {
   const { state } = useStudent();
@@ -26,6 +29,34 @@ const StudentDashboard = () => {
   const averageProgress = totalCourses > 0 ? Math.round(totalProgress / totalCourses) : 0;
   const completedCourses = Object.values(progress).filter(p => p.progressPercentage === 100).length;
 
+  // Calculate advanced stats
+  const totalHours = enrolledCourses.reduce((acc, course) => {
+    const hours = parseInt(course.duration.split(' ')[0]) || 0;
+    return acc + hours;
+  }, 0);
+
+  const studyStreak = 5; // Mock data - seria calculado baseado em atividade real
+  const averageScore = 87; // Mock data
+  
+  const advancedStats = {
+    totalCourses,
+    completedCourses,
+    totalHours,
+    studyStreak,
+    averageScore,
+    pointsThisMonth: 450,
+    coursesThisMonth: 2,
+    timeThisWeek: 12
+  };
+
+  const weeklyProgress = [60, 45, 90, 30, 75, 120, 85]; // Mock data em minutos
+
+  const monthlyGoals = {
+    courses: { current: 2, target: 4 },
+    hours: { current: 15, target: 25 },
+    points: { current: 450, target: 600 }
+  };
+
   const recentActivity = enrolledCourses
     .filter(course => progress[course.id])
     .sort((a, b) => {
@@ -37,80 +68,34 @@ const StudentDashboard = () => {
 
   return (
     <StudentLayout>
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Header de Boas-vindas */}
         <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-6 rounded-lg">
-          <h1 className="text-2xl font-bold mb-2">
-            Olá, {student?.name}! 👋
-          </h1>
-          <p className="text-blue-100">
-            Continue seu aprendizado onde parou
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold mb-2">
+                Olá, {student?.name}! 👋
+              </h1>
+              <p className="text-blue-100">
+                Continue seu aprendizado onde parou
+              </p>
+            </div>
+            <div className="text-right">
+              <div className="text-sm text-blue-200">Seus pontos</div>
+              <div className="text-3xl font-bold flex items-center">
+                <Zap className="h-8 w-8 mr-2" />
+                {student?.points || 0}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Estatísticas */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-4">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <BookOpen className="h-6 w-6 text-blue-900" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Cursos Inscritos</p>
-                  <p className="text-2xl font-bold text-gray-900">{totalCourses}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-4">
-                <div className="p-2 bg-green-100 rounded-lg">
-                  <TrendingUp className="h-6 w-6 text-green-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Progresso Médio</p>
-                  <p className="text-2xl font-bold text-gray-900">{averageProgress}%</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-4">
-                <div className="p-2 bg-orange-100 rounded-lg">
-                  <Award className="h-6 w-6 text-orange-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Cursos Concluídos</p>
-                  <p className="text-2xl font-bold text-gray-900">{completedCourses}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-4">
-                <div className="p-2 bg-purple-100 rounded-lg">
-                  <Clock className="h-6 w-6 text-purple-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Horas de Estudo</p>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {enrolledCourses.reduce((acc, course) => {
-                      const hours = parseInt(course.duration.split(' ')[0]) || 0;
-                      return acc + hours;
-                    }, 0)}h
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Dashboard Avançado */}
+        <AdvancedDashboard 
+          stats={advancedStats}
+          weeklyProgress={weeklyProgress}
+          monthlyGoals={monthlyGoals}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Atividade Recente */}
@@ -127,7 +112,7 @@ const StudentDashboard = () => {
                   recentActivity.map((course) => {
                     const courseProgress = progress[course.id];
                     return (
-                      <div key={course.id} className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                      <div key={course.id} className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                         <img 
                           src={course.thumbnail} 
                           alt={course.title}
@@ -163,44 +148,50 @@ const StudentDashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Próximos Passos */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Recomendações</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="p-4 bg-blue-50 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-2">
-                    🎯 Continue onde parou
-                  </h4>
-                  <p className="text-blue-700 text-sm mb-3">
-                    Mantenha o ritmo de estudos para melhor aproveitamento
-                  </p>
-                  <Link to="/aluno/cursos">
-                    <Button size="sm" className="bg-blue-900 hover:bg-blue-800">
-                      Ver Meus Cursos
-                    </Button>
-                  </Link>
-                </div>
-
-                <div className="p-4 bg-green-50 rounded-lg">
-                  <h4 className="font-semibold text-green-900 mb-2">
-                    📚 Explore novos cursos
-                  </h4>
-                  <p className="text-green-700 text-sm mb-3">
-                    Expanda seus conhecimentos com nossa biblioteca completa
-                  </p>
-                  <Link to="/servicos">
-                    <Button size="sm" variant="outline" className="border-green-600 text-green-600">
-                      Ver Catálogo
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Badges Panel */}
+          <BadgesPanel 
+            badges={student?.badges || []}
+            totalPoints={student?.points || 0}
+          />
         </div>
+
+        {/* Recomendações */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recomendações Personalizadas</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-blue-50 rounded-lg">
+                <h4 className="font-semibold text-blue-900 mb-2">
+                  🎯 Continue onde parou
+                </h4>
+                <p className="text-blue-700 text-sm mb-3">
+                  Mantenha o ritmo de estudos para melhor aproveitamento
+                </p>
+                <Link to="/aluno/cursos">
+                  <Button size="sm" className="bg-blue-900 hover:bg-blue-800">
+                    Ver Meus Cursos
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="p-4 bg-green-50 rounded-lg">
+                <h4 className="font-semibold text-green-900 mb-2">
+                  📚 Explore novos cursos
+                </h4>
+                <p className="text-green-700 text-sm mb-3">
+                  Baseado no seu progresso, recomendamos cursos de liderança
+                </p>
+                <Link to="/servicos">
+                  <Button size="sm" variant="outline" className="border-green-600 text-green-600">
+                    Ver Catálogo
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </StudentLayout>
   );
