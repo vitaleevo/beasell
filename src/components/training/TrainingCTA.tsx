@@ -1,12 +1,9 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 const TrainingCTA = () => {
-  return (
-    <section className="py-20 bg-gradient-to-r from-blue-900 to-orange-500 text-white">
+  return <section className="py-20 bg-gradient-to-r from-blue-900 to-orange-500 text-white">
       <div className="container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
@@ -24,7 +21,7 @@ const TrainingCTA = () => {
               </Button>
             </Link>
             <Link to="/contacto">
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg font-semibold">
+              <Button size="lg" variant="outline" className="border-2 border-white px-8 py-4 text-lg font-semibold bg-orange-600 hover:bg-orange-500 text-slate-50">
                 Falar com Consultor
                 <Calendar className="ml-2 h-5 w-5" />
               </Button>
@@ -36,8 +33,6 @@ const TrainingCTA = () => {
           </p>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default TrainingCTA;
