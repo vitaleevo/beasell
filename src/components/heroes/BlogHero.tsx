@@ -1,18 +1,9 @@
-
 import React from 'react';
 import PageHero from './PageHero';
 import { BookOpen, Bell, Rss, PenTool, Lightbulb, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
 const BlogHero = () => {
-  return (
-    <PageHero
-      title="Blog & Recursos"
-      subtitle="Conhecimento Especializado"
-      description="Mantenha-se atualizado com as últimas tendências, estratégias e insights do mundo das vendas, adaptados ao mercado angolano."
-      backgroundImage="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-      className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange-600 text-white relative overflow-hidden min-h-[80vh]"
-    >
+  return <PageHero title="Blog & Recursos" subtitle="Conhecimento Especializado" description="Mantenha-se atualizado com as últimas tendências, estratégias e insights do mundo das vendas, adaptados ao mercado angolano." backgroundImage="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange-600 text-white relative overflow-hidden min-h-[80vh]">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-10 left-10 w-80 h-80 bg-brand-orange/20 rounded-full filter blur-2xl animate-pulse"></div>
@@ -48,7 +39,7 @@ const BlogHero = () => {
             <Bell className="mr-3 h-6 w-6" />
             Subscrever Newsletter
           </Button>
-          <Button variant="outline" className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-6 text-lg backdrop-blur-sm">
+          <Button variant="outline" className="border-2 border-white/30 px-10 py-6 text-lg backdrop-blur-sm bg-slate-400 hover:bg-slate-300 text-slate-900">
             <PenTool className="mr-3 h-6 w-6" />
             Ver Todos os Artigos
           </Button>
@@ -70,8 +61,6 @@ const BlogHero = () => {
           </div>
         </div>
       </div>
-    </PageHero>
-  );
+    </PageHero>;
 };
-
 export default BlogHero;
