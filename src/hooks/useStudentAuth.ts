@@ -126,11 +126,22 @@ export const useStudentAuth = () => {
     localStorage.removeItem('beasell-student');
   };
 
+  const markLessonCompleted = (courseId: string, lessonId: string) => {
+    dispatch({ type: 'UPDATE_PROGRESS', payload: { courseId, lessonId } });
+    
+    // Update localStorage with the new progress
+    if (state.student) {
+      const updatedStudent = { ...state.student };
+      localStorage.setItem('beasell-student', JSON.stringify(updatedStudent));
+    }
+  };
+
   return {
     isAuthenticated: state.isAuthenticated,
     student: state.student,
     loading,
     login,
-    logout
+    logout,
+    markLessonCompleted
   };
 };
