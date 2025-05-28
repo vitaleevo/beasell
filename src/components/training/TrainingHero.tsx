@@ -26,7 +26,7 @@ const TrainingHero = () => {
         <div className="absolute inset-0 bg-black/20"></div>
       </div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container relative z-10 px-[28px] mx-0 my-[55px]">
         <div className="max-w-4xl mx-auto text-center">
           <Badge className="bg-white/10 text-white border-white/20 mb-4">
             Formação de Excelência
