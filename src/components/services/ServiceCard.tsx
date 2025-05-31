@@ -29,15 +29,16 @@ const ServiceCard = ({
 }: ServiceCardProps) => {
   return (
     <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2 h-full flex flex-col overflow-hidden">
-      {/* Image Container - Mobile Optimized */}
+      {/* Image Container - Mobile Optimized with better positioning */}
       <div className="relative h-32 sm:h-40 md:h-44 lg:h-48 overflow-hidden">
         <img
           src={image}
           alt={title}
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-top"
+          style={{ objectPosition: '50% 20%' }}
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent"></div>
         <div className="absolute top-2 sm:top-3 lg:top-4 left-2 sm:left-3 lg:left-4 bg-white/95 backdrop-blur-sm p-1.5 sm:p-2 rounded-lg shadow-lg">
           <Icon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-blue-900" />
         </div>
