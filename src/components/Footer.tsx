@@ -1,47 +1,52 @@
-
 import React from 'react';
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 const Footer = () => {
-  const quickLinks = [
-    { name: "Início", path: "/" },
-    { name: "Sobre Nós", path: "/sobre" },
-    { name: "Serviços", path: "/servicos" },
-    { name: "Testemunhos", path: "/testemunhos" },
-    { name: "Blog", path: "/blog" },
-    { name: "Contacto", path: "/contacto" }
-  ];
-
-  const services = [
-    "Formação Individual",
-    "Formação Empresarial",
-    "Workshops Intensivos",
-    "Consultoria Comercial",
-    "Mentoring Executivo",
-    "Treinamento em Vendas"
-  ];
-
-  const socialLinks = [
-    { icon: Facebook, name: "Facebook", url: "#" },
-    { icon: Instagram, name: "Instagram", url: "#" },
-    { icon: Linkedin, name: "LinkedIn", url: "#" },
-    { icon: Youtube, name: "YouTube", url: "#" }
-  ];
-
-  return (
-    <footer className="bg-brand-blue-900 text-white">
+  const quickLinks = [{
+    name: "Início",
+    path: "/"
+  }, {
+    name: "Sobre Nós",
+    path: "/sobre"
+  }, {
+    name: "Serviços",
+    path: "/servicos"
+  }, {
+    name: "Testemunhos",
+    path: "/testemunhos"
+  }, {
+    name: "Blog",
+    path: "/blog"
+  }, {
+    name: "Contacto",
+    path: "/contacto"
+  }];
+  const services = ["Formação Individual", "Formação Empresarial", "Workshops Intensivos", "Consultoria Comercial", "Mentoring Executivo", "Treinamento em Vendas"];
+  const socialLinks = [{
+    icon: Facebook,
+    name: "Facebook",
+    url: "#"
+  }, {
+    icon: Instagram,
+    name: "Instagram",
+    url: "#"
+  }, {
+    icon: Linkedin,
+    name: "LinkedIn",
+    url: "#"
+  }, {
+    icon: Youtube,
+    name: "YouTube",
+    url: "#"
+  }];
+  return <footer className="bg-brand-blue-900 text-white">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
           {/* Company Info - Updated with new orange logo */}
           <div className="space-y-6">
             <div>
-              <img 
-                src="/lovable-uploads/0dd8ba84-d1c6-4b5e-96c5-0f5aabc480b0.png" 
-                alt="Beasell Logo" 
-                className="h-32 w-auto object-contain mb-4"
-              />
+              <img src="/lovable-uploads/0dd8ba84-d1c6-4b5e-96c5-0f5aabc480b0.png" alt="Beasell Logo" className="h-32 w-auto object-contain mb-4" />
               <p className="text-gray-300 leading-relaxed">
                 Treinamento em vendas para equipas de alta performance. Transformamos profissionais 
                 em especialistas de vendas através de formação prática e personalizada.
@@ -55,7 +60,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center text-gray-300">
                 <Phone className="h-5 w-5 mr-3 text-brand-orange" />
-                <span>+244 926 238 518</span>
+                <span>+244 930 010 002</span>
               </div>
               <div className="flex items-center text-gray-300">
                 <Mail className="h-5 w-5 mr-3 text-brand-orange" />
@@ -68,16 +73,11 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-bold mb-6">Links Rápidos</h4>
             <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <Link
-                    to={link.path}
-                    className="text-gray-300 hover:text-brand-orange transition-colors duration-200"
-                  >
+              {quickLinks.map((link, index) => <li key={index}>
+                  <Link to={link.path} className="text-gray-300 hover:text-brand-orange transition-colors duration-200">
                     {link.name}
                   </Link>
-                </li>
-              ))}
+                </li>)}
             </ul>
           </div>
 
@@ -85,13 +85,11 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-bold mb-6">Nossos Serviços</h4>
             <ul className="space-y-3">
-              {services.map((service, index) => (
-                <li key={index}>
+              {services.map((service, index) => <li key={index}>
                   <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer">
                     {service}
                   </span>
-                </li>
-              ))}
+                </li>)}
             </ul>
           </div>
 
@@ -104,27 +102,16 @@ const Footer = () => {
             
             <div className="space-y-4">
               <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Seu email"
-                  className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:border-brand-orange text-white"
-                />
+                <input type="email" placeholder="Seu email" className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:border-brand-orange text-white" />
                 <button className="bg-brand-orange hover:bg-brand-orange-600 px-4 py-2 rounded-r-lg transition-colors">
                   OK
                 </button>
               </div>
               
               <div className="flex space-x-4 pt-2">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.url}
-                    className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200"
-                    aria-label={social.name}
-                  >
+                {socialLinks.map((social, index) => <a key={index} href={social.url} className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label={social.name}>
                     <social.icon className="h-5 w-5" />
-                  </a>
-                ))}
+                  </a>)}
               </div>
             </div>
           </div>
@@ -153,8 +140,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
