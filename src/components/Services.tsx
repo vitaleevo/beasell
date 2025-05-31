@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { User, Users, Presentation, HeadphonesIcon } from 'lucide-react';
+import { Building2, Users, TrendingUp, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ServiceCard from './services/ServiceCard';
 import CourseCard from './services/CourseCard';
@@ -11,62 +11,82 @@ const Services = () => {
 
   const services = [
     {
-      icon: User,
-      title: "Formação Individual",
-      description: "Desenvolvimento personalizado para profissionais que desejam melhorar suas competências em vendas",
-      features: ["Avaliação individual", "Plano personalizado", "Mentoring 1:1", "Certificação"],
-      price: "Desde 25.000 AOA",
-      duration: "4-8 semanas",
-      image: "/lovable-uploads/af9a6669-8dd6-41b8-bb8b-548fbf81a34a.png",
-      serviceType: "individual"
+      icon: Building2,
+      title: "Consultoria em Gestão de Negócios",
+      description: "Melhorar a eficiência dos processos, aumentar as vendas e ajudar o empreendedor a tomar decisões mais conscientes",
+      features: [
+        "Diagnóstico empresarial e plano de acção",
+        "Reestruturação organizacional", 
+        "Acompanhamento de gestão (presencial e remoto)",
+        "Relatórios mensais com indicadores de performance"
+      ],
+      price: "Sob consulta",
+      duration: "Pacotes mensais",
+      image: "/lovable-uploads/503294f6-01e8-4bd8-86ac-2479dca24e4f.png",
+      serviceType: "consultoria-gestao"
     },
     {
       icon: Users,
-      title: "Formação Empresarial",
-      description: "Capacitação de equipas comerciais para empresas que querem melhorar seus resultados de vendas",
-      features: ["Diagnóstico empresarial", "Formação in-company", "Material personalizado", "Relatório de resultados"],
+      title: "Treinamento para Vendedores",
+      description: "Capacitar equipas comerciais para melhorar o atendimento, aumentar a taxa de conversão e fidelizar clientes",
+      features: [
+        "Atendimento ao cliente",
+        "Técnicas de vendas e abordagem", 
+        "Contorno de objeções e fecho de vendas",
+        "Funil de vendas prático para PMEs"
+      ],
       price: "Sob consulta",
-      duration: "2-12 semanas",
+      duration: "Workshops práticos",
       image: "/lovable-uploads/90bb2b21-bbb6-4c39-9b32-4fdd01333270.png",
-      serviceType: "empresarial"
+      serviceType: "treinamento-vendedores"
     },
     {
-      icon: Presentation,
-      title: "Workshops Intensivos",
-      description: "Workshops focados em técnicas específicas de vendas e desenvolvimento comercial",
-      features: ["Temas específicos", "Metodologia prática", "Grupos reduzidos", "Material didático"],
-      price: "15.000 AOA",
-      duration: "1-2 dias",
-      image: "/lovable-uploads/bacd7dcc-ddf2-4bc3-a457-125fa18b7f04.png",
-      serviceType: "workshop"
-    },
-    {
-      icon: HeadphonesIcon,
-      title: "Consultoria Comercial",
-      description: "Consultoria estratégica para otimização de processos comerciais e aumento de vendas",
-      features: ["Análise de processos", "Estratégias customizadas", "Implementação assistida", "Monitoramento"],
+      icon: TrendingUp,
+      title: "Prospecção e Apoio Comercial",
+      description: "Aumentar a carteira de clientes através de estratégias de prospecção e apoio técnico à venda",
+      features: [
+        "Pesquisa e identificação de potenciais clientes",
+        "Criação de scripts para WhatsApp e e-mail", 
+        "Apoio operacional para gestão de leads",
+        "Elaboração de propostas comerciais"
+      ],
       price: "Sob consulta",
-      duration: "3-6 meses",
-      image: "/lovable-uploads/503294f6-01e8-4bd8-86ac-2479dca24e4f.png",
-      serviceType: "consultoria"
+      duration: "Apoio contínuo",
+      image: "/lovable-uploads/bacd7dcc-ddf2-4bc3-a457-125fa18b7f04.png",
+      serviceType: "prospeccao-comercial"
+    },
+    {
+      icon: BookOpen,
+      title: "Formações para Pequenos Negócios",
+      description: "Preparar empreendedores para gerir de forma eficaz os seus negócios e equipas",
+      features: [
+        "Planeamento operacional",
+        "Controlo financeiro e precificação", 
+        "Criação de pacotes de serviços e produtos",
+        "Desenvolvimento de liderança e comunicação"
+      ],
+      price: "Sob consulta",
+      duration: "Curta duração",
+      image: "/lovable-uploads/af9a6669-8dd6-41b8-bb8b-548fbf81a34a.png",
+      serviceType: "formacoes-pequenos-negocios"
     }
   ];
 
   const courses = [
     {
-      title: "Vendas Básicas",
-      description: "Fundamentos essenciais para iniciar na área comercial",
-      modules: ["Psicologia do cliente", "Técnicas de abordagem", "Objeções", "Fechamento"]
+      title: "Atendimento ao Cliente",
+      description: "Desenvolva habilidades excepcionais de atendimento",
+      modules: ["Comunicação eficaz", "Resolução de conflitos", "Fidelização", "Postura profissional"]
     },
     {
-      title: "Vendas Avançadas",
-      description: "Técnicas sofisticadas para vendedores experientes",
-      modules: ["Vendas consultivas", "Negociação avançada", "Gestão de contas", "Cross-selling"]
+      title: "Técnicas de Vendas",
+      description: "Domine as melhores técnicas de vendas e abordagem",
+      modules: ["Abordagem eficaz", "Contorno de objeções", "Fecho de vendas", "Funil de vendas"]
     },
     {
-      title: "Liderança Comercial",
-      description: "Desenvolvimento de gestores e líderes de equipes comerciais",
-      modules: ["Gestão de equipas", "Coaching comercial", "KPIs e métricas", "Motivação"]
+      title: "Gestão de Negócios",
+      description: "Aprenda a gerir seu negócio de forma eficiente",
+      modules: ["Planeamento operacional", "Controlo financeiro", "Precificação", "Liderança"]
     }
   ];
 
@@ -83,7 +103,7 @@ const Services = () => {
             Nossos <span className="text-blue-900">Serviços</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Oferecemos soluções completas de formação em vendas, adaptadas às suas necessidades específicas
+            Soluções completas de consultoria e formação para pequenos empreendedores e equipas comerciais
           </p>
         </div>
 
@@ -106,11 +126,11 @@ const Services = () => {
         </div>
 
         {/* Course Catalog */}
-        <div id="cursos" className="bg-white rounded-2xl p-6 md:p-8 shadow-lg">
+        <div id="cursos" className="bg-white rounded-2xl p-6 md:p-8 shadow-lg mb-16">
           <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Catálogo de Cursos</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Principais Módulos</h3>
             <p className="text-base text-gray-600">
-              Programas estruturados para diferentes níveis de experiência
+              Conteúdos focados em resultados práticos para empreendedores angolanos
             </p>
           </div>
 
@@ -124,6 +144,50 @@ const Services = () => {
                 onAction={handleServiceAction}
               />
             ))}
+          </div>
+        </div>
+
+        {/* Diferenciais da Beasell */}
+        <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-8 text-white">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold mb-3">Diferenciais da Beasell</h3>
+            <p className="text-blue-100">
+              O que nos torna únicos no mercado angolano
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8" />
+              </div>
+              <h4 className="font-bold mb-2">Acompanhamento Prático</h4>
+              <p className="text-sm text-blue-100">Suporte personalizado e presencial</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="h-8 w-8" />
+              </div>
+              <h4 className="font-bold mb-2">Materiais Adaptados</h4>
+              <p className="text-sm text-blue-100">Conteúdo simples e focado na realidade local</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="h-8 w-8" />
+              </div>
+              <h4 className="font-bold mb-2">Foco em Resultados</h4>
+              <p className="text-sm text-blue-100">Atendimento empático com resultados reais</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Building2 className="h-8 w-8" />
+              </div>
+              <h4 className="font-bold mb-2">Flexibilidade</h4>
+              <p className="text-sm text-blue-100">Pagamentos e formatos adaptáveis</p>
+            </div>
           </div>
         </div>
 

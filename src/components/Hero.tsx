@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Play, ArrowRight, Star, Users, Trophy, Target, TrendingUp } from 'lucide-react';
+import { Play, ArrowRight, Star, Users, Trophy, Target, TrendingUp, Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
@@ -20,35 +20,35 @@ const Hero = () => {
             <div className="space-y-3">
               <div className="inline-flex items-center bg-gradient-to-r from-orange-100 to-blue-100 text-blue-800 px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
                 <Star className="h-3 w-3 mr-2 text-orange-500" />
-                Formadora #1 em Vendas em Angola
+                Consultoria #1 para PMEs em Angola
               </div>
               
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
-                Treinamento em vendas
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-700 to-orange-500"> para equipas</span>
+                Consultoria e formação
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-700 to-orange-500"> para pequenos</span>
                 <br />
-                de alta performance
+                empreendedores
               </h1>
               
               <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl">
-                Transforme sua equipa em vendedores de excelência através de formação prática e personalizada, 
-                adaptada ao mercado angolano. Com Beatriz Chavier, especialista em vendas.
+                Apoiamos pequenos empreendedores, equipas comerciais e organizações em crescimento 
+                com consultoria em gestão de negócios, focada em resultados práticos e acompanhamento de proximidade.
               </p>
             </div>
 
             {/* Enhanced Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4">
               <div className="text-center bg-white/80 backdrop-blur-sm p-2 sm:p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-900 mb-1">500+</div>
-                <div className="text-xs text-gray-600 font-medium">Profissionais Formados</div>
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-900 mb-1">100+</div>
+                <div className="text-xs text-gray-600 font-medium">Empresas Apoiadas</div>
               </div>
               <div className="text-center bg-white/80 backdrop-blur-sm p-2 sm:p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-900 mb-1">95%</div>
-                <div className="text-xs text-gray-600 font-medium">Taxa de Sucesso</div>
+                <div className="text-xs text-gray-600 font-medium">Taxa de Satisfação</div>
               </div>
               <div className="text-center bg-white/80 backdrop-blur-sm p-2 sm:p-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-900 mb-1">50+</div>
-                <div className="text-xs text-gray-600 font-medium">Empresas Parceiras</div>
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-900 mb-1">5+</div>
+                <div className="text-xs text-gray-600 font-medium">Anos Experiência</div>
               </div>
             </div>
 
@@ -59,7 +59,7 @@ const Hero = () => {
                   size="lg" 
                   className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white px-6 py-3 text-base shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-1"
                 >
-                  Ver Formações
+                  Ver Serviços
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -82,7 +82,7 @@ const Hero = () => {
               <div className="relative overflow-hidden rounded-2xl shadow-2xl max-w-md mx-auto lg:max-w-none">
                 <img
                   src="/lovable-uploads/c6346064-d31c-4824-978e-ae38c45567d3.png"
-                  alt="Beatriz Chavier - Formadora em Vendas"
+                  alt="Beatriz Chavier - Consultora de Negócios"
                   className="w-full h-auto transform hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
@@ -91,9 +91,9 @@ const Hero = () => {
             
             {/* Enhanced floating elements */}
             <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 bg-gradient-to-br from-orange-500 to-orange-600 text-white p-2 sm:p-3 rounded-xl shadow-2xl animate-pulse">
-              <Users className="h-4 w-4 sm:h-5 sm:w-5 mb-1" />
-              <div className="text-xs font-bold">Alta</div>
-              <div className="text-xs opacity-90">Performance</div>
+              <Building2 className="h-4 w-4 sm:h-5 sm:w-5 mb-1" />
+              <div className="text-xs font-bold">PMEs</div>
+              <div className="text-xs opacity-90">Especializadas</div>
             </div>
             
             <div className="absolute -bottom-2 -left-2 sm:-bottom-3 sm:-left-3 bg-gradient-to-br from-blue-900 to-blue-800 text-white p-2 sm:p-3 rounded-xl shadow-2xl animate-pulse">

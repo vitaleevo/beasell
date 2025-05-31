@@ -16,7 +16,6 @@ export interface StudentWithExtras extends Student {
     endDate: string;
     status: string;
   };
-  enrolledCourses?: number;
   completedCourses?: number;
   totalHours?: number;
   lastLogin?: string;

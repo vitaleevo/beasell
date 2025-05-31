@@ -1,35 +1,35 @@
 
 import React from 'react';
 import PageHero from './PageHero';
-import { GraduationCap, Building, Users, Target, Zap, BookOpen } from 'lucide-react';
+import { Building2, Users, TrendingUp, BookOpen, Target, Zap } from 'lucide-react';
 
 const ServicesHero = () => {
   const categories = [
     { 
-      icon: GraduationCap, 
-      title: 'Formação Individual', 
-      description: 'Cursos personalizados para o seu crescimento profissional',
+      icon: Building2, 
+      title: 'Consultoria em Gestão', 
+      description: 'Diagnóstico e reestruturação para melhorar eficiência',
       color: 'from-blue-500 to-blue-600',
       bgColor: 'bg-white/15'
     },
     { 
-      icon: Building, 
-      title: 'Formação Empresarial', 
-      description: 'Soluções in-company para transformar equipas',
+      icon: Users, 
+      title: 'Treinamento de Vendedores', 
+      description: 'Capacitação para equipas comerciais de alta performance',
       color: 'from-green-500 to-green-600',
       bgColor: 'bg-white/15'
     },
     { 
-      icon: Users, 
-      title: 'Workshops', 
-      description: 'Sessões intensivas e práticas de alta performance',
+      icon: TrendingUp, 
+      title: 'Prospecção Comercial', 
+      description: 'Estratégias para aumentar carteira de clientes',
       color: 'from-purple-500 to-purple-600',
       bgColor: 'bg-white/15'
     },
     { 
-      icon: Target, 
-      title: 'Consultoria', 
-      description: 'Assessoria especializada e estratégica para resultados',
+      icon: BookOpen, 
+      title: 'Formação PMEs', 
+      description: 'Preparação completa para pequenos empreendedores',
       color: 'from-orange-500 to-orange-600',
       bgColor: 'bg-white/15'
     },
@@ -38,8 +38,8 @@ const ServicesHero = () => {
   return (
     <PageHero
       title="Nossos Serviços"
-      subtitle="Formação de Excelência"
-      description="Oferecemos uma gama completa de soluções de formação em vendas, adaptadas às necessidades específicas de cada cliente e do mercado angolano."
+      subtitle="Consultoria e Formação Especializada"
+      description="Soluções completas para pequenos empreendedores, equipas comerciais e organizações em crescimento, com foco em resultados práticos e acompanhamento de proximidade."
       backgroundImage="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
       className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[80vh]"
     >
@@ -67,15 +67,15 @@ const ServicesHero = () => {
       <div className="flex flex-wrap justify-center gap-6 mt-16 relative z-10">
         <div className="flex items-center bg-white/10 backdrop-blur-sm px-8 py-4 rounded-full shadow-xl border border-white/20">
           <Zap className="h-6 w-6 text-yellow-400 mr-3" />
-          <span className="font-medium">Resultados Rápidos</span>
-        </div>
-        <div className="flex items-center bg-white/10 backdrop-blur-sm px-8 py-4 rounded-full shadow-xl border border-white/20">
-          <BookOpen className="h-6 w-6 text-blue-400 mr-3" />
-          <span className="font-medium">Metodologia Própria</span>
+          <span className="font-medium">Acompanhamento Prático</span>
         </div>
         <div className="flex items-center bg-white/10 backdrop-blur-sm px-8 py-4 rounded-full shadow-xl border border-white/20">
           <Target className="h-6 w-6 text-green-400 mr-3" />
-          <span className="font-medium">Foco em Performance</span>
+          <span className="font-medium">Foco em Resultados</span>
+        </div>
+        <div className="flex items-center bg-white/10 backdrop-blur-sm px-8 py-4 rounded-full shadow-xl border border-white/20">
+          <BookOpen className="h-6 w-6 text-blue-400 mr-3" />
+          <span className="font-medium">Materiais Adaptados</span>
         </div>
       </div>
     </PageHero>
