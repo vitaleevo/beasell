@@ -56,7 +56,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center text-gray-300">
                 <MapPin className="h-5 w-5 mr-3 text-brand-orange" />
-                <span>Luanda, Angola - Talatona</span>
+                <span>Rua Marechal Brós Tito Nº 35, Edifício Skyone 4º andar, Município de Ingombota, Bairro Kinaxixi Luanda-Angola NIF: 5002528509.</span>
               </div>
               <div className="flex items-center text-gray-300">
                 <Phone className="h-5 w-5 mr-3 text-brand-orange" />
