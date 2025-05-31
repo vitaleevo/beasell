@@ -52,33 +52,33 @@ const Footer = () => {
   return (
     <footer className="bg-brand-blue-900 text-white">
       {/* Main Footer */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8">
           {/* Company Info */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6 md:col-span-2 xl:col-span-1">
             <div>
-              <img src="/lovable-uploads/0dd8ba84-d1c6-4b5e-96c5-0f5aabc480b0.png" alt="Beasell Logo" className="h-32 w-auto object-contain mb-4" />
-              <p className="text-gray-300 leading-relaxed">
+              <img src="/lovable-uploads/0dd8ba84-d1c6-4b5e-96c5-0f5aabc480b0.png" alt="Beasell Logo" className="h-24 sm:h-32 w-auto object-contain mb-3 sm:mb-4" />
+              <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
                 Empresa angolana dedicada a consultoria em gestão de negócios, com foco no apoio a pequenos empreendedores, 
                 equipas comerciais e organizações em crescimento.
               </p>
             </div>
             
-            <div className="space-y-3">
-              <div className="flex items-center text-gray-300">
-                <MapPin className="h-5 w-5 mr-3 text-brand-orange" />
-                <span className="px-0 mx-0 py-0 my-0">Rua Marechal Brós Tito Nº 35, Edifício Skyone 4º andar, Município de Ingombota, Bairro Kinaxixi Luanda-Angola</span>
+            <div className="space-y-2 sm:space-y-3">
+              <div className="flex items-start text-gray-300 text-sm sm:text-base">
+                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange mt-0.5 flex-shrink-0" />
+                <span className="leading-relaxed">Rua Marechal Brós Tito Nº 35, Edifício Skyone 4º andar, Município de Ingombota, Bairro Kinaxixi Luanda-Angola</span>
               </div>
-              <div className="flex items-center text-gray-300">
-                <Phone className="h-5 w-5 mr-3 text-brand-orange" />
+              <div className="flex items-center text-gray-300 text-sm sm:text-base">
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange flex-shrink-0" />
                 <span>(244) 930 010 002</span>
               </div>
-              <div className="flex items-center text-gray-300">
-                <Mail className="h-5 w-5 mr-3 text-brand-orange" />
+              <div className="flex items-center text-gray-300 text-sm sm:text-base">
+                <Mail className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange flex-shrink-0" />
                 <span>info@beasell.ao</span>
               </div>
-              <div className="flex items-center text-gray-300">
-                <FileText className="h-5 w-5 mr-3 text-brand-orange" />
+              <div className="flex items-center text-gray-300 text-sm sm:text-base">
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange flex-shrink-0" />
                 <span>NIF: 5002528509</span>
               </div>
             </div>
@@ -86,11 +86,11 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-xl font-bold mb-6">Links Rápidos</h4>
-            <ul className="space-y-3">
+            <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Links Rápidos</h4>
+            <ul className="space-y-2 sm:space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <Link to={link.path} className="text-gray-300 hover:text-brand-orange transition-colors duration-200">
+                  <Link to={link.path} className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
                     {link.name}
                   </Link>
                 </li>
@@ -100,11 +100,11 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="text-xl font-bold mb-6">Nossos Serviços</h4>
-            <ul className="space-y-3">
+            <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Nossos Serviços</h4>
+            <ul className="space-y-2 sm:space-y-3">
               {services.map((service, index) => (
                 <li key={index}>
-                  <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer">
+                  <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
                     {service}
                   </span>
                 </li>
@@ -114,23 +114,27 @@ const Footer = () => {
 
           {/* Newsletter & Social */}
           <div>
-            <h4 className="text-xl font-bold mb-6">Mantenha-se Actualizado</h4>
-            <p className="text-gray-300 mb-4">
+            <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Mantenha-se Actualizado</h4>
+            <p className="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">
               Receba dicas exclusivas e novidades sobre consultoria e formação
             </p>
             
-            <div className="space-y-4">
-              <div className="flex">
-                <input type="email" placeholder="Seu email" className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:border-brand-orange text-white" />
-                <button className="bg-brand-orange hover:bg-brand-orange-600 px-4 py-2 rounded-r-lg transition-colors">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex flex-col sm:flex-row gap-2">
+                <input 
+                  type="email" 
+                  placeholder="Seu email" 
+                  className="flex-1 px-3 sm:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-brand-orange text-white text-sm sm:text-base"
+                />
+                <button className="bg-brand-orange hover:bg-brand-orange-600 px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm sm:text-base font-medium">
                   OK
                 </button>
               </div>
               
-              <div className="flex space-x-4 pt-2">
+              <div className="flex space-x-3 sm:space-x-4 pt-1 sm:pt-2">
                 {socialLinks.map((social, index) => (
                   <a key={index} href={social.url} className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label={social.name}>
-                    <social.icon className="h-5 w-5" />
+                    <social.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </a>
                 ))}
               </div>
@@ -141,13 +145,13 @@ const Footer = () => {
 
       {/* Bottom Footer */}
       <div className="border-t border-gray-800">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-gray-400 text-xs sm:text-sm text-center md:text-left">
               © 2024 Beasell - Formação e Consultoria, Lda. Todos os direitos reservados.
             </div>
             
-            <div className="flex space-x-6 text-sm">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm">
               <button className="text-gray-400 hover:text-white transition-colors">
                 Política de Privacidade
               </button>

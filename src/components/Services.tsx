@@ -97,21 +97,21 @@ const Services = () => {
   };
 
   return (
-    <section id="servicos" className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
+    <section id="servicos" className="py-8 sm:py-12 lg:py-16 bg-gray-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Nossos <span className="text-blue-900">Serviços</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
             Empresa angolana dedicada a consultoria em gestão de negócios, com foco no apoio a pequenos empreendedores, 
             equipas comerciais e organizações em fase de estruturação ou crescimento
           </p>
         </div>
 
-        {/* Main Services */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* Main Services - Mobile First Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16">
           {services.map((service, index) => (
             <ServiceCard
               key={index}
@@ -129,15 +129,15 @@ const Services = () => {
         </div>
 
         {/* Course Catalog */}
-        <div id="cursos" className="bg-white rounded-2xl p-6 md:p-8 shadow-lg mb-16">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Principais Módulos</h3>
-            <p className="text-base text-gray-600">
+        <div id="cursos" className="bg-white rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg mb-12 sm:mb-16">
+          <div className="text-center mb-6 sm:mb-8">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">Principais Módulos</h3>
+            <p className="text-sm sm:text-base text-gray-600 px-4 sm:px-0">
               Conteúdos focados em resultados práticos para empreendedores angolanos
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             {courses.map((course, index) => (
               <CourseCard
                 key={index}
@@ -151,45 +151,45 @@ const Services = () => {
         </div>
 
         {/* Diferenciais da Beasell */}
-        <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-8 text-white mb-16">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold mb-3">Diferenciais da Beasell</h3>
-            <p className="text-blue-100">
+        <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-xl lg:rounded-2xl p-6 sm:p-8 text-white mb-12 sm:mb-16">
+          <div className="text-center mb-6 sm:mb-8">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3">Diferenciais da Beasell</h3>
+            <p className="text-blue-100 text-sm sm:text-base">
               O que nos torna únicos no mercado angolano
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
             <div className="text-center">
-              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8" />
+              <div className="bg-white/20 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <Users className="h-6 w-6 sm:h-8 sm:w-8" />
               </div>
-              <h4 className="font-bold mb-2">Acompanhamento Prático</h4>
-              <p className="text-sm text-blue-100">Acompanhamento prático e personalizado</p>
+              <h4 className="font-bold mb-1 sm:mb-2 text-sm sm:text-base">Acompanhamento Prático</h4>
+              <p className="text-xs sm:text-sm text-blue-100 leading-relaxed">Acompanhamento prático e personalizado</p>
             </div>
             
             <div className="text-center">
-              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BookOpen className="h-8 w-8" />
+              <div className="bg-white/20 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <BookOpen className="h-6 w-6 sm:h-8 sm:w-8" />
               </div>
-              <h4 className="font-bold mb-2">Materiais Adaptados</h4>
-              <p className="text-sm text-blue-100">Materiais simples e adaptados à realidade do cliente</p>
+              <h4 className="font-bold mb-1 sm:mb-2 text-sm sm:text-base">Materiais Adaptados</h4>
+              <p className="text-xs sm:text-sm text-blue-100 leading-relaxed">Materiais simples e adaptados à realidade do cliente</p>
             </div>
             
             <div className="text-center">
-              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <TrendingUp className="h-8 w-8" />
+              <div className="bg-white/20 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8" />
               </div>
-              <h4 className="font-bold mb-2">Foco em Resultados</h4>
-              <p className="text-sm text-blue-100">Atendimento empático, com foco em resultados reais</p>
+              <h4 className="font-bold mb-1 sm:mb-2 text-sm sm:text-base">Foco em Resultados</h4>
+              <p className="text-xs sm:text-sm text-blue-100 leading-relaxed">Atendimento empático, com foco em resultados reais</p>
             </div>
             
             <div className="text-center">
-              <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Building2 className="h-8 w-8" />
+              <div className="bg-white/20 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <Building2 className="h-6 w-6 sm:h-8 sm:w-8" />
               </div>
-              <h4 className="font-bold mb-2">Flexibilidade</h4>
-              <p className="text-sm text-blue-100">Flexibilidade de pagamentos e formatos adaptáveis</p>
+              <h4 className="font-bold mb-1 sm:mb-2 text-sm sm:text-base">Flexibilidade</h4>
+              <p className="text-xs sm:text-sm text-blue-100 leading-relaxed">Flexibilidade de pagamentos e formatos adaptáveis</p>
             </div>
           </div>
         </div>
