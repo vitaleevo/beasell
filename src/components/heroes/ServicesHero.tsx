@@ -41,41 +41,51 @@ const ServicesHero = () => {
       subtitle="Consultoria e Formação Especializada"
       description="Soluções completas para pequenos empreendedores, equipas comerciais e organizações em crescimento, com foco em resultados práticos e acompanhamento de proximidade."
       backgroundImage="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-      className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh]"
+      className="bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-orange text-white relative overflow-hidden min-h-[50vh] sm:min-h-[60vh] lg:min-h-[70vh]"
     >
-      {/* Background Elements */}
+      {/* Background Elements - Mobile Optimized */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-5 sm:top-10 left-5 sm:left-10 w-40 sm:w-60 lg:w-80 h-40 sm:h-60 lg:h-80 bg-brand-orange/20 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-pulse"></div>
-        <div className="absolute bottom-5 sm:bottom-10 right-5 sm:right-10 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-blue-400/20 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-pulse delay-500"></div>
+        <div className="absolute top-2 sm:top-5 lg:top-10 left-2 sm:left-5 lg:left-10 w-20 sm:w-40 lg:w-80 h-20 sm:h-40 lg:h-80 bg-brand-orange/20 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-pulse"></div>
+        <div className="absolute bottom-2 sm:bottom-5 lg:bottom-10 right-2 sm:right-5 lg:right-10 w-16 sm:w-32 lg:w-64 h-16 sm:h-32 lg:h-64 bg-blue-400/20 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-pulse delay-500"></div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-10 sm:mt-16 lg:mt-20 relative z-10">
+      {/* Categories Grid - Mobile First */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mt-6 sm:mt-10 lg:mt-16 relative z-10 px-2 sm:px-0">
         {categories.map((category, index) => (
           <div key={index} className="group">
-            <div className={`${category.bgColor} backdrop-blur-sm p-4 sm:p-6 lg:p-8 rounded-xl lg:rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2 sm:hover:-translate-y-4 border border-white/20`}>
-              <div className={`bg-gradient-to-br ${category.color} w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 lg:mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xl`}>
-                <category.icon className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-white" />
+            <div className={`${category.bgColor} backdrop-blur-sm p-3 sm:p-4 lg:p-6 rounded-lg sm:rounded-xl lg:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-1 sm:hover:-translate-y-2 border border-white/20`}>
+              {/* Icon - Mobile Optimized */}
+              <div className={`bg-gradient-to-br ${category.color} w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
+                <category.icon className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 text-white" />
               </div>
-              <h3 className="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 lg:mb-4 text-center">{category.title}</h3>
-              <p className="text-blue-200 leading-relaxed text-xs sm:text-sm lg:text-base text-center">{category.description}</p>
+              
+              {/* Title - Mobile Optimized */}
+              <h3 className="font-bold text-sm sm:text-base lg:text-lg mb-1.5 sm:mb-2 lg:mb-3 text-center leading-tight">
+                {category.title}
+              </h3>
+              
+              {/* Description - Mobile Optimized */}
+              <p className="text-blue-200 leading-relaxed text-xs sm:text-sm lg:text-base text-center line-clamp-3">
+                {category.description}
+              </p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Additional features */}
-      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-6 mt-8 sm:mt-12 lg:mt-16 relative z-10">
-        <div className="flex items-center bg-white/10 backdrop-blur-sm px-3 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-full shadow-xl border border-white/20">
-          <Zap className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-yellow-400 mr-2 sm:mr-3" />
-          <span className="font-medium text-xs sm:text-sm lg:text-base">Acompanhamento Prático</span>
+      {/* Features Tags - Mobile Optimized */}
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mt-6 sm:mt-8 lg:mt-12 relative z-10 px-2">
+        <div className="flex items-center bg-white/10 backdrop-blur-sm px-2.5 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 rounded-full shadow-lg border border-white/20">
+          <Zap className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-yellow-400 mr-1.5 sm:mr-2" />
+          <span className="font-medium text-xs sm:text-sm lg:text-base whitespace-nowrap">Acompanhamento Prático</span>
         </div>
-        <div className="flex items-center bg-white/10 backdrop-blur-sm px-3 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-full shadow-xl border border-white/20">
-          <Target className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-green-400 mr-2 sm:mr-3" />
-          <span className="font-medium text-xs sm:text-sm lg:text-base">Foco em Resultados</span>
+        <div className="flex items-center bg-white/10 backdrop-blur-sm px-2.5 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 rounded-full shadow-lg border border-white/20">
+          <Target className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-green-400 mr-1.5 sm:mr-2" />
+          <span className="font-medium text-xs sm:text-sm lg:text-base whitespace-nowrap">Foco em Resultados</span>
         </div>
-        <div className="flex items-center bg-white/10 backdrop-blur-sm px-3 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-full shadow-xl border border-white/20">
-          <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-blue-400 mr-2 sm:mr-3" />
-          <span className="font-medium text-xs sm:text-sm lg:text-base">Materiais Adaptados</span>
+        <div className="flex items-center bg-white/10 backdrop-blur-sm px-2.5 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 rounded-full shadow-lg border border-white/20">
+          <BookOpen className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-blue-400 mr-1.5 sm:mr-2" />
+          <span className="font-medium text-xs sm:text-sm lg:text-base whitespace-nowrap">Materiais Adaptados</span>
         </div>
       </div>
     </PageHero>
