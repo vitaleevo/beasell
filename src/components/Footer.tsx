@@ -1,6 +1,8 @@
+
 import React from 'react';
-import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
+import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Youtube, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
 const Footer = () => {
   const quickLinks = [{
     name: "Início",
@@ -21,7 +23,14 @@ const Footer = () => {
     name: "Contacto",
     path: "/contacto"
   }];
-  const services = ["Formação Individual", "Formação Empresarial", "Workshops Intensivos", "Consultoria Comercial", "Mentoring Executivo", "Treinamento em Vendas"];
+
+  const services = [
+    "Consultoria em Gestão de Negócios", 
+    "Treinamento para Vendedores", 
+    "Prospecção e Apoio Comercial", 
+    "Formações para Pequenos Negócios"
+  ];
+
   const socialLinks = [{
     icon: Facebook,
     name: "Facebook",
@@ -39,17 +48,19 @@ const Footer = () => {
     name: "YouTube",
     url: "#"
   }];
-  return <footer className="bg-brand-blue-900 text-white">
+
+  return (
+    <footer className="bg-brand-blue-900 text-white">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
-          {/* Company Info - Updated with new orange logo */}
+          {/* Company Info */}
           <div className="space-y-6">
             <div>
               <img src="/lovable-uploads/0dd8ba84-d1c6-4b5e-96c5-0f5aabc480b0.png" alt="Beasell Logo" className="h-32 w-auto object-contain mb-4" />
               <p className="text-gray-300 leading-relaxed">
-                Treinamento em vendas para equipas de alta performance. Transformamos profissionais 
-                em especialistas de vendas através de formação prática e personalizada.
+                Empresa angolana dedicada a consultoria em gestão de negócios, com foco no apoio a pequenos empreendedores, 
+                equipas comerciais e organizações em crescimento.
               </p>
             </div>
             
@@ -60,11 +71,15 @@ const Footer = () => {
               </div>
               <div className="flex items-center text-gray-300">
                 <Phone className="h-5 w-5 mr-3 text-brand-orange" />
-                <span>+244 930 010 002</span>
+                <span>(244) 930 010 002</span>
               </div>
               <div className="flex items-center text-gray-300">
                 <Mail className="h-5 w-5 mr-3 text-brand-orange" />
                 <span>info@beasell.ao</span>
+              </div>
+              <div className="flex items-center text-gray-300">
+                <FileText className="h-5 w-5 mr-3 text-brand-orange" />
+                <span>NIF: 5002528509</span>
               </div>
             </div>
           </div>
@@ -73,11 +88,13 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-bold mb-6">Links Rápidos</h4>
             <ul className="space-y-3">
-              {quickLinks.map((link, index) => <li key={index}>
+              {quickLinks.map((link, index) => (
+                <li key={index}>
                   <Link to={link.path} className="text-gray-300 hover:text-brand-orange transition-colors duration-200">
                     {link.name}
                   </Link>
-                </li>)}
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -85,11 +102,13 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-bold mb-6">Nossos Serviços</h4>
             <ul className="space-y-3">
-              {services.map((service, index) => <li key={index}>
+              {services.map((service, index) => (
+                <li key={index}>
                   <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer">
                     {service}
                   </span>
-                </li>)}
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -97,7 +116,7 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-bold mb-6">Mantenha-se Actualizado</h4>
             <p className="text-gray-300 mb-4">
-              Receba dicas exclusivas e novidades sobre vendas
+              Receba dicas exclusivas e novidades sobre consultoria e formação
             </p>
             
             <div className="space-y-4">
@@ -109,9 +128,11 @@ const Footer = () => {
               </div>
               
               <div className="flex space-x-4 pt-2">
-                {socialLinks.map((social, index) => <a key={index} href={social.url} className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label={social.name}>
+                {socialLinks.map((social, index) => (
+                  <a key={index} href={social.url} className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label={social.name}>
                     <social.icon className="h-5 w-5" />
-                  </a>)}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -123,7 +144,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2024 Beasell Angola. Todos os direitos reservados.
+              © 2024 Beasell - Formação e Consultoria, Lda. Todos os direitos reservados.
             </div>
             
             <div className="flex space-x-6 text-sm">
@@ -140,6 +161,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;

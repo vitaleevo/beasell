@@ -18,10 +18,11 @@ const Services = () => {
         "Diagnóstico empresarial e plano de acção",
         "Reestruturação organizacional", 
         "Acompanhamento de gestão (presencial e remoto)",
-        "Relatórios mensais com indicadores de performance"
+        "Relatórios mensais com indicadores de performance",
+        "Apoio na tomada de decisão estratégica"
       ],
       price: "Sob consulta",
-      duration: "Pacotes mensais",
+      duration: "Pacotes mensais ou consultorias pontuais",
       image: "/lovable-uploads/503294f6-01e8-4bd8-86ac-2479dca24e4f.png",
       serviceType: "consultoria-gestao"
     },
@@ -33,10 +34,11 @@ const Services = () => {
         "Atendimento ao cliente",
         "Técnicas de vendas e abordagem", 
         "Contorno de objeções e fecho de vendas",
-        "Funil de vendas prático para PMEs"
+        "Funil de vendas prático para micro e pequenas empresas",
+        "Comportamento e postura profissional"
       ],
       price: "Sob consulta",
-      duration: "Workshops práticos",
+      duration: "Workshops práticos, formações presenciais",
       image: "/lovable-uploads/90bb2b21-bbb6-4c39-9b32-4fdd01333270.png",
       serviceType: "treinamento-vendedores"
     },
@@ -46,12 +48,12 @@ const Services = () => {
       description: "Aumentar a carteira de clientes através de estratégias de prospecção e apoio técnico à venda",
       features: [
         "Pesquisa e identificação de potenciais clientes",
-        "Criação de scripts para WhatsApp e e-mail", 
+        "Criação de scripts e templates para WhatsApp e e-mail", 
         "Apoio operacional para gestão de leads",
         "Elaboração de propostas comerciais"
       ],
       price: "Sob consulta",
-      duration: "Apoio contínuo",
+      duration: "Reduz tempo operacional e melhora resultados",
       image: "/lovable-uploads/bacd7dcc-ddf2-4bc3-a457-125fa18b7f04.png",
       serviceType: "prospeccao-comercial"
     },
@@ -66,7 +68,7 @@ const Services = () => {
         "Desenvolvimento de liderança e comunicação"
       ],
       price: "Sob consulta",
-      duration: "Curta duração",
+      duration: "Formações de curta duração com acompanhamento",
       image: "/lovable-uploads/af9a6669-8dd6-41b8-bb8b-548fbf81a34a.png",
       serviceType: "formacoes-pequenos-negocios"
     }
@@ -103,7 +105,8 @@ const Services = () => {
             Nossos <span className="text-blue-900">Serviços</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Soluções completas de consultoria e formação para pequenos empreendedores e equipas comerciais
+            Empresa angolana dedicada a consultoria em gestão de negócios, com foco no apoio a pequenos empreendedores, 
+            equipas comerciais e organizações em fase de estruturação ou crescimento
           </p>
         </div>
 
@@ -148,7 +151,7 @@ const Services = () => {
         </div>
 
         {/* Diferenciais da Beasell */}
-        <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-8 text-white">
+        <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-8 text-white mb-16">
           <div className="text-center mb-8">
             <h3 className="text-2xl md:text-3xl font-bold mb-3">Diferenciais da Beasell</h3>
             <p className="text-blue-100">
@@ -162,7 +165,7 @@ const Services = () => {
                 <Users className="h-8 w-8" />
               </div>
               <h4 className="font-bold mb-2">Acompanhamento Prático</h4>
-              <p className="text-sm text-blue-100">Suporte personalizado e presencial</p>
+              <p className="text-sm text-blue-100">Acompanhamento prático e personalizado</p>
             </div>
             
             <div className="text-center">
@@ -170,7 +173,7 @@ const Services = () => {
                 <BookOpen className="h-8 w-8" />
               </div>
               <h4 className="font-bold mb-2">Materiais Adaptados</h4>
-              <p className="text-sm text-blue-100">Conteúdo simples e focado na realidade local</p>
+              <p className="text-sm text-blue-100">Materiais simples e adaptados à realidade do cliente</p>
             </div>
             
             <div className="text-center">
@@ -178,7 +181,7 @@ const Services = () => {
                 <TrendingUp className="h-8 w-8" />
               </div>
               <h4 className="font-bold mb-2">Foco em Resultados</h4>
-              <p className="text-sm text-blue-100">Atendimento empático com resultados reais</p>
+              <p className="text-sm text-blue-100">Atendimento empático, com foco em resultados reais</p>
             </div>
             
             <div className="text-center">
@@ -186,7 +189,7 @@ const Services = () => {
                 <Building2 className="h-8 w-8" />
               </div>
               <h4 className="font-bold mb-2">Flexibilidade</h4>
-              <p className="text-sm text-blue-100">Pagamentos e formatos adaptáveis</p>
+              <p className="text-sm text-blue-100">Flexibilidade de pagamentos e formatos adaptáveis</p>
             </div>
           </div>
         </div>

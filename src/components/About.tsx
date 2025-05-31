@@ -8,24 +8,24 @@ const About = () => {
     {
       icon: Target,
       title: "Missão",
-      description: "Capacitar profissionais e empresas angolanas com treinamento em vendas de excelência, promovendo o crescimento sustentável do mercado nacional através de equipas de alta performance."
+      description: "Capacitar profissionais e empresas angolanas com consultoria e formação de excelência, promovendo o crescimento sustentável através de acompanhamento prático e personalizado."
     },
     {
       icon: Eye,
       title: "Visão",
-      description: "Ser a referência em formação comercial em Angola, reconhecida pela qualidade e resultados práticos das nossas formações especializadas."
+      description: "Ser a referência em consultoria e formação empresarial em Angola, reconhecida pela qualidade e resultados práticos dos nossos serviços especializados."
     },
     {
       icon: Heart,
       title: "Valores",
-      description: "Integridade, excelência, compromisso com resultados, adaptação cultural e desenvolvimento contínuo dos nossos formandos e equipas."
+      description: "Acompanhamento prático e personalizado, materiais adaptados à realidade do cliente, atendimento empático com foco em resultados reais e flexibilidade total."
     }
   ];
 
   const achievements = [
-    { icon: Award, number: "10+", text: "Anos de Experiência" },
-    { icon: Briefcase, number: "200+", text: "Empresas Atendidas" },
-    { icon: GraduationCap, number: "1000+", text: "Profissionais Formados" }
+    { icon: Award, number: "5+", text: "Anos de Experiência" },
+    { icon: Briefcase, number: "100+", text: "Empresas Apoiadas" },
+    { icon: GraduationCap, number: "500+", text: "Profissionais Formados" }
   ];
 
   return (
@@ -42,8 +42,26 @@ const About = () => {
             Sobre a <span className="text-brand-blue">Beasell</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Especialistas em treinamento em vendas para equipas de alta performance. 
-            Conheça nossa história, valores e a expertise de Beatriz Chavier.
+            Empresa angolana dedicada a consultoria em gestão de negócios, com foco no apoio a pequenos empreendedores, 
+            equipas comerciais e organizações em fase de estruturação ou crescimento.
+          </p>
+        </div>
+
+        {/* Company Info */}
+        <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-3xl p-8 md:p-12 mb-16">
+          <div className="text-center mb-8">
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">BEASELL - FORMAÇÃO E CONSULTORIA, LDA</h3>
+            <div className="text-lg text-gray-700 space-y-2">
+              <p><strong>NIF:</strong> 5002528509</p>
+              <p><strong>Endereço:</strong> Rua Marechal Brós Tito Nº 35, Edifício Skyone 4º andar</p>
+              <p>Município de Ingombota, Bairro Kinaxixi, Luanda-Angola</p>
+              <p><strong>Telefone:</strong> (244) 930 010 002</p>
+            </div>
+          </div>
+          
+          <p className="text-lg text-gray-600 text-center leading-relaxed max-w-4xl mx-auto">
+            Oferecemos serviços orientados para resultados práticos e acompanhamento de proximidade, 
+            especializando-nos em soluções que realmente transformam negócios e equipas comerciais no mercado angolano.
           </p>
         </div>
 
@@ -54,14 +72,14 @@ const About = () => {
               Beatriz Chavier
             </h3>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Especialista em vendas e formação comercial com mais de uma década de experiência no mercado angolano. 
+              Especialista em consultoria empresarial e formação comercial com mais de uma década de experiência no mercado angolano. 
               Beatriz desenvolveu uma metodologia única que combina técnicas internacionais com as especificidades 
-              do mercado local, focando em equipas de alta performance.
+              do mercado local, focando em resultados práticos e acompanhamento personalizado.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Formada em Gestão Comercial e com certificações internacionais em vendas, dedica-se à transformação 
-              de profissionais e equipas comerciais, focando sempre em resultados práticos e sustentáveis através 
-              de treinamento especializado.
+              Formada em Gestão Comercial e com certificações internacionais, dedica-se à transformação 
+              de pequenos empreendedores e equipas comerciais, sempre com foco em resultados sustentáveis 
+              através de consultoria especializada e formação prática.
             </p>
             
             {/* Achievements */}
@@ -114,25 +132,25 @@ const About = () => {
             <div className="space-y-6">
               <h3 className="text-3xl font-bold text-gray-900">Nossa Metodologia</h3>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Desenvolvemos uma abordagem única que combina teoria sólida com prática intensiva, 
-                especificamente adaptada para criar equipas de alta performance no mercado angolano.
+                Desenvolvemos uma abordagem única que combina consultoria prática com formação intensiva, 
+                especificamente adaptada para pequenos empreendedores e equipas comerciais angolanas.
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start">
                   <div className="bg-brand-orange w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-600">Diagnóstico personalizado das necessidades da equipa</span>
+                  <span className="text-gray-600">Diagnóstico personalizado das necessidades empresariais</span>
                 </li>
                 <li className="flex items-start">
                   <div className="bg-brand-orange w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-600">Técnicas de vendas adaptadas ao contexto local</span>
+                  <span className="text-gray-600">Materiais simples e adaptados à realidade local</span>
                 </li>
                 <li className="flex items-start">
                   <div className="bg-brand-orange w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-600">Role-plays e simulações práticas em equipa</span>
+                  <span className="text-gray-600">Acompanhamento prático presencial e remoto</span>
                 </li>
                 <li className="flex items-start">
                   <div className="bg-brand-orange w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <span className="text-gray-600">Acompanhamento pós-formação e mentoring</span>
+                  <span className="text-gray-600">Flexibilidade de pagamentos e formatos adaptáveis</span>
                 </li>
               </ul>
             </div>

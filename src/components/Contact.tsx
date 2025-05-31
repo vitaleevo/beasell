@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ContactForm from '@/components/forms/ContactForm';
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, FileText } from 'lucide-react';
 
 const Contact = () => {
   return (
@@ -53,7 +53,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Telefone</h4>
-                    <p className="text-gray-600 mt-1">+244 930 010 002</p>
+                    <p className="text-gray-600 mt-1">(244) 930 010 002</p>
                   </div>
                 </div>
 
@@ -84,13 +84,21 @@ const Contact = () => {
 
             {/* Company Info */}
             <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-8 text-white">
-              <h3 className="text-xl font-bold mb-4">BEASELL - FORMAÇÃO E CONSULTORIA, LDA</h3>
-              <p className="text-blue-100 text-sm">
-                <strong>NIF:</strong> 5002528509<br />
-                Empresa angolana dedicada a consultoria em gestão de negócios, 
-                com foco no apoio a pequenos empreendedores, equipas comerciais 
-                e organizações em crescimento.
-              </p>
+              <div className="flex items-center mb-4">
+                <FileText className="h-6 w-6 mr-3" />
+                <h3 className="text-xl font-bold">BEASELL - FORMAÇÃO E CONSULTORIA, LDA</h3>
+              </div>
+              <div className="text-blue-100 text-sm space-y-1">
+                <p><strong>NIF:</strong> 5002528509</p>
+                <p className="mt-3">
+                  Empresa angolana dedicada a consultoria em gestão de negócios, 
+                  com foco no apoio a pequenos empreendedores, equipas comerciais 
+                  e organizações em fase de estruturação ou crescimento.
+                </p>
+                <p className="mt-3 font-medium">
+                  Serviços orientados para resultados práticos e acompanhamento de proximidade.
+                </p>
+              </div>
             </div>
           </div>
         </div>
