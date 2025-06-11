@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -30,6 +31,7 @@ const Index = () => {
     description: "Aprenda a criar experiências excepcionais para os clientes",
     highlights: ["Comunicação Eficaz", "Resolução de Conflitos", "Fidelização"]
   }];
+
   const testimonials = [{
     name: "Carlos Mendes",
     position: "Director Comercial, Banco Millennium",
@@ -38,7 +40,7 @@ const Index = () => {
   }, {
     name: "Ana Silva",
     position: "Gerente de Vendas, Unitel",
-    text: "Beatriz tem uma metodologia única. Os conhecimentos adquiridos são aplicáveis imediatamente.",
+    text: "A Beasell tem uma metodologia única. Os conhecimentos adquiridos são aplicáveis imediatamente.",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face"
   }, {
     name: "João Santos",
@@ -46,6 +48,7 @@ const Index = () => {
     text: "Recomendo a todos. A formação é prática, dinâmica e focada em resultados reais.",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
   }];
+
   const stats = [{
     number: "500+",
     label: "Profissionais Formados",
@@ -63,7 +66,9 @@ const Index = () => {
     label: "Aumento Médio Vendas",
     icon: TrendingUp
   }];
-  return <div className="min-h-screen bg-white w-full overflow-x-hidden">
+
+  return (
+    <div className="min-h-screen bg-white w-full overflow-x-hidden">
       <SEOHead 
         title="Beasell - Formação de Excelência em Vendas | Angola" 
         description="A Beasell oferece formação especializada em vendas para profissionais e empresas em Angola. Transforme sua carreira comercial com metodologia comprovada." 
@@ -86,13 +91,15 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-7xl mx-auto">
-            {stats.map((stat, index) => <div key={index} className="text-center group">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center group">
                 <div className="bg-white/10 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-xl hover:bg-white/20 transition-all duration-300 hover:-translate-y-2">
                   <stat.icon className="h-8 w-8 sm:h-12 sm:w-12 mx-auto mb-4 text-orange-300 group-hover:scale-110 transition-transform duration-300" />
                   <div className="text-2xl sm:text-4xl font-bold mb-2">{stat.number}</div>
                   <div className="text-xs sm:text-base text-blue-200">{stat.label}</div>
                 </div>
-              </div>)}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -110,9 +117,10 @@ const Index = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 max-w-7xl mx-auto">
-            {courses.map((course, index) => <Card key={index} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
-            animationDelay: `${index * 0.2}s`
-          }}>
+            {courses.map((course, index) => (
+              <Card key={index} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
+                animationDelay: `${index * 0.2}s`
+              }}>
                 <CardHeader>
                   <CardTitle className="text-lg sm:text-xl text-blue-900">{course.title}</CardTitle>
                   <div className="flex items-center space-x-4 text-sm text-gray-600">
@@ -126,16 +134,19 @@ const Index = () => {
                 <CardContent>
                   <p className="text-gray-600 mb-4">{course.description}</p>
                   <div className="space-y-2 mb-6">
-                    {course.highlights.map((highlight, idx) => <div key={idx} className="flex items-center space-x-2">
+                    {course.highlights.map((highlight, idx) => (
+                      <div key={idx} className="flex items-center space-x-2">
                         <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
                         <span className="text-sm text-gray-600">{highlight}</span>
-                      </div>)}
+                      </div>
+                    ))}
                   </div>
                   <Button className="w-full bg-blue-900 hover:bg-blue-800">
                     Saber Mais
                   </Button>
                 </CardContent>
-              </Card>)}
+              </Card>
+            ))}
           </div>
 
           <div className="text-center max-w-7xl mx-auto">
@@ -162,9 +173,10 @@ const Index = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 max-w-7xl mx-auto">
-            {testimonials.map((testimonial, index) => <div key={index} className="bg-gradient-to-br from-blue-50 to-orange-50 p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
-            animationDelay: `${index * 0.2}s`
-          }}>
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="bg-gradient-to-br from-blue-50 to-orange-50 p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
+                animationDelay: `${index * 0.2}s`
+              }}>
                 <Quote className="h-8 w-8 text-orange-500 mb-4" />
                 <p className="text-gray-700 mb-6 italic">"{testimonial.text}"</p>
                 <div className="flex items-center space-x-4">
@@ -175,9 +187,12 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="flex mt-4">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />)}
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                  ))}
                 </div>
-              </div>)}
+              </div>
+            ))}
           </div>
 
           <div className="text-center max-w-7xl mx-auto">
@@ -191,7 +206,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About Beasell Section - Reduced personal focus */}
+      {/* About Beasell Section */}
       <section className="py-12 sm:py-20 bg-gradient-to-br from-gray-50 to-blue-50 w-full">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center max-w-7xl mx-auto">
