@@ -24,15 +24,16 @@ const Hero = () => {
               </div>
               
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight">
-                Consultoria e formação
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-700 to-orange-500"> para pequenos</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-700 to-orange-500">Beasell</span> transforma
                 <br />
-                empreendedores
+                pequenos negócios
+                <br />
+                em grandes sucessos
               </h1>
               
               <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl">
-                Apoiamos pequenos empreendedores, equipas comerciais e organizações em crescimento 
-                com consultoria em gestão de negócios, focada em resultados práticos e acompanhamento de proximidade.
+                A Beasell é especialista em consultoria de gestão e formação comercial para pequenos empreendedores 
+                e equipas comerciais em Angola, com foco em resultados práticos e acompanhamento de proximidade.
               </p>
             </div>
 
@@ -70,22 +71,30 @@ const Hero = () => {
                   className="w-full border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-6 py-3 text-base shadow-xl hover:shadow-orange-500/25 transition-all duration-300 hover:-translate-y-1"
                 >
                   <Play className="mr-2 h-4 w-4" />
-                  Conhecer Beatriz
+                  Conhecer a Beasell
                 </Button>
               </Link>
             </div>
           </div>
 
-          {/* Enhanced Hero Image */}
+          {/* Enhanced Hero Image - Corporate Illustration */}
           <div className="relative animate-fade-in order-1 lg:order-2">
             <div className="relative z-10">
               <div className="relative overflow-hidden rounded-2xl shadow-2xl max-w-md mx-auto lg:max-w-none">
                 <img
-                  src="/lovable-uploads/c6346064-d31c-4824-978e-ae38c45567d3.png"
-                  alt="Beatriz Chavier - Consultora de Negócios"
+                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Beasell - Consultoria e Formação de Negócios"
                   className="w-full h-auto transform hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+                
+                {/* Overlay with Beasell branding */}
+                <div className="absolute bottom-6 left-6 right-6 text-white">
+                  <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl">
+                    <h3 className="font-bold text-xl mb-2">Beasell</h3>
+                    <p className="text-sm opacity-90">Transformando negócios através de consultoria especializada</p>
+                  </div>
+                </div>
               </div>
             </div>
             

@@ -16,7 +16,7 @@ const Contact = () => {
             Pronto para <span className="text-brand-blue">Transformar</span> seu Negócio?
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
-            Entre em contacto connosco e descubra como podemos impulsionar seu negócio ou equipa com consultoria e formação de excelência.
+            Entre em contacto com a Beasell e descubra como podemos impulsionar seu negócio ou equipa com consultoria e formação de excelência.
           </p>
         </div>
 

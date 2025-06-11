@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Youtube, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -57,7 +56,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4 sm:space-y-6 md:col-span-2 xl:col-span-1">
             <div>
-              <img src="/lovable-uploads/0dd8ba84-d1c6-4b5e-96c5-0f5aabc480b0.png" alt="Beasell Logo" className="h-24 sm:h-32 w-auto object-contain mb-3 sm:mb-4" />
+              <img src="/lovable-uploads/0dd8ba84-d1c6-4b5e-96c5-0f5aabc480b0.png" alt="Beasell Logo" className="h-24 sm:h-32 w-auto object-contain mb-3 sm:mb-4 filter brightness-0 invert" />
               <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
                 Empresa angolana dedicada a consultoria em gestão de negócios, com foco no apoio a pequenos empreendedores, 
                 equipas comerciais e organizações em crescimento.
@@ -88,13 +87,36 @@ const Footer = () => {
           <div>
             <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Links Rápidos</h4>
             <ul className="space-y-2 sm:space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <Link to={link.path} className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                  Início
+                </Link>
+              </li>
+              <li>
+                <Link to="/sobre" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                  Sobre Nós
+                </Link>
+              </li>
+              <li>
+                <Link to="/servicos" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                  Serviços
+                </Link>
+              </li>
+              <li>
+                <Link to="/testemunhos" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                  Testemunhos
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/contacto" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                  Contacto
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -102,13 +124,26 @@ const Footer = () => {
           <div>
             <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Nossos Serviços</h4>
             <ul className="space-y-2 sm:space-y-3">
-              {services.map((service, index) => (
-                <li key={index}>
-                  <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
-                    {service}
-                  </span>
-                </li>
-              ))}
+              <li>
+                <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
+                  Consultoria em Gestão de Negócios
+                </span>
+              </li>
+              <li>
+                <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
+                  Treinamento para Vendedores
+                </span>
+              </li>
+              <li>
+                <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
+                  Prospecção e Apoio Comercial
+                </span>
+              </li>
+              <li>
+                <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
+                  Formações para Pequenos Negócios
+                </span>
+              </li>
             </ul>
           </div>
 
@@ -132,11 +167,18 @@ const Footer = () => {
               </div>
               
               <div className="flex space-x-3 sm:space-x-4 pt-1 sm:pt-2">
-                {socialLinks.map((social, index) => (
-                  <a key={index} href={social.url} className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label={social.name}>
-                    <social.icon className="h-4 w-4 sm:h-5 sm:w-5" />
-                  </a>
-                ))}
+                <a href="#" className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label="Facebook">
+                  <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
+                </a>
+                <a href="#" className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label="Instagram">
+                  <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
+                </a>
+                <a href="#" className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label="LinkedIn">
+                  <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
+                </a>
+                <a href="#" className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label="YouTube">
+                  <Youtube className="h-4 w-4 sm:h-5 sm:w-5" />
+                </a>
               </div>
             </div>
           </div>

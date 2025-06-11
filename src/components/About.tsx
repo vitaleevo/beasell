@@ -42,7 +42,7 @@ const About = () => {
             Sobre a <span className="text-brand-blue">Beasell</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Empresa angolana dedicada a consultoria em gestão de negócios, com foco no apoio a pequenos empreendedores, 
+            A Beasell é uma empresa angolana dedicada a consultoria em gestão de negócios, com foco no apoio a pequenos empreendedores, 
             equipas comerciais e organizações em fase de estruturação ou crescimento.
           </p>
         </div>
@@ -60,24 +60,40 @@ const About = () => {
           </div>
           
           <p className="text-lg text-gray-600 text-center leading-relaxed max-w-4xl mx-auto">
-            Oferecemos serviços orientados para resultados práticos e acompanhamento de proximidade, 
-            especializando-nos em soluções que realmente transformam negócios e equipas comerciais no mercado angolano.
+            A Beasell oferece serviços orientados para resultados práticos e acompanhamento de proximidade, 
+            especializando-se em soluções que realmente transformam negócios e equipas comerciais no mercado angolano.
+            Nossa metodologia única combina técnicas internacionais com as especificidades do mercado local.
           </p>
         </div>
 
-        {/* About Beatriz Section */}
+        {/* Mission, Vision, Values */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {values.map((value, index) => (
+            <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-to-br from-brand-blue to-brand-orange w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <value.icon className="h-8 w-8 text-white" />
+                </div>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h4>
+                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Fundadora Section - Reduced focus */}
         <div className="grid lg:grid-cols-2 gap-12 mb-20 items-center">
           <div className="space-y-6">
             <h3 className="text-3xl font-bold text-gray-900">
-              Beatriz Chavier
+              Fundadora: Beatriz Xavier
             </h3>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Especialista em consultoria empresarial e formação comercial com mais de uma década de experiência no mercado angolano. 
-              Beatriz desenvolveu uma metodologia única que combina técnicas internacionais com as especificidades 
-              do mercado local, focando em resultados práticos e acompanhamento personalizado.
+              A Beasell foi fundada por Beatriz Xavier, especialista em consultoria empresarial e formação comercial 
+              com mais de uma década de experiência no mercado angolano. A empresa desenvolveu uma metodologia única 
+              que combina técnicas internacionais com as especificidades do mercado local.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Formada em Gestão Comercial e com certificações internacionais, dedica-se à transformação 
+              Com formação em Gestão Comercial e certificações internacionais, a Beasell dedica-se à transformação 
               de pequenos empreendedores e equipas comerciais, sempre com foco em resultados sustentáveis 
               através de consultoria especializada e formação prática.
             </p>
@@ -97,26 +113,11 @@ const About = () => {
           <div className="relative flex justify-center">
             <img
               src="/lovable-uploads/f0abed31-5c2f-4ec4-b201-38181cb4cc67.png"
-              alt="Beatriz Chavier apresentando formação"
+              alt="Beatriz Xavier, Fundadora da Beasell"
               className="w-full h-auto rounded-2xl shadow-xl object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
           </div>
-        </div>
-
-        {/* Mission, Vision, Values */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {values.map((value, index) => (
-            <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardContent className="p-8 text-center">
-                <div className="bg-gradient-to-br from-brand-blue to-brand-orange w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <value.icon className="h-8 w-8 text-white" />
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h4>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
-              </CardContent>
-            </Card>
-          ))}
         </div>
 
         {/* Methodology Section */}
@@ -130,9 +131,9 @@ const About = () => {
               />
             </div>
             <div className="space-y-6">
-              <h3 className="text-3xl font-bold text-gray-900">Nossa Metodologia</h3>
+              <h3 className="text-3xl font-bold text-gray-900">Metodologia Beasell</h3>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Desenvolvemos uma abordagem única que combina consultoria prática com formação intensiva, 
+                A Beasell desenvolveu uma abordagem única que combina consultoria prática com formação intensiva, 
                 especificamente adaptada para pequenos empreendedores e equipas comerciais angolanas.
               </p>
               <ul className="space-y-3">

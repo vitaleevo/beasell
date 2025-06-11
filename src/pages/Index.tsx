@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, Star, Users, Trophy, TrendingUp, Quote, Calendar, Clock, CheckCircle, Award, Heart, Shield, Globe, Phone, Mail, MapPin, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
 const Index = () => {
   const courses = [{
     title: "Técnicas Avançadas de Vendas",
@@ -63,7 +64,12 @@ const Index = () => {
     icon: TrendingUp
   }];
   return <div className="min-h-screen bg-white w-full overflow-x-hidden">
-      <SEOHead title="Beasell - Formação de Excelência em Vendas | Angola" description="A Beasell oferece formação especializada em vendas para profissionais e empresas em Angola. Transforme sua carreira comercial com metodologia comprovada." keywords="formação vendas angola, curso vendas luanda, treinamento comercial, consultoria vendas, beasell" url="https://beasell.ao" />
+      <SEOHead 
+        title="Beasell - Formação de Excelência em Vendas | Angola" 
+        description="A Beasell oferece formação especializada em vendas para profissionais e empresas em Angola. Transforme sua carreira comercial com metodologia comprovada." 
+        keywords="formação vendas angola, curso vendas luanda, treinamento comercial, consultoria vendas, beasell" 
+        url="https://beasell.ao" 
+      />
       
       <Header />
       <Hero />
@@ -185,13 +191,17 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About Beatriz Section */}
+      {/* About Beasell Section - Reduced personal focus */}
       <section className="py-12 sm:py-20 bg-gradient-to-br from-gray-50 to-blue-50 w-full">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center max-w-7xl mx-auto">
             <div className="order-2 lg:order-1">
               <div className="relative max-w-md mx-auto lg:max-w-none">
-                <img src="/lovable-uploads/c6346064-d31c-4824-978e-ae38c45567d3.png" alt="Beatriz Chavier" className="w-full rounded-2xl shadow-2xl" />
+                <img 
+                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  alt="Beasell - Consultoria e Formação" 
+                  className="w-full rounded-2xl shadow-2xl" 
+                />
                 <div className="absolute -bottom-4 -right-4 bg-orange-500 text-white p-4 rounded-xl shadow-xl">
                   <Award className="h-6 w-6" />
                 </div>
@@ -201,10 +211,10 @@ const Index = () => {
             <div className="space-y-6 order-1 lg:order-2">
               <div>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                  Conheça <span className="text-orange-500">Beatriz Chavier</span>
+                  Conheça a <span className="text-orange-500">Beasell</span>
                 </h2>
                 <p className="text-lg sm:text-xl text-gray-600 mb-6">
-                  Especialista em vendas com mais de 10 anos de experiência no mercado angolano
+                  Empresa especialista em consultoria e formação comercial com mais de 5 anos transformando negócios em Angola
                 </p>
               </div>
 
@@ -212,22 +222,22 @@ const Index = () => {
                 <div className="flex items-start space-x-3">
                   <Shield className="h-6 w-6 text-blue-900 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-bold text-gray-900">Certificações Internacionais</h3>
-                    <p className="text-gray-600">Formação em Sales Management pela Dale Carnegie</p>
+                    <h3 className="font-bold text-gray-900">Metodologia Comprovada</h3>
+                    <p className="text-gray-600">Técnicas adaptadas ao mercado angolano com resultados garantidos</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <Globe className="h-6 w-6 text-blue-900 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-bold text-gray-900">Experiência Internacional</h3>
-                    <p className="text-gray-600">Trabalhou com empresas em 5 países africanos</p>
+                    <h3 className="font-bold text-gray-900">Experiência Local</h3>
+                    <p className="text-gray-600">Fundada por Beatriz Xavier, especialista com mais de 10 anos no mercado</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <Heart className="h-6 w-6 text-blue-900 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-bold text-gray-900">Paixão pelo Ensino</h3>
-                    <p className="text-gray-600">Dedicada a transformar vidas através das vendas</p>
+                    <h3 className="font-bold text-gray-900">Foco em PMEs</h3>
+                    <p className="text-gray-600">Especializada em pequenos e médios empreendedores angolanos</p>
                   </div>
                 </div>
               </div>
@@ -235,7 +245,7 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                 <Link to="/sobre" className="w-full sm:w-auto">
                   <Button size="lg" className="w-full bg-blue-900 hover:bg-blue-800 text-white">
-                    Conhecer Mais
+                    Conhecer a Beasell
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
@@ -256,10 +266,10 @@ const Index = () => {
         <div className="w-full px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6">
-              Pronto para Transformar a Sua Carreira?
+              Pronto para Transformar o Seu Negócio com a Beasell?
             </h2>
             <p className="text-lg sm:text-xl mb-8 text-blue-100">
-              Junte-se a centenas de profissionais que já transformaram suas vidas através da nossa formação
+              Junte-se a centenas de empresas que já transformaram seus negócios através da nossa consultoria especializada
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -271,7 +281,7 @@ const Index = () => {
               </Link>
               <Link to="/servicos" className="w-full sm:w-auto">
                 <Button size="lg" variant="outline" className="w-full border-2 border-white text-white hover:text-blue-900 px-8 py-4 text-lg font-semibold bg-gray-300 hover:bg-gray-200">
-                  Ver Cursos
+                  Ver Serviços
                   <BookOpen className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -280,7 +290,7 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-8 text-sm">
               <div className="flex items-center justify-center space-x-2">
                 <Phone className="h-4 w-4" />
-                <span>+244 926 238 518</span>
+                <span>(244) 930 010 002</span>
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <Mail className="h-4 w-4" />
@@ -296,6 +306,8 @@ const Index = () => {
       </section>
 
       <Footer />
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
