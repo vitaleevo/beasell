@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import BlogHero from '../components/heroes/BlogHero';
-import PostCard from '@/components/blog/PostCard';
+import EnhancedBlogHero from '../components/blog/EnhancedBlogHero';
+import EnhancedPostCard from '@/components/blog/EnhancedPostCard';
 import SearchBar from '@/components/blog/SearchBar';
 import BlogFilters from '@/components/blog/BlogFilters';
 import PopularPosts from '@/components/blog/PopularPosts';
@@ -11,7 +11,7 @@ import CategoriesWidget from '@/components/blog/CategoriesWidget';
 import { useBlogActions } from '@/hooks/useBlogActions';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Archive, Rss, BookOpen, Download } from 'lucide-react';
+import { Archive, Rss, BookOpen, Download, TrendingUp, Grid, Layers } from 'lucide-react';
 import SEOHead from '@/components/ui/seo-head';
 import {
   Pagination,
@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/pagination";
 
 const BlogPage = () => {
-  const { posts, categories, getFeaturedPosts } = useBlogActions();
+  const { posts, categories } = useBlogActions();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
@@ -32,7 +32,6 @@ const BlogPage = () => {
   const postsPerPage = 6;
 
   const publishedPosts = posts.filter(post => post.published);
-  const featuredPosts = getFeaturedPosts().slice(0, 3);
 
   // Filter posts based on search and filters
   const filteredPosts = publishedPosts.filter(post => {
@@ -97,24 +96,38 @@ const BlogPage = () => {
       />
       
       <Header />
-      <BlogHero />
+      <EnhancedBlogHero />
+      
+      {/* Quick Navigation */}
+      <section className="py-8 bg-gray-50 border-b">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link to="/blog/categorias">
+              <Button variant="outline" className="group">
+                <Grid className="h-4 w-4 mr-2" />
+                Todas as Categorias
+              </Button>
+            </Link>
+            <Link to="/blog/arquivo">
+              <Button variant="outline" className="group">
+                <Archive className="h-4 w-4 mr-2" />
+                Arquivo do Blog
+              </Button>
+            </Link>
+            <Button variant="outline" className="group">
+              <Rss className="h-4 w-4 mr-2" />
+              RSS Feed
+            </Button>
+            <Button variant="outline" className="group">
+              <TrendingUp className="h-4 w-4 mr-2" />
+              Trending
+            </Button>
+          </div>
+        </div>
+      </section>
       
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          {/* Featured Posts */}
-          {featuredPosts.length > 0 && (
-            <div className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-                Artigos em <span className="text-orange-500">Destaque</span>
-              </h2>
-              <div className="grid lg:grid-cols-3 gap-8">
-                {featuredPosts.map((post) => (
-                  <PostCard key={post.id} post={post} variant="featured" />
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Main Content */}
           <div className="grid lg:grid-cols-4 gap-8">
             {/* Main Content Area */}
@@ -122,18 +135,14 @@ const BlogPage = () => {
               {/* Search and Navigation */}
               <div className="mb-8">
                 <div className="flex flex-wrap items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Todos os Artigos</h2>
-                  <div className="flex space-x-2">
-                    <Link to="/blog/arquivo">
-                      <Button variant="outline" size="sm">
-                        <Archive className="h-4 w-4 mr-2" />
-                        Arquivo
-                      </Button>
-                    </Link>
-                    <Button variant="outline" size="sm">
-                      <Rss className="h-4 w-4 mr-2" />
-                      RSS
-                    </Button>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+                      <Layers className="h-6 w-6 mr-2 text-orange-500" />
+                      Todos os Artigos
+                    </h2>
+                    <p className="text-gray-600 mt-1">
+                      {filteredPosts.length} {filteredPosts.length === 1 ? 'artigo encontrado' : 'artigos encontrados'}
+                    </p>
                   </div>
                 </div>
                 
@@ -145,7 +154,7 @@ const BlogPage = () => {
                 <>
                   <div className="grid md:grid-cols-2 gap-8 mb-12">
                     {paginatedPosts.map((post) => (
-                      <PostCard key={post.id} post={post} />
+                      <EnhancedPostCard key={post.id} post={post} />
                     ))}
                   </div>
 
