@@ -91,7 +91,7 @@ function App() {
               </BlogProvider>
             </StudentProvider>
           </AdminProvider>
-        </Toaster>
+        </TooltipProvider>
       </HelmetProvider>
     </QueryClientProvider>
   );
