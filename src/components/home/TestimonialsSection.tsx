@@ -40,9 +40,7 @@ const TestimonialsSection = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 max-w-7xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-gradient-to-br from-blue-50 to-orange-50 p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
-              animationDelay: `${index * 0.2}s`
-            }}>
+            <div key={index} className={`bg-gradient-to-br from-blue-50 to-orange-50 p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in staggered-animation-${index + 1}`}>
               <Quote className="h-8 w-8 text-orange-500 mb-4" />
               <p className="text-gray-700 mb-6 italic">"{testimonial.text}"</p>
               <div className="flex items-center space-x-4">

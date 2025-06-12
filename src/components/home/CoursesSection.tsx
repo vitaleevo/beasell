@@ -44,9 +44,7 @@ const CoursesSection = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 max-w-7xl mx-auto">
           {courses.map((course, index) => (
-            <Card key={index} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
-              animationDelay: `${index * 0.2}s`
-            }}>
+            <Card key={index} className={`hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in staggered-animation-${index + 1}`}>
               <CardHeader>
                 <CardTitle className="text-lg sm:text-xl text-blue-900">{course.title}</CardTitle>
                 <div className="flex items-center space-x-4 text-sm text-gray-600">

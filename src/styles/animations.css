@@ -82,3 +82,28 @@
     opacity: 0.8;
   }
 }
+
+/* Staggered Animation Classes */
+.staggered-animation-1 {
+  animation-delay: 0s;
+}
+
+.staggered-animation-2 {
+  animation-delay: 0.2s;
+}
+
+.staggered-animation-3 {
+  animation-delay: 0.4s;
+}
+
+.staggered-animation-4 {
+  animation-delay: 0.6s;
+}
+
+.staggered-animation-5 {
+  animation-delay: 0.8s;
+}
+
+.staggered-animation-6 {
+  animation-delay: 1s;
+}
