@@ -72,18 +72,6 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen }: MobileNavProps) => {
             Serviços
           </Link>
           <Link 
-            to="/treinamento"
-            className={cn(
-              "flex items-center px-4 py-4 rounded-xl transition-all duration-200 text-base font-medium touch-target",
-              isActive('/treinamento') 
-                ? 'text-blue-900 bg-blue-900/10 border-l-4 border-blue-900' 
-                : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50 active:bg-gray-100'
-            )}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Treinamento
-          </Link>
-          <Link 
             to="/testemunhos"
             className={cn(
               "flex items-center px-4 py-4 rounded-xl transition-all duration-200 text-base font-medium touch-target",
