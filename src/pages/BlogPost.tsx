@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -10,29 +9,32 @@ import { ArrowLeft, Calendar, User, Clock, Share2, Facebook, Twitter, Linkedin, 
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import PostCard from '@/components/blog/PostCard';
-
 const BlogPost = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { getPostBySlug, posts } = useBlogActions();
-  const { toast } = useToast();
-  
+  const {
+    slug
+  } = useParams<{
+    slug: string;
+  }>();
+  const {
+    getPostBySlug,
+    posts
+  } = useBlogActions();
+  const {
+    toast
+  } = useToast();
   const post = slug ? getPostBySlug(slug) : null;
-  const relatedPosts = posts
-    .filter(p => p.id !== post?.id && p.category === post?.category && p.published)
-    .slice(0, 3);
+  const relatedPosts = posts.filter(p => p.id !== post?.id && p.category === post?.category && p.published).slice(0, 3);
 
   // Navigation between posts
   const allPosts = posts.filter(p => p.published).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const currentIndex = allPosts.findIndex(p => p.id === post?.id);
   const previousPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
   const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
-
   if (!post) {
-    return (
-      <div className="min-h-screen bg-white">
+    return <div className="min-h-screen bg-white">
         <Header />
         <div className="pt-24 pb-12">
-          <div className="container mx-auto px-4 text-center">
+          <div className="container mx-auto px-4 text-center py-[126px]">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Artigo não encontrado</h1>
             <p className="text-gray-600 mb-8">O artigo que procura não existe ou foi removido.</p>
             <Link to="/blog">
@@ -44,23 +46,18 @@ const BlogPost = () => {
           </div>
         </div>
         <Footer />
-      </div>
-    );
+      </div>;
   }
-
   const shareUrl = window.location.href;
   const shareTitle = post.title;
-
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareUrl);
     toast({
       title: 'Link copiado!',
-      description: 'O link do artigo foi copiado para a área de transferência.',
+      description: 'O link do artigo foi copiado para a área de transferência.'
     });
   };
-
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       <Header />
       
       {/* Breadcrumbs */}
@@ -116,27 +113,15 @@ const BlogPost = () => {
 
             {/* Share Buttons - Top */}
             <div className="flex flex-wrap gap-2 mb-8">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank')}
-              >
+              <Button variant="outline" size="sm" onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank')}>
                 <Facebook className="h-4 w-4 mr-2" />
                 Facebook
               </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`, '_blank')}
-              >
+              <Button variant="outline" size="sm" onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`, '_blank')}>
                 <Twitter className="h-4 w-4 mr-2" />
                 Twitter
               </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank')}
-              >
+              <Button variant="outline" size="sm" onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank')}>
                 <Linkedin className="h-4 w-4 mr-2" />
                 LinkedIn
               </Button>
@@ -156,13 +141,7 @@ const BlogPost = () => {
             <div className="grid lg:grid-cols-4 gap-12">
               {/* Main Content */}
               <div className="lg:col-span-3">
-                {post.image && (
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-96 object-cover rounded-xl shadow-lg mb-8"
-                  />
-                )}
+                {post.image && <img src={post.image} alt={post.title} className="w-full h-96 object-cover rounded-xl shadow-lg mb-8" />}
                 
                 <div className="prose prose-lg max-w-none">
                   <p className="text-xl text-gray-600 mb-8 leading-relaxed">
@@ -175,44 +154,28 @@ const BlogPost = () => {
                 </div>
 
                 {/* Tags */}
-                {post.tags.length > 0 && (
-                  <div className="mt-12 pt-8 border-t">
+                {post.tags.length > 0 && <div className="mt-12 pt-8 border-t">
                     <h3 className="text-lg font-semibold mb-4">Tags:</h3>
                     <div className="flex flex-wrap gap-2">
-                      {post.tags.map((tag, index) => (
-                        <Badge key={index} variant="outline" className="cursor-pointer hover:bg-gray-100">
+                      {post.tags.map((tag, index) => <Badge key={index} variant="outline" className="cursor-pointer hover:bg-gray-100">
                           #{tag}
-                        </Badge>
-                      ))}
+                        </Badge>)}
                     </div>
-                  </div>
-                )}
+                  </div>}
 
                 {/* Share Buttons - Bottom */}
                 <div className="mt-8 pt-8 border-t">
                   <h3 className="text-lg font-semibold mb-4">Partilhar este artigo:</h3>
                   <div className="flex flex-wrap gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank')}
-                    >
+                    <Button variant="outline" size="sm" onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank')}>
                       <Facebook className="h-4 w-4 mr-2" />
                       Facebook
                     </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`, '_blank')}
-                    >
+                    <Button variant="outline" size="sm" onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`, '_blank')}>
                       <Twitter className="h-4 w-4 mr-2" />
                       Twitter
                     </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank')}
-                    >
+                    <Button variant="outline" size="sm" onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank')}>
                       <Linkedin className="h-4 w-4 mr-2" />
                       LinkedIn
                     </Button>
@@ -226,8 +189,7 @@ const BlogPost = () => {
                 {/* Post Navigation */}
                 <div className="mt-12 pt-8 border-t">
                   <div className="grid md:grid-cols-2 gap-6">
-                    {previousPost && (
-                      <Link to={`/blog/${previousPost.slug}`} className="group">
+                    {previousPost && <Link to={`/blog/${previousPost.slug}`} className="group">
                         <div className="flex items-center space-x-3 p-4 rounded-lg border hover:shadow-md transition-shadow">
                           <ChevronLeft className="h-5 w-5 text-gray-400 group-hover:text-blue-900" />
                           <div>
@@ -237,11 +199,9 @@ const BlogPost = () => {
                             </h4>
                           </div>
                         </div>
-                      </Link>
-                    )}
+                      </Link>}
                     
-                    {nextPost && (
-                      <Link to={`/blog/${nextPost.slug}`} className="group">
+                    {nextPost && <Link to={`/blog/${nextPost.slug}`} className="group">
                         <div className="flex items-center space-x-3 p-4 rounded-lg border hover:shadow-md transition-shadow">
                           <div className="flex-1">
                             <p className="text-sm text-gray-500 mb-1">Próximo artigo</p>
@@ -251,8 +211,7 @@ const BlogPost = () => {
                           </div>
                           <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-blue-900" />
                         </div>
-                      </Link>
-                    )}
+                      </Link>}
                   </div>
                 </div>
               </div>
@@ -263,11 +222,7 @@ const BlogPost = () => {
                   {/* Author Info */}
                   <Card>
                     <CardContent className="p-6 text-center">
-                      <img
-                        src="/lovable-uploads/c6346064-d31c-4824-978e-ae38c45567d3.png"
-                        alt="Beatriz Chavier"
-                        className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
-                      />
+                      <img src="/lovable-uploads/c6346064-d31c-4824-978e-ae38c45567d3.png" alt="Beatriz Chavier" className="w-20 h-20 rounded-full mx-auto mb-4 object-cover" />
                       <h3 className="font-semibold text-gray-900 mb-2">Beatriz Chavier</h3>
                       <p className="text-sm text-gray-600 mb-4">
                         Especialista em formação de vendas com mais de 10 anos de experiência no mercado angolano.
@@ -288,11 +243,7 @@ const BlogPost = () => {
                         Receba dicas semanais sobre vendas direto no seu email.
                       </p>
                       <div className="space-y-3">
-                        <input
-                          type="email"
-                          placeholder="Seu email"
-                          className="w-full p-2 border rounded-lg text-sm"
-                        />
+                        <input type="email" placeholder="Seu email" className="w-full p-2 border rounded-lg text-sm" />
                         <Button className="w-full bg-orange-500 hover:bg-orange-600 text-sm">
                           Subscrever
                         </Button>
@@ -307,8 +258,7 @@ const BlogPost = () => {
       </div>
 
       {/* Related Posts */}
-      {relatedPosts.length > 0 && (
-        <div className="py-16 bg-gray-50">
+      {relatedPosts.length > 0 && <div className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
@@ -316,18 +266,13 @@ const BlogPost = () => {
               </h2>
               
               <div className="grid md:grid-cols-3 gap-8">
-                {relatedPosts.map((relatedPost) => (
-                  <PostCard key={relatedPost.id} post={relatedPost} variant="compact" />
-                ))}
+                {relatedPosts.map(relatedPost => <PostCard key={relatedPost.id} post={relatedPost} variant="compact" />)}
               </div>
             </div>
           </div>
-        </div>
-      )}
+        </div>}
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default BlogPost;
