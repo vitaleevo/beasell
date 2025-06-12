@@ -35,15 +35,18 @@ const StatsSection = () => {
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-7xl mx-auto">
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center group">
-              <div className="bg-white/10 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-xl hover:bg-white/20 transition-all duration-300 hover:-translate-y-2">
-                <stat.icon className="h-8 w-8 sm:h-12 sm:w-12 mx-auto mb-4 text-orange-300 group-hover:scale-110 transition-transform duration-300" />
-                <div className="text-2xl sm:text-4xl font-bold mb-2">{stat.number}</div>
-                <div className="text-xs sm:text-base text-blue-200">{stat.label}</div>
+          {stats.map((stat, index) => {
+            const IconComponent = stat.icon;
+            return (
+              <div key={index} className="text-center group">
+                <div className="bg-white/10 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-xl hover:bg-white/20 transition-all duration-300 hover:-translate-y-2">
+                  <IconComponent className="h-8 w-8 sm:h-12 sm:w-12 mx-auto mb-4 text-orange-300 group-hover:scale-110 transition-transform duration-300" />
+                  <div className="text-2xl sm:text-4xl font-bold mb-2">{stat.number}</div>
+                  <div className="text-xs sm:text-base text-blue-200">{stat.label}</div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

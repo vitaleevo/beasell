@@ -18,15 +18,11 @@ const VideoSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center max-w-7xl mx-auto">
           <div className="relative">
-            <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
-              <iframe
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="Formação Beasell - Transformando Vendedores"
-                className="w-full h-full"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+            <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gray-100 flex items-center justify-center">
+              <div className="text-center">
+                <Play className="h-16 w-16 text-orange-500 mx-auto mb-4" />
+                <p className="text-gray-600">Vídeo em breve</p>
+              </div>
             </div>
             <div className="absolute -bottom-4 -right-4 bg-orange-500 text-white p-4 rounded-xl shadow-xl">
               <Play className="h-6 w-6" />

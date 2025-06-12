@@ -24,7 +24,7 @@ const CTASection = () => {
               </Button>
             </Link>
             <Link to="/servicos" className="w-full sm:w-auto">
-              <Button size="lg" variant="outline" className="w-full border-2 border-white text-white hover:text-blue-900 px-8 py-4 text-lg font-semibold bg-gray-300 hover:bg-gray-200">
+              <Button size="lg" variant="outline" className="w-full border-2 border-white text-white hover:text-blue-900 px-8 py-4 text-lg font-semibold bg-transparent hover:bg-white">
                 Ver Serviços
                 <BookOpen className="ml-2 h-5 w-5" />
               </Button>
