@@ -351,7 +351,7 @@ const ContactForm = () => {
                         hoverEffect="scale"
                       >
                         WhatsApp
-                      </Enhance dButton>
+                      </EnhancedButton>
                     </div>
                   </div>
                 )}
