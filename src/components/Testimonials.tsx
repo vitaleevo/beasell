@@ -62,12 +62,12 @@ const Testimonials = () => {
   ];
 
   return (
-    <section id="testemunhos" className="py-16 bg-white">
+    <section id="experiencia-cliente" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            O que dizem os nossos <span className="text-blue-900">formandos</span>
+            Experiência dos nossos <span className="text-blue-900">clientes</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Resultados reais de profissionais e empresas que transformaram suas vendas connosco

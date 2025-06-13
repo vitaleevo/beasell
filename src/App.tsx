@@ -8,13 +8,13 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
-import Testimonials from "./pages/Testimonials";
+import CustomerExperience from "./pages/CustomerExperience";
 import Training from "./pages/Training";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import BlogCategory from "./pages/BlogCategory";
-import BlogCategories from "./pages/BlogCategories";
-import BlogArchive from "./pages/BlogArchive";
+import Content from "./pages/Content";
+import ContentPost from "./pages/ContentPost";
+import ContentCategory from "./pages/ContentCategory";
+import ContentCategories from "./pages/ContentCategories";
+import ContentArchive from "./pages/ContentArchive";
 import NotFound from "./pages/NotFound";
 
 // Admin pages
@@ -22,7 +22,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CourseManager from "./pages/admin/CourseManager";
 import StudentManager from "./pages/admin/StudentManager";
-import BlogManager from "./pages/admin/BlogManager";
+import ContentManager from "./pages/admin/ContentManager";
 import PriceManager from "./pages/admin/PriceManager";
 import Analytics from "./pages/admin/Analytics";
 import SubscriptionManager from "./pages/admin/SubscriptionManager";
@@ -57,22 +57,29 @@ function App() {
                     <Route path="/sobre" element={<About />} />
                     <Route path="/servicos" element={<Services />} />
                     <Route path="/contacto" element={<Contact />} />
-                    <Route path="/testemunhos" element={<Testimonials />} />
+                    <Route path="/experiencia-cliente" element={<CustomerExperience />} />
+                    <Route path="/testemunhos" element={<CustomerExperience />} />
                     <Route path="/treinamento" element={<Training />} />
                     
-                    {/* Blog Routes */}
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/blog/categorias" element={<BlogCategories />} />
-                    <Route path="/blog/categoria/:slug" element={<BlogCategory />} />
-                    <Route path="/blog/arquivo" element={<BlogArchive />} />
-                    <Route path="/blog/:slug" element={<BlogPost />} />
+                    {/* Content Routes (formerly Blog) */}
+                    <Route path="/conteudos" element={<Content />} />
+                    <Route path="/blog" element={<Content />} />
+                    <Route path="/conteudos/categorias" element={<ContentCategories />} />
+                    <Route path="/blog/categorias" element={<ContentCategories />} />
+                    <Route path="/conteudos/categoria/:slug" element={<ContentCategory />} />
+                    <Route path="/blog/categoria/:slug" element={<ContentCategory />} />
+                    <Route path="/conteudos/arquivo" element={<ContentArchive />} />
+                    <Route path="/blog/arquivo" element={<ContentArchive />} />
+                    <Route path="/conteudos/:slug" element={<ContentPost />} />
+                    <Route path="/blog/:slug" element={<ContentPost />} />
 
                     {/* Admin Routes */}
                     <Route path="/admin/login" element={<AdminLogin />} />
                     <Route path="/admin" element={<AdminDashboard />} />
                     <Route path="/admin/cursos" element={<CourseManager />} />
                     <Route path="/admin/alunos" element={<StudentManager />} />
-                    <Route path="/admin/blog" element={<BlogManager />} />
+                    <Route path="/admin/conteudos" element={<ContentManager />} />
+                    <Route path="/admin/blog" element={<ContentManager />} />
                     <Route path="/admin/precos" element={<PriceManager />} />
                     <Route path="/admin/analytics" element={<Analytics />} />
                     <Route path="/admin/subscricoes" element={<SubscriptionManager />} />

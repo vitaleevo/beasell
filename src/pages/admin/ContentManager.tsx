@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import CategoryManager from '@/components/admin/CategoryManager';
@@ -11,7 +10,7 @@ import { BlogPost } from '@/types/blog';
 import { Plus, Edit, Trash2, Eye, Search, FileText, Tag } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-const BlogManager = () => {
+const ContentManager = () => {
   const { posts, createPost, updatePost, deletePost } = useBlogActions();
   const { toast } = useToast();
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
@@ -46,8 +45,8 @@ const BlogManager = () => {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Gestão de Blog</h1>
-            <p className="text-gray-600">Gerencie artigos, categorias e conteúdos do blog</p>
+            <h1 className="text-3xl font-bold text-gray-900">Gestão de Conteúdos</h1>
+            <p className="text-gray-600">Gerencie artigos, categorias e conteúdos do site</p>
           </div>
         </div>
 
@@ -360,4 +359,4 @@ const BlogEditor: React.FC<{
   );
 };
 
-export default BlogManager;
+export default ContentManager;

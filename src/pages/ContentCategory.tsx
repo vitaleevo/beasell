@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -19,7 +18,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const BlogCategory = () => {
+const ContentCategory = () => {
   const { slug } = useParams<{ slug: string }>();
   const { getPostsByCategory, categories } = useBlogActions();
   const [searchQuery, setSearchQuery] = useState('');
@@ -46,10 +45,10 @@ const BlogCategory = () => {
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Categoria não encontrada</h1>
             <p className="text-gray-600 mb-8">A categoria que procura não existe.</p>
-            <Link to="/blog">
+            <Link to="/conteudos">
               <Button className="bg-blue-900 hover:bg-blue-800">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Voltar ao Blog
+                Voltar aos Conteúdos
               </Button>
             </Link>
           </div>
@@ -62,10 +61,10 @@ const BlogCategory = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <SEOHead 
-        title={`${category.name} - Blog Beasell`}
-        description={`Artigos sobre ${category.name.toLowerCase()} no blog da Beasell. Conteúdo especializado em vendas e estratégias comerciais.`}
-        keywords={`${category.name.toLowerCase()}, vendas angola, blog beasell`}
-        url={`https://beasell.ao/blog/categoria/${slug}`}
+        title={`${category.name} - Conteúdos Beasell`}
+        description={`Artigos sobre ${category.name.toLowerCase()} nos conteúdos da Beasell. Material especializado em vendas e estratégias comerciais.`}
+        keywords={`${category.name.toLowerCase()}, vendas angola, conteúdos beasell`}
+        url={`https://beasell.ao/conteudos/categoria/${slug}`}
       />
       
       <Header />
@@ -77,7 +76,7 @@ const BlogCategory = () => {
             <div className="flex items-center space-x-2 text-sm text-gray-600">
               <Link to="/" className="hover:text-blue-900">Início</Link>
               <span>/</span>
-              <Link to="/blog" className="hover:text-blue-900">Blog</Link>
+              <Link to="/conteudos" className="hover:text-blue-900">Conteúdos</Link>
               <span>/</span>
               <span className="text-gray-900">{category.name}</span>
             </div>
@@ -166,7 +165,7 @@ const BlogCategory = () => {
               <p className="text-gray-600 mb-4">
                 {searchQuery ? 'Nenhum artigo encontrado para sua pesquisa.' : 'Nenhum artigo nesta categoria ainda.'}
               </p>
-              <Link to="/blog">
+              <Link to="/conteudos">
                 <Button variant="outline">Ver Todos os Artigos</Button>
               </Link>
             </div>
@@ -179,4 +178,4 @@ const BlogCategory = () => {
   );
 };
 
-export default BlogCategory;
+export default ContentCategory;

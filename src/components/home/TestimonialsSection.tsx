@@ -31,7 +31,7 @@ const TestimonialsSection = () => {
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 max-w-7xl mx-auto">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            O que dizem os nossos <span className="text-orange-500">Clientes</span>
+            Experiência dos nossos <span className="text-orange-500">Clientes</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             Histórias reais de transformação profissional
@@ -60,9 +60,9 @@ const TestimonialsSection = () => {
         </div>
 
         <div className="text-center max-w-7xl mx-auto">
-          <Link to="/testemunhos">
+          <Link to="/experiencia-cliente">
             <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
-              Ver Mais Testemunhos
+              Ver Mais Experiências
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>

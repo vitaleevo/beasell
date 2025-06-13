@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -18,7 +17,7 @@ import {
 } from 'lucide-react';
 import SEOHead from '@/components/ui/seo-head';
 
-const BlogCategories = () => {
+const ContentCategories = () => {
   const { categories, posts } = useBlogActions();
   
   const categoryIcons = {
@@ -45,10 +44,10 @@ const BlogCategories = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <SEOHead 
-        title="Categorias - Blog Beasell | Tópicos de Vendas"
-        description="Explore todas as categorias do blog Beasell: técnicas de vendas, gestão de objeções, vendas consultivas e liderança comercial."
-        keywords="categorias blog vendas, tópicos vendas angola, técnicas vendas, gestão objeções"
-        url="https://beasell.ao/blog/categorias"
+        title="Categorias - Conteúdos Beasell | Tópicos de Vendas"
+        description="Explore todas as categorias de conteúdos Beasell: técnicas de vendas, gestão de objeções, vendas consultivas e liderança comercial."
+        keywords="categorias conteúdos vendas, tópicos vendas angola, técnicas vendas, gestão objeções"
+        url="https://beasell.ao/conteudos/categorias"
       />
       
       <Header />
@@ -63,7 +62,7 @@ const BlogCategories = () => {
             </div>
             
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Categorias do <span className="text-orange-400">Blog</span>
+              Categorias de <span className="text-orange-400">Conteúdos</span>
             </h1>
             
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -72,7 +71,7 @@ const BlogCategories = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/blog">
+              <Link to="/conteudos">
                 <Button size="lg" className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-3">
                   Ver Todos os Artigos
                 </Button>
@@ -110,7 +109,6 @@ const BlogCategories = () => {
               
               return (
                 <Card key={category.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 overflow-hidden">
-                  {/* Category Header */}
                   <div className={`bg-gradient-to-r ${gradientColor} p-6 text-white relative overflow-hidden`}>
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
                     <div className="relative z-10">
@@ -131,7 +129,6 @@ const BlogCategories = () => {
                   </div>
 
                   <CardContent className="p-6">
-                    {/* Recent Posts Preview */}
                     {recentPosts.length > 0 && (
                       <div className="mb-6">
                         <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
@@ -142,7 +139,7 @@ const BlogCategories = () => {
                           {recentPosts.map((post) => (
                             <Link 
                               key={post.id} 
-                              to={`/blog/${post.slug}`}
+                              to={`/conteudos/${post.slug}`}
                               className="block group/post"
                             >
                               <div className="flex items-start space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
@@ -164,7 +161,7 @@ const BlogCategories = () => {
                       </div>
                     )}
 
-                    <Link to={`/blog/categoria/${category.slug}`}>
+                    <Link to={`/conteudos/categoria/${category.slug}`}>
                       <Button className="w-full group bg-gray-900 hover:bg-blue-900">
                         Explorar {category.name}
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -189,7 +186,7 @@ const BlogCategories = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/blog">
+            <Link to="/conteudos">
               <Button size="lg" className="bg-white text-blue-900 hover:bg-gray-100">
                 Ver Todos os Artigos
               </Button>
@@ -208,4 +205,4 @@ const BlogCategories = () => {
   );
 };
 
-export default BlogCategories;
+export default ContentCategories;

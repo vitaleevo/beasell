@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import EnhancedBlogHero from '../components/blog/EnhancedBlogHero';
+import EnhancedContentHero from '../components/blog/EnhancedBlogHero';
 import EnhancedPostCard from '@/components/blog/EnhancedPostCard';
 import SearchBar from '@/components/blog/SearchBar';
 import BlogFilters from '@/components/blog/BlogFilters';
@@ -22,7 +21,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const BlogPage = () => {
+const ContentPage = () => {
   const { posts, categories } = useBlogActions();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -89,29 +88,29 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-white">
       <SEOHead 
-        title="Blog - Beasell | Dicas e Estratégias de Vendas"
-        description="Acesse artigos especializados sobre vendas, técnicas comerciais e desenvolvimento profissional. Blog da Beasell com conteúdo exclusivo."
-        keywords="blog vendas angola, dicas vendas, estratégias comerciais, artigos vendas, técnicas vendas luanda"
-        url="https://beasell.ao/blog"
+        title="Conteúdos - Beasell | Dicas e Estratégias de Vendas"
+        description="Acesse artigos especializados sobre vendas, técnicas comerciais e desenvolvimento profissional. Conteúdos da Beasell com material exclusivo."
+        keywords="conteúdos vendas angola, dicas vendas, estratégias comerciais, artigos vendas, técnicas vendas luanda"
+        url="https://beasell.ao/conteudos"
       />
       
       <Header />
-      <EnhancedBlogHero />
+      <EnhancedContentHero />
       
       {/* Quick Navigation */}
       <section className="py-8 bg-gray-50 border-b">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link to="/blog/categorias">
+            <Link to="/conteudos/categorias">
               <Button variant="outline" className="group">
                 <Grid className="h-4 w-4 mr-2" />
                 Todas as Categorias
               </Button>
             </Link>
-            <Link to="/blog/arquivo">
+            <Link to="/conteudos/arquivo">
               <Button variant="outline" className="group">
                 <Archive className="h-4 w-4 mr-2" />
-                Arquivo do Blog
+                Arquivo de Conteúdos
               </Button>
             </Link>
             <Button variant="outline" className="group">
@@ -138,7 +137,7 @@ const BlogPage = () => {
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900 flex items-center">
                       <Layers className="h-6 w-6 mr-2 text-orange-500" />
-                      Todos os Artigos
+                      Todos os Conteúdos
                     </h2>
                     <p className="text-gray-600 mt-1">
                       {filteredPosts.length} {filteredPosts.length === 1 ? 'artigo encontrado' : 'artigos encontrados'}
@@ -315,4 +314,4 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage;
+export default ContentPage;

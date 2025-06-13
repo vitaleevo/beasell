@@ -9,7 +9,7 @@ import { ArrowLeft, Calendar, User, Clock, Share2, Facebook, Twitter, Linkedin, 
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import PostCard from '@/components/blog/PostCard';
-const BlogPost = () => {
+const ContentPost = () => {
   const {
     slug
   } = useParams<{
@@ -37,10 +37,10 @@ const BlogPost = () => {
           <div className="container mx-auto px-4 text-center py-[126px]">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Artigo não encontrado</h1>
             <p className="text-gray-600 mb-8">O artigo que procura não existe ou foi removido.</p>
-            <Link to="/blog">
+            <Link to="/conteudos">
               <Button className="bg-blue-900 hover:bg-blue-800">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Voltar ao Blog
+                Voltar aos Conteúdos
               </Button>
             </Link>
           </div>
@@ -67,9 +67,9 @@ const BlogPost = () => {
             <div className="flex items-center space-x-2">
               <Link to="/" className="hover:text-blue-900">Início</Link>
               <span>/</span>
-              <Link to="/blog" className="hover:text-blue-900">Blog</Link>
+              <Link to="/conteudos" className="hover:text-blue-900">Conteúdos</Link>
               <span>/</span>
-              <Link to={`/blog/categoria/${post.category.toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-blue-900">
+              <Link to={`/conteudos/categoria/${post.category.toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-blue-900">
                 {post.category}
               </Link>
               <span>/</span>
@@ -83,9 +83,9 @@ const BlogPost = () => {
       <div className="pb-8 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <Link to="/blog" className="inline-flex items-center text-blue-900 hover:text-blue-700 mb-6">
+            <Link to="/conteudos" className="inline-flex items-center text-blue-900 hover:text-blue-700 mb-6">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Voltar ao Blog
+              Voltar aos Conteúdos
             </Link>
             
             <Badge variant="secondary" className="bg-blue-100 text-blue-800 mb-4">
@@ -189,7 +189,7 @@ const BlogPost = () => {
                 {/* Post Navigation */}
                 <div className="mt-12 pt-8 border-t">
                   <div className="grid md:grid-cols-2 gap-6">
-                    {previousPost && <Link to={`/blog/${previousPost.slug}`} className="group">
+                    {previousPost && <Link to={`/conteudos/${previousPost.slug}`} className="group">
                         <div className="flex items-center space-x-3 p-4 rounded-lg border hover:shadow-md transition-shadow">
                           <ChevronLeft className="h-5 w-5 text-gray-400 group-hover:text-blue-900" />
                           <div>
@@ -201,7 +201,7 @@ const BlogPost = () => {
                         </div>
                       </Link>}
                     
-                    {nextPost && <Link to={`/blog/${nextPost.slug}`} className="group">
+                    {nextPost && <Link to={`/conteudos/${nextPost.slug}`} className="group">
                         <div className="flex items-center space-x-3 p-4 rounded-lg border hover:shadow-md transition-shadow">
                           <div className="flex-1">
                             <p className="text-sm text-gray-500 mb-1">Próximo artigo</p>
@@ -275,4 +275,4 @@ const BlogPost = () => {
       <Footer />
     </div>;
 };
-export default BlogPost;
+export default ContentPost;

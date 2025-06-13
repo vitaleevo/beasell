@@ -10,7 +10,7 @@ import { ArrowLeft, Calendar, BarChart3 } from 'lucide-react';
 import SEOHead from '@/components/ui/seo-head';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-const BlogArchive = () => {
+const ContentArchive = () => {
   const { posts } = useBlogActions();
   const [selectedYear, setSelectedYear] = useState('all');
   const [selectedMonth, setSelectedMonth] = useState('all');
@@ -71,10 +71,10 @@ const BlogArchive = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <SEOHead 
-        title="Arquivo - Blog Beasell"
-        description="Explore todos os artigos do blog da Beasell organizados por data. Acesse nosso arquivo completo de conteúdo sobre vendas."
-        keywords="arquivo blog, artigos vendas, histórico blog beasell"
-        url="https://beasell.ao/blog/arquivo"
+        title="Arquivo - Conteúdos Beasell"
+        description="Explore todos os artigos dos conteúdos da Beasell organizados por data. Acesse nosso arquivo completo de material sobre vendas."
+        keywords="arquivo conteúdos, artigos vendas, histórico conteúdos beasell"
+        url="https://beasell.ao/conteudos/arquivo"
       />
       
       <Header />
@@ -86,7 +86,7 @@ const BlogArchive = () => {
             <div className="flex items-center space-x-2 text-sm text-gray-600">
               <Link to="/" className="hover:text-blue-900">Início</Link>
               <span>/</span>
-              <Link to="/blog" className="hover:text-blue-900">Blog</Link>
+              <Link to="/conteudos" className="hover:text-blue-900">Conteúdos</Link>
               <span>/</span>
               <span className="text-gray-900">Arquivo</span>
             </div>
@@ -99,7 +99,7 @@ const BlogArchive = () => {
                 <Calendar className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h1 className="text-4xl font-bold text-gray-900">Arquivo do Blog</h1>
+                <h1 className="text-4xl font-bold text-gray-900">Arquivo de Conteúdos</h1>
                 <p className="text-gray-600 mt-2">
                   Explore todos os nossos artigos organizados por data
                 </p>
@@ -230,4 +230,4 @@ const BlogArchive = () => {
   );
 };
 
-export default BlogArchive;
+export default ContentArchive;

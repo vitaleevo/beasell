@@ -64,29 +64,29 @@ const DesktopNav = () => {
           </NavigationMenuItem>
           
           <NavigationMenuItem>
-            <Link to="/testemunhos">
+            <Link to="/experiencia-cliente">
               <NavigationMenuLink 
                 className={cn(
                   navigationMenuTriggerStyle(),
                   "text-sm xl:text-base font-medium px-3 xl:px-4 py-2",
-                  isActive('/testemunhos') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
+                  isActive('/experiencia-cliente') || isActive('/testemunhos') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
                 )}
               >
-                Testemunhos
+                Experiência do Cliente
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
           
           <NavigationMenuItem>
-            <Link to="/blog">
+            <Link to="/conteudos">
               <NavigationMenuLink 
                 className={cn(
                   navigationMenuTriggerStyle(),
                   "text-sm xl:text-base font-medium px-3 xl:px-4 py-2",
-                  isActive('/blog') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
+                  isActive('/conteudos') || isActive('/blog') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
                 )}
               >
-                Blog
+                Conteúdos
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

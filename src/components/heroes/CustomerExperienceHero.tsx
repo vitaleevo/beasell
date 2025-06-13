@@ -1,9 +1,8 @@
-
 import React from 'react';
 import PageHero from './PageHero';
 import { Quote, Star, Heart, Award, Users } from 'lucide-react';
 
-const TestimonialsHero = () => {
+const CustomerExperienceHero = () => {
   const featuredTestimonial = {
     name: 'Carlos Mendes',
     role: 'Director Comercial, Empresa XYZ',
@@ -13,7 +12,7 @@ const TestimonialsHero = () => {
 
   return (
     <PageHero
-      title="Testemunhos"
+      title="Experiência do Cliente"
       subtitle="Histórias de Sucesso"
       description="Descubra como profissionais e empresas transformaram seus resultados comerciais através das nossas formações especializadas."
       backgroundImage="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
@@ -66,4 +65,4 @@ const TestimonialsHero = () => {
   );
 };
 
-export default TestimonialsHero;
+export default CustomerExperienceHero;

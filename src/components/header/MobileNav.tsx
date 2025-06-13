@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -76,28 +75,28 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen }: MobileNavProps) => {
             Serviços
           </Link>
           <Link 
-            to="/testemunhos"
+            to="/experiencia-cliente"
             className={cn(
               "flex items-center px-4 py-4 rounded-xl transition-all duration-200 text-base font-medium touch-manipulation",
-              isActive('/testemunhos') 
+              isActive('/experiencia-cliente') || isActive('/testemunhos')
                 ? 'text-blue-900 bg-blue-900/10 border-l-4 border-blue-900' 
                 : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50 active:bg-gray-100'
             )}
             onClick={() => setIsMenuOpen(false)}
           >
-            Testemunhos
+            Experiência do Cliente
           </Link>
           <Link 
-            to="/blog"
+            to="/conteudos"
             className={cn(
               "flex items-center px-4 py-4 rounded-xl transition-all duration-200 text-base font-medium touch-manipulation",
-              isActive('/blog') 
+              isActive('/conteudos') || isActive('/blog')
                 ? 'text-blue-900 bg-blue-900/10 border-l-4 border-blue-900' 
                 : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50 active:bg-gray-100'
             )}
             onClick={() => setIsMenuOpen(false)}
           >
-            Blog
+            Conteúdos
           </Link>
         </div>
 
