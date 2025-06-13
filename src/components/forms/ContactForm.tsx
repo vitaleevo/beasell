@@ -108,42 +108,42 @@ const ContactForm = () => {
     {
       icon: MapPin,
       title: "Localização",
-      content: "Rua de Talatona, Edifício Beasell, Luanda, Angola"
+      content: "Rua Marechal Brós Tito Nº 35, Edifício Skyone 4º andar, Luanda, Angola"
     },
     {
       icon: Mail,
       title: "Email",
-      content: "info@beasell.com"
+      content: "info@beasell.ao"
     },
     {
       icon: Phone,
       title: "Telefone",
-      content: "+244 926 238 518"
+      content: "(+244) 930 010 002"
     },
     {
       icon: Clock,
       title: "Horário",
-      content: "Seg-Sex: 9h às 18h"
+      content: "Seg-Sex: 8h às 17h"
     }
   ];
 
   if (isSuccess) {
     return (
-      <section id="contacto" className="py-8 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section id="contacto" className="py-6 sm:py-8 bg-gray-50">
+        <div className="container mx-auto px-3 sm:px-4">
           <Card className="max-w-md mx-auto text-center shadow-lg">
-            <CardContent className="p-8">
-              <div className="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="h-10 w-10 text-green-600" />
+            <CardContent className="p-6 sm:p-8">
+              <div className="bg-green-100 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-green-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Mensagem Enviada!</h3>
-              <p className="text-gray-600 mb-6">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Mensagem Enviada!</h3>
+              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
                 Obrigado pelo seu contacto. Nossa equipa responderá em breve.
               </p>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <Button 
                   onClick={() => setIsSuccess(false)}
-                  className="w-full bg-blue-900 hover:bg-blue-800"
+                  className="w-full bg-blue-900 hover:bg-blue-800 text-sm sm:text-base py-2 sm:py-3"
                 >
                   Enviar Nova Mensagem
                 </Button>
@@ -160,45 +160,45 @@ const ContactForm = () => {
   }
 
   return (
-    <section id="contacto" className="py-8 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">
+    <section id="contacto" className="py-6 sm:py-8 bg-gray-50">
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
             Entre em <span className="text-blue-900">Contacto</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-2">
             Pronto para transformar sua carreira ou equipa? Fale connosco hoje mesmo.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
           {/* Contact Form */}
           <Card className="shadow-lg">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xl text-gray-900">
+            <CardHeader className="pb-3 sm:pb-4">
+              <CardTitle className="text-lg sm:text-xl text-gray-900">
                 Envie-nos uma Mensagem
-                <span className="text-sm font-normal text-gray-500 ml-2">
+                <span className="text-xs sm:text-sm font-normal text-gray-500 ml-2">
                   (Passo {formStep} de 3)
                 </span>
               </CardTitle>
               {selectedService && (
-                <p className="text-blue-900 font-medium text-sm">
+                <p className="text-blue-900 font-medium text-xs sm:text-sm">
                   Interessado em: {serviceOptions.find(opt => opt.value === selectedService)?.label}
                 </p>
               )}
             </CardHeader>
             
-            <CardContent className="pt-0">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <CardContent className="pt-0 px-4 sm:px-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 sm:space-y-4">
                 {/* Step 1: Basic Info */}
                 {formStep === 1 && (
-                  <div className="space-y-4 animate-fade-in">
-                    <div className="grid md:grid-cols-2 gap-3">
+                  <div className="space-y-3 sm:space-y-4 animate-fade-in">
+                    <div className="grid gap-3 sm:gap-4">
                       <div>
                         <Input
                           placeholder="Seu nome completo"
                           {...register('name')}
-                          className={errors.name ? 'border-red-500' : watchedFields.name?.length >= 2 ? 'border-green-500' : ''}
+                          className={`text-base ${errors.name ? 'border-red-500' : watchedFields.name?.length >= 2 ? 'border-green-500' : ''}`}
                         />
                         <FormValidation 
                           errors={errors} 
@@ -212,7 +212,7 @@ const ContactForm = () => {
                           type="email"
                           placeholder="Seu email"
                           {...register('email')}
-                          className={errors.email ? 'border-red-500' : watchedFields.email?.includes('@') ? 'border-green-500' : ''}
+                          className={`text-base ${errors.email ? 'border-red-500' : watchedFields.email?.includes('@') ? 'border-green-500' : ''}`}
                         />
                         <FormValidation 
                           errors={errors} 
@@ -226,7 +226,7 @@ const ContactForm = () => {
                     <EnhancedButton
                       type="button"
                       onClick={handleNextStep}
-                      className="w-full bg-blue-900 hover:bg-blue-800 text-white"
+                      className="w-full bg-blue-900 hover:bg-blue-800 text-white py-3 text-base touch-manipulation"
                       hoverEffect="scale"
                     >
                       Continuar
@@ -236,13 +236,14 @@ const ContactForm = () => {
 
                 {/* Step 2: Contact Details */}
                 {formStep === 2 && (
-                  <div className="space-y-4 animate-fade-in">
-                    <div className="grid md:grid-cols-2 gap-3">
+                  <div className="space-y-3 sm:space-y-4 animate-fade-in">
+                    <div className="grid gap-3 sm:gap-4">
                       <div>
                         <Input
-                          placeholder="Telefone (ex: 926 238 518)"
+                          placeholder="Telefone (ex: 930 010 002)"
                           {...register('phone')}
-                          className={errors.phone ? 'border-red-500' : watchedFields.phone?.length >= 9 ? 'border-green-500' : ''}
+                          className={`text-base ${errors.phone ? 'border-red-500' : watchedFields.phone?.length >= 9 ? 'border-green-500' : ''}`}
+                          inputMode="tel"
                         />
                         <FormValidation 
                           errors={errors} 
@@ -255,6 +256,7 @@ const ContactForm = () => {
                         <Input
                           placeholder="Empresa (opcional)"
                           {...register('company')}
+                          className="text-base"
                         />
                       </div>
                     </div>
@@ -264,12 +266,12 @@ const ContactForm = () => {
                         value={watchedFields.service} 
                         onValueChange={(value) => setValue('service', value)}
                       >
-                        <SelectTrigger className={errors.service ? 'border-red-500' : watchedFields.service ? 'border-green-500' : ''}>
+                        <SelectTrigger className={`text-base ${errors.service ? 'border-red-500' : watchedFields.service ? 'border-green-500' : ''}`}>
                           <SelectValue placeholder="Selecione o serviço de interesse" />
                         </SelectTrigger>
                         <SelectContent className="bg-white border shadow-lg z-50">
                           {serviceOptions.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
+                            <SelectItem key={option.value} value={option.value} className="text-base">
                               {option.label}
                             </SelectItem>
                           ))}
@@ -283,19 +285,19 @@ const ContactForm = () => {
                       />
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-2 sm:gap-3">
                       <Button
                         type="button"
                         onClick={() => setFormStep(1)}
                         variant="outline"
-                        className="flex-1"
+                        className="flex-1 py-3 text-base touch-manipulation"
                       >
                         Voltar
                       </Button>
                       <EnhancedButton
                         type="button"
                         onClick={handleNextStep}
-                        className="flex-1 bg-blue-900 hover:bg-blue-800 text-white"
+                        className="flex-1 bg-blue-900 hover:bg-blue-800 text-white py-3 text-base touch-manipulation"
                         hoverEffect="scale"
                       >
                         Continuar
@@ -306,13 +308,13 @@ const ContactForm = () => {
 
                 {/* Step 3: Message & Submit */}
                 {formStep === 3 && (
-                  <div className="space-y-4 animate-fade-in">
+                  <div className="space-y-3 sm:space-y-4 animate-fade-in">
                     <div>
                       <Textarea
                         placeholder="Conte-nos mais sobre suas necessidades..."
                         rows={4}
                         {...register('message')}
-                        className={errors.message ? 'border-red-500' : watchedFields.message?.length >= 10 ? 'border-green-500' : ''}
+                        className={`text-base resize-none ${errors.message ? 'border-red-500' : watchedFields.message?.length >= 10 ? 'border-green-500' : ''}`}
                       />
                       <FormValidation 
                         errors={errors} 
@@ -322,12 +324,12 @@ const ContactForm = () => {
                       />
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-2 sm:gap-3">
                       <Button
                         type="button"
                         onClick={() => setFormStep(2)}
                         variant="outline"
-                        className="flex-1"
+                        className="flex-1 py-3 text-base touch-manipulation"
                       >
                         Voltar
                       </Button>
@@ -335,21 +337,21 @@ const ContactForm = () => {
                       <EnhancedButton
                         type="submit"
                         loading={isSubmitting}
-                        className="flex-1 bg-blue-900 hover:bg-blue-800 text-white"
+                        className="flex-1 bg-blue-900 hover:bg-blue-800 text-white py-3 text-base touch-manipulation"
                         hoverEffect="glow"
                         icon={!isSubmitting && <Send className="h-4 w-4" />}
                       >
-                        {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
+                        {isSubmitting ? 'Enviando...' : 'Enviar'}
                       </EnhancedButton>
                       
                       <EnhancedButton
                         type="button"
                         onClick={handleWhatsAppContact}
-                        className="bg-green-600 hover:bg-green-700 text-white px-6"
+                        className="bg-green-600 hover:bg-green-700 text-white px-4 sm:px-6 py-3 text-base touch-manipulation"
                         hoverEffect="scale"
                       >
                         WhatsApp
-                      </EnhancedButton>
+                      </Enhance dButton>
                     </div>
                   </div>
                 )}
@@ -358,21 +360,21 @@ const ContactForm = () => {
           </Card>
 
           {/* Contact Information */}
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {contactInfo.map((item, index) => (
-              <Card key={index} className="bg-white/60 backdrop-blur-lg shadow-md border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-all duration-300">
+              <Card key={index} className="bg-white/60 backdrop-blur-lg shadow-md border border-gray-200 rounded-lg p-3 sm:p-4 hover:shadow-lg transition-all duration-300">
                 <div className="flex items-center mb-2">
-                  <item.icon className="h-5 w-5 text-blue-900 mr-3" />
-                  <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
+                  <item.icon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-900 mr-2 sm:mr-3 flex-shrink-0" />
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900">{item.title}</h3>
                 </div>
-                <p className="text-gray-600 text-sm">{item.content}</p>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{item.content}</p>
               </Card>
             ))}
             
             {/* Newsletter Signup */}
-            <Card className="bg-gradient-to-br from-blue-50 to-orange-50 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Newsletter</h3>
-              <p className="text-gray-600 text-sm mb-4">
+            <Card className="bg-gradient-to-br from-blue-50 to-orange-50 p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Newsletter</h3>
+              <p className="text-sm text-gray-600 mb-3 sm:mb-4">
                 Receba dicas semanais sobre vendas direto no seu email.
               </p>
               <NewsletterSignup showName={false} />
