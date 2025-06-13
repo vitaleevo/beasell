@@ -1,30 +1,27 @@
 
 import React from 'react';
 import { Users, Star, Trophy, TrendingUp } from 'lucide-react';
-import { useLanguage } from '@/hooks/useLanguage';
 
 const StatsSection = () => {
-  const { t } = useLanguage();
-
   const stats = [
     {
       number: "500+",
-      label: t('stats.professionals_trained'),
+      label: "Profissionais Formados",
       icon: Users
     },
     {
       number: "95%",
-      label: t('stats.satisfaction_rate'),
+      label: "Taxa de Satisfação",
       icon: Star
     },
     {
       number: "50+",
-      label: t('stats.partner_companies'),
+      label: "Empresas Parceiras",
       icon: Trophy
     },
     {
       number: "40%",
-      label: t('stats.average_sales_increase'),
+      label: "Aumento Médio Vendas",
       icon: TrendingUp
     }
   ];
@@ -33,8 +30,8 @@ const StatsSection = () => {
     <section className="py-12 sm:py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-orange-500 text-white w-full">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">{t('stats.title')}</h2>
-          <p className="text-lg sm:text-xl text-blue-100">{t('stats.subtitle')}</p>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Resultados que Falam por Si</h2>
+          <p className="text-lg sm:text-xl text-blue-100">Números que comprovam nossa excelência</p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-7xl mx-auto">

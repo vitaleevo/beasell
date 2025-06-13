@@ -1,11 +1,8 @@
 
 import React from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
-import { useLanguage } from '@/hooks/useLanguage';
 
 const TopBar = () => {
-  const { t } = useLanguage();
-
   return (
     <div className="bg-blue-900 text-white py-1.5 sm:py-2 text-xs sm:text-sm">
       <div className="container mx-auto px-3 sm:px-4 lg:px-6">

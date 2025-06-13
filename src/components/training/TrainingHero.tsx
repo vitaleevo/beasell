@@ -4,30 +4,27 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Star, Users, Trophy, Target, PlayCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '@/hooks/useLanguage';
 
 const TrainingHero = () => {
-  const { t } = useLanguage();
-
   const stats = [
     {
       number: "500+",
-      label: t('training.students_trained'),
+      label: "Alunos Formados",
       icon: Users
     },
     {
       number: "95%",
-      label: t('training.satisfaction_rate'),
+      label: "Taxa de Satisfação",
       icon: Star
     },
     {
       number: "50+",
-      label: t('training.partner_companies'),
+      label: "Empresas Parceiras",
       icon: Trophy
     },
     {
       number: "40%",
-      label: t('training.average_sales_increase'),
+      label: "Aumento Médio Vendas",
       icon: Target
     }
   ];
@@ -45,22 +42,22 @@ const TrainingHero = () => {
           </Badge>
           
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            {t('training.title')}
+            Transforme Sua Carreira com a Beasell
           </h1>
           
           <p className="text-lg md:text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
-            {t('training.subtitle')}. {t('training.description')}
+            Cursos especializados da Beasell em vendas, liderança e atendimento ao cliente. Metodologia comprovada com resultados reais no mercado angolano
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link to="/aluno/login">
               <Button size="lg" className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold">
-                {t('training.access_platform')}
+                Acessar Plataforma
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Button size="lg" variant="outline" className="border-2 border-white px-8 py-4 text-lg font-semibold bg-slate-200 hover:bg-slate-100 text-slate-900">
-              {t('training.free_demo')}
+              Ver Demo Gratuita
               <PlayCircle className="ml-2 h-5 w-5" />
             </Button>
           </div>

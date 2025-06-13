@@ -3,26 +3,23 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Target, Users, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '@/hooks/useLanguage';
 
 const FeaturesSection = () => {
-  const { t } = useLanguage();
-
   const features = [
     {
       icon: Target,
-      title: t('features.specialized_training'),
-      description: t('features.specialized_training_desc')
+      title: "Formação Especializada",
+      description: "Metodologia única adaptada ao mercado angolano"
     },
     {
       icon: Users,
-      title: t('features.proven_experience'),
-      description: t('features.proven_experience_desc')
+      title: "Experiência Comprovada",
+      description: "Mais de 500 profissionais formados com sucesso"
     },
     {
       icon: Trophy,
-      title: t('features.guaranteed_results'),
-      description: t('features.guaranteed_results_desc')
+      title: "Resultados Garantidos",
+      description: "95% de taxa de satisfação dos nossos formandos"
     }
   ];
 
@@ -31,10 +28,10 @@ const FeaturesSection = () => {
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 animate-fade-in max-w-7xl mx-auto">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            {t('features.title')}
+            Por que escolher a Beasell?
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('features.subtitle')}
+            Somos especialistas em transformar profissionais em vendedores de excelência
           </p>
         </div>
 
@@ -56,7 +53,7 @@ const FeaturesSection = () => {
         <div className="text-center max-w-7xl mx-auto">
           <Link to="/servicos">
             <Button size="lg" className="bg-blue-900 hover:bg-blue-800 text-white px-8 py-4 text-lg hover:scale-105 transform transition-all duration-200">
-              {t('features.see_all_services')}
+              Ver Todos os Serviços
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>

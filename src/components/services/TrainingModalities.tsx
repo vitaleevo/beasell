@@ -2,39 +2,35 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { MapPin, HeadphonesIcon, Users } from 'lucide-react';
-import { useLanguage } from '@/hooks/useLanguage';
 
 interface TrainingModalitiesProps {
   onAction: (serviceType: string) => void;
 }
 
 const TrainingModalities = ({ onAction }: TrainingModalitiesProps) => {
-  const { t } = useLanguage();
-
   const modalities = [
     {
       icon: MapPin,
-      title: t('services.presential'),
-      description: t('services.presential_desc'),
+      title: "Presencial",
+      description: "Formações no nosso centro em Luanda ou nas suas instalações",
       color: 'orange'
     },
     {
       icon: HeadphonesIcon,
-      title: t('services.online'),
-      description: t('services.online_desc'),
+      title: "Online",
+      description: "Sessões virtuais interactivas com a mesma qualidade",
       color: 'blue'
     },
     {
       icon: Users,
-      title: t('services.incompany'),
-      description: t('services.incompany_desc'),
+      title: "In-Company",
+      description: "Formações customizadas na sua empresa",
       color: 'green'
     }
   ];
 
   return (
     <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
-      {/* Image Section - Mobile Optimized */}
       <div className="order-2 lg:order-1">
         <div className="relative rounded-lg sm:rounded-xl overflow-hidden shadow-lg">
           <img
@@ -47,18 +43,16 @@ const TrainingModalities = ({ onAction }: TrainingModalitiesProps) => {
         </div>
       </div>
       
-      {/* Content Section - Mobile Optimized */}
       <div className="space-y-4 sm:space-y-5 lg:space-y-6 order-1 lg:order-2 px-2 sm:px-0">
         <div className="text-center lg:text-left">
           <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
-            {t('services.modalities_title')}
+            Modalidades de Formação
           </h3>
           <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-            {t('services.modalities_description')}
+            Escolha a modalidade que melhor se adapta às suas necessidades
           </p>
         </div>
         
-        {/* Modalities List - Mobile Optimized */}
         <div className="space-y-3 sm:space-y-4">
           {modalities.map((modality, index) => (
             <div key={index} className="flex items-start p-3 sm:p-4 bg-white rounded-lg shadow-sm border border-gray-100">
@@ -77,14 +71,13 @@ const TrainingModalities = ({ onAction }: TrainingModalitiesProps) => {
           ))}
         </div>
         
-        {/* CTA Button - Mobile Optimized */}
         <div className="pt-2 sm:pt-4 text-center lg:text-left">
           <Button 
             size="lg" 
             className="w-full sm:w-auto bg-blue-900 hover:bg-blue-800 text-white py-3 px-6 sm:px-8 text-sm sm:text-base font-medium transition-all duration-200 touch-manipulation"
             onClick={() => onAction('modalidade')}
           >
-            {t('services.request_quote')}
+            Solicitar Orçamento
           </Button>
         </div>
       </div>

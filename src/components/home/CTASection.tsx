@@ -3,32 +3,29 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Phone, Mail, MapPin, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '@/hooks/useLanguage';
 
 const CTASection = () => {
-  const { t } = useLanguage();
-
   return (
     <section className="py-12 sm:py-20 bg-gradient-to-r from-blue-900 to-orange-500 text-white w-full">
       <div className="w-full px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6">
-            {t('cta.title')}
+            Pronto para Transformar o Seu Negócio com a Beasell?
           </h2>
           <p className="text-lg sm:text-xl mb-8 text-blue-100">
-            {t('cta.subtitle')}
+            Junte-se a centenas de empresas que já transformaram seus negócios através da nossa consultoria especializada
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link to="/contacto" className="w-full sm:w-auto">
               <Button size="lg" className="w-full bg-white text-blue-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold">
-                {t('cta.start_now')}
+                Começar Agora
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link to="/servicos" className="w-full sm:w-auto">
               <Button size="lg" variant="outline" className="w-full border-2 border-white text-white hover:text-blue-900 px-8 py-4 text-lg font-semibold bg-transparent hover:bg-white">
-                {t('cta.see_services')}
+                Ver Serviços
                 <BookOpen className="ml-2 h-5 w-5" />
               </Button>
             </Link>

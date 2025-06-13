@@ -2,16 +2,13 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, CheckCircle } from 'lucide-react';
-import { useLanguage } from '@/hooks/useLanguage';
 
 const VideoSection = () => {
-  const { t } = useLanguage();
-
   const features = [
-    t('video.adapted_techniques'),
-    t('video.measurable_results'),
-    t('video.post_training'),
-    t('video.recognized_certification')
+    "Técnicas adaptadas ao mercado angolano",
+    "Foco em resultados mensuráveis",
+    "Acompanhamento pós-formação",
+    "Certificação reconhecida"
   ];
 
   return (
@@ -19,10 +16,10 @@ const VideoSection = () => {
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 max-w-7xl mx-auto">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            {t('video.title')}
+            Veja a Beasell em Ação
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-            {t('video.subtitle')}
+            Descubra como transformamos profissionais através da nossa metodologia única
           </p>
         </div>
 
@@ -31,7 +28,7 @@ const VideoSection = () => {
             <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gray-100 flex items-center justify-center">
               <div className="text-center">
                 <Play className="h-16 w-16 text-orange-500 mx-auto mb-4" />
-                <p className="text-gray-600">{t('video.video_coming_soon')}</p>
+                <p className="text-gray-600">Vídeo em breve</p>
               </div>
             </div>
             <div className="absolute -bottom-4 -right-4 bg-orange-500 text-white p-4 rounded-xl shadow-xl">
@@ -41,10 +38,10 @@ const VideoSection = () => {
 
           <div className="space-y-6">
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              {t('video.proven_methodology')}
+              Metodologia Comprovada
             </h3>
             <p className="text-base sm:text-lg text-gray-600">
-              {t('video.methodology_description')}
+              Nossa abordagem combina teoria e prática para garantir resultados reais e duradouros
             </p>
             
             <div className="space-y-4">
@@ -57,7 +54,7 @@ const VideoSection = () => {
             </div>
 
             <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
-              {t('video.watch_more_videos')}
+              Assistir Mais Vídeos
               <Play className="ml-2 h-4 w-4" />
             </Button>
           </div>
