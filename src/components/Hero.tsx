@@ -1,12 +1,9 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, ArrowRight, Star, Users, Trophy, Target, TrendingUp, Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 const Hero = () => {
-  return (
-    <section id="inicio" className="pt-16 pb-8 bg-gradient-to-br from-blue-50 via-white to-orange-50 overflow-hidden relative w-full">
+  return <section id="inicio" className="pt-16 pb-8 bg-gradient-to-br from-blue-50 via-white to-orange-50 overflow-hidden relative w-full">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
@@ -14,7 +11,7 @@ const Hero = () => {
       </div>
       
       <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center min-h-[65vh] max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center min-h-[65vh] max-w-7xl mx-auto py-[90px]">
           {/* Content */}
           <div className="space-y-4 sm:space-y-6 animate-fade-in order-2 lg:order-1">
             <div className="space-y-3">
@@ -56,20 +53,13 @@ const Hero = () => {
             {/* Enhanced CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
               <Link to="/servicos" className="w-full sm:w-auto">
-                <Button 
-                  size="lg" 
-                  className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white px-6 py-3 text-base shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-1"
-                >
+                <Button size="lg" className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 text-white px-6 py-3 text-base shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-1">
                   Ver Serviços
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/sobre" className="w-full sm:w-auto">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="w-full border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-6 py-3 text-base shadow-xl hover:shadow-orange-500/25 transition-all duration-300 hover:-translate-y-1"
-                >
+                <Button variant="outline" size="lg" className="w-full border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-6 py-3 text-base shadow-xl hover:shadow-orange-500/25 transition-all duration-300 hover:-translate-y-1">
                   <Play className="mr-2 h-4 w-4" />
                   Conhecer a Beasell
                 </Button>
@@ -81,11 +71,7 @@ const Hero = () => {
           <div className="relative animate-fade-in order-1 lg:order-2">
             <div className="relative z-10">
               <div className="relative overflow-hidden rounded-2xl shadow-2xl max-w-md mx-auto lg:max-w-none">
-                <img
-                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                  alt="Beasell - Consultoria e Formação de Negócios"
-                  className="w-full h-auto transform hover:scale-105 transition-transform duration-700"
-                />
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Beasell - Consultoria e Formação de Negócios" className="w-full h-auto transform hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
                 
                 {/* Overlay with Beasell branding */}
@@ -119,8 +105,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
