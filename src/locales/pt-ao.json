@@ -1,0 +1,91 @@
+
+{
+  "navigation": {
+    "home": "Início",
+    "about": "Sobre Nós",
+    "services": "Serviços",
+    "contact": "Contacto",
+    "testimonials": "Testemunhos",
+    "blog": "Blog",
+    "training": "Treinamento"
+  },
+  "hero": {
+    "title": "Beasell transforma pequenos negócios em grandes sucessos",
+    "subtitle": "Especialista em consultoria de gestão e formação comercial para pequenos empreendedores",
+    "description": "Desenvolvemos soluções personalizadas para impulsionar o crescimento do seu negócio através de formação especializada e consultoria estratégica.",
+    "cta_services": "Ver Serviços",
+    "cta_about": "Conhecer a Beasell",
+    "cta_contact": "Contacto"
+  },
+  "contact": {
+    "title": "Entre em Contacto",
+    "subtitle": "Estamos Aqui para Ajudar",
+    "description": "Pronto para transformar sua carreira ou equipa em vendas? Fale connosco e descubra como podemos impulsionar seus resultados comerciais.",
+    "form_title": "Envie-nos uma Mensagem",
+    "step_info": "Passo {step} de 3",
+    "interested_in": "Interessado em:",
+    "name_placeholder": "Seu nome completo",
+    "email_placeholder": "Seu email",
+    "phone_placeholder": "Telefone (ex: 930 010 002)",
+    "company_placeholder": "Empresa (opcional)",
+    "service_placeholder": "Selecione o serviço de interesse",
+    "message_placeholder": "Conte-nos mais sobre suas necessidades...",
+    "continue": "Continuar",
+    "back": "Voltar",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "whatsapp": "WhatsApp",
+    "success_title": "Mensagem Enviada!",
+    "success_message": "Obrigado pelo seu contacto. Nossa equipa responderá em breve.",
+    "new_message": "Enviar Nova Mensagem",
+    "newsletter_placeholder": "Subscreva nossa newsletter",
+    "newsletter_button": "Subscrever"
+  },
+  "contact_info": {
+    "location": "Localização",
+    "email": "Email",
+    "phone": "Telefone",
+    "hours": "Horário",
+    "hours_content": "Seg-Sex: 8h às 17h",
+    "address": "Rua Marechal Brós Tito Nº 35, Edifício Skyone 4º andar, Luanda, Angola"
+  },
+  "services": {
+    "individual": "Formação Individual",
+    "empresarial": "Formação Empresarial", 
+    "workshop": "Workshops Intensivos",
+    "consultoria": "Consultoria Comercial",
+    "curso": "Cursos Específicos",
+    "modalidade": "Informações sobre Modalidades",
+    "outro": "Outro"
+  },
+  "validation": {
+    "name_min": "Nome deve ter pelo menos 2 caracteres",
+    "email_invalid": "Email inválido",
+    "phone_min": "Telefone deve ter pelo menos 9 dígitos",
+    "service_required": "Por favor selecione um serviço",
+    "message_min": "Mensagem deve ter pelo menos 10 caracteres",
+    "name_valid": "Nome válido",
+    "email_valid": "Email válido",
+    "phone_valid": "Telefone válido",
+    "service_selected": "Serviço selecionado",
+    "message_adequate": "Mensagem adequada"
+  },
+  "footer": {
+    "company_name": "BEASELL - FORMAÇÃO E CONSULTORIA, LDA",
+    "company_description": "Empresa angolana dedicada a consultoria em gestão de negócios, com foco no apoio a pequenos empreendedores, equipas comerciais e organizações em fase de estruturação ou crescimento.",
+    "services_oriented": "Serviços orientados para resultados práticos e acompanhamento de proximidade."
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "close": "Fechar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "more": "Mais",
+    "less": "Menos"
+  }
+}

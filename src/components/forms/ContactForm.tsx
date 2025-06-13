@@ -12,23 +12,14 @@ import { Phone, Mail, MapPin, Clock, Send, Loader2, CheckCircle } from 'lucide-r
 import { useContactForm } from '@/hooks/useContactForm';
 import { useWhatsApp } from '@/hooks/useWhatsApp';
 import { useLocation } from 'react-router-dom';
+import { useLanguage } from '@/hooks/useLanguage';
 import EnhancedButton from '@/components/ui/enhanced-button';
 import FormValidation from '@/components/ui/form-validation';
 import NewsletterSignup from '@/components/ui/newsletter-signup';
 
-const contactSchema = z.object({
-  name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
-  email: z.string().email('Email inválido'),
-  phone: z.string().min(9, 'Telefone deve ter pelo menos 9 dígitos'),
-  company: z.string().optional(),
-  service: z.string().min(1, 'Por favor selecione um serviço'),
-  message: z.string().min(10, 'Mensagem deve ter pelo menos 10 caracteres'),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
-
 const ContactForm = () => {
   const location = useLocation();
+  const { t } = useLanguage();
   const selectedService = location.state?.selectedService;
   const [formStep, setFormStep] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -36,14 +27,26 @@ const ContactForm = () => {
   const { submitContact, isSubmitting } = useContactForm();
   const { openWhatsApp } = useWhatsApp();
 
+  // Schema de validação dinâmico baseado no idioma
+  const contactSchema = z.object({
+    name: z.string().min(2, t('validation.name_min')),
+    email: z.string().email(t('validation.email_invalid')),
+    phone: z.string().min(9, t('validation.phone_min')),
+    company: z.string().optional(),
+    service: z.string().min(1, t('validation.service_required')),
+    message: z.string().min(10, t('validation.message_min')),
+  });
+
+  type ContactFormData = z.infer<typeof contactSchema>;
+
   const serviceOptions = [
-    { value: 'individual', label: 'Formação Individual' },
-    { value: 'empresarial', label: 'Formação Empresarial' },
-    { value: 'workshop', label: 'Workshops Intensivos' },
-    { value: 'consultoria', label: 'Consultoria Comercial' },
-    { value: 'curso', label: 'Cursos Específicos' },
-    { value: 'modalidade', label: 'Informações sobre Modalidades' },
-    { value: 'outro', label: 'Outro' },
+    { value: 'individual', label: t('services.individual') },
+    { value: 'empresarial', label: t('services.empresarial') },
+    { value: 'workshop', label: t('services.workshop') },
+    { value: 'consultoria', label: t('services.consultoria') },
+    { value: 'curso', label: t('services.curso') },
+    { value: 'modalidade', label: t('services.modalidade') },
+    { value: 'outro', label: t('services.outro') },
   ];
 
   const {
@@ -91,7 +94,7 @@ const ContactForm = () => {
   };
 
   const handleWhatsAppContact = () => {
-    const serviceLabel = serviceOptions.find(opt => opt.value === watchedFields.service)?.label || 'Serviço não especificado';
+    const serviceLabel = serviceOptions.find(opt => opt.value === watchedFields.service)?.label || t('services.outro');
     const message = `Olá! Gostaria de mais informações sobre: ${serviceLabel}. Nome: ${watchedFields.name || 'Cliente'}, Telefone: ${watchedFields.phone || ''}, Empresa: ${watchedFields.company || ''}`;
     openWhatsApp(message);
   };
@@ -107,23 +110,23 @@ const ContactForm = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      title: "Localização",
-      content: "Rua Marechal Brós Tito Nº 35, Edifício Skyone 4º andar, Luanda, Angola"
+      title: t('contact_info.location'),
+      content: t('contact_info.address')
     },
     {
       icon: Mail,
-      title: "Email",
+      title: t('contact_info.email'),
       content: "info@beasell.ao"
     },
     {
       icon: Phone,
-      title: "Telefone",
+      title: t('contact_info.phone'),
       content: "(+244) 930 010 002"
     },
     {
       icon: Clock,
-      title: "Horário",
-      content: "Seg-Sex: 8h às 17h"
+      title: t('contact_info.hours'),
+      content: t('contact_info.hours_content')
     }
   ];
 
@@ -136,20 +139,22 @@ const ContactForm = () => {
               <div className="bg-green-100 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-4 sm:mb-6">
                 <CheckCircle className="h-8 w-8 sm:h-10 sm:w-10 text-green-600" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Mensagem Enviada!</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                {t('contact.success_title')}
+              </h3>
               <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-                Obrigado pelo seu contacto. Nossa equipa responderá em breve.
+                {t('contact.success_message')}
               </p>
               <div className="space-y-3 sm:space-y-4">
                 <Button 
                   onClick={() => setIsSuccess(false)}
                   className="w-full bg-blue-900 hover:bg-blue-800 text-sm sm:text-base py-2 sm:py-3"
                 >
-                  Enviar Nova Mensagem
+                  {t('contact.new_message')}
                 </Button>
                 <NewsletterSignup 
-                  placeholder="Subscreva nossa newsletter"
-                  buttonText="Subscrever"
+                  placeholder={t('contact.newsletter_placeholder')}
+                  buttonText={t('contact.newsletter_button')}
                 />
               </div>
             </CardContent>
@@ -164,10 +169,10 @@ const ContactForm = () => {
       <div className="container mx-auto px-3 sm:px-4">
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
-            Entre em <span className="text-blue-900">Contacto</span>
+            {t('contact.title')}
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-2">
-            Pronto para transformar sua carreira ou equipa? Fale connosco hoje mesmo.
+            {t('contact.description')}
           </p>
         </div>
 
@@ -176,14 +181,14 @@ const ContactForm = () => {
           <Card className="shadow-lg">
             <CardHeader className="pb-3 sm:pb-4">
               <CardTitle className="text-lg sm:text-xl text-gray-900">
-                Envie-nos uma Mensagem
+                {t('contact.form_title')}
                 <span className="text-xs sm:text-sm font-normal text-gray-500 ml-2">
-                  (Passo {formStep} de 3)
+                  ({t('contact.step_info', { step: formStep.toString() })})
                 </span>
               </CardTitle>
               {selectedService && (
                 <p className="text-blue-900 font-medium text-xs sm:text-sm">
-                  Interessado em: {serviceOptions.find(opt => opt.value === selectedService)?.label}
+                  {t('contact.interested_in')} {serviceOptions.find(opt => opt.value === selectedService)?.label}
                 </p>
               )}
             </CardHeader>
@@ -196,28 +201,28 @@ const ContactForm = () => {
                     <div className="grid gap-3 sm:gap-4">
                       <div>
                         <Input
-                          placeholder="Seu nome completo"
+                          placeholder={t('contact.name_placeholder')}
                           {...register('name')}
                           className={`text-base ${errors.name ? 'border-red-500' : watchedFields.name?.length >= 2 ? 'border-green-500' : ''}`}
                         />
                         <FormValidation 
                           errors={errors} 
                           field="name" 
-                          successMessage="Nome válido"
+                          successMessage={t('validation.name_valid')}
                           showSuccess={watchedFields.name?.length >= 2}
                         />
                       </div>
                       <div>
                         <Input
                           type="email"
-                          placeholder="Seu email"
+                          placeholder={t('contact.email_placeholder')}
                           {...register('email')}
                           className={`text-base ${errors.email ? 'border-red-500' : watchedFields.email?.includes('@') ? 'border-green-500' : ''}`}
                         />
                         <FormValidation 
                           errors={errors} 
                           field="email"
-                          successMessage="Email válido"
+                          successMessage={t('validation.email_valid')}
                           showSuccess={watchedFields.email?.includes('@') && !errors.email}
                         />
                       </div>
@@ -229,7 +234,7 @@ const ContactForm = () => {
                       className="w-full bg-blue-900 hover:bg-blue-800 text-white py-3 text-base touch-manipulation"
                       hoverEffect="scale"
                     >
-                      Continuar
+                      {t('contact.continue')}
                     </EnhancedButton>
                   </div>
                 )}
@@ -240,7 +245,7 @@ const ContactForm = () => {
                     <div className="grid gap-3 sm:gap-4">
                       <div>
                         <Input
-                          placeholder="Telefone (ex: 930 010 002)"
+                          placeholder={t('contact.phone_placeholder')}
                           {...register('phone')}
                           className={`text-base ${errors.phone ? 'border-red-500' : watchedFields.phone?.length >= 9 ? 'border-green-500' : ''}`}
                           inputMode="tel"
@@ -248,13 +253,13 @@ const ContactForm = () => {
                         <FormValidation 
                           errors={errors} 
                           field="phone"
-                          successMessage="Telefone válido"
+                          successMessage={t('validation.phone_valid')}
                           showSuccess={watchedFields.phone?.length >= 9}
                         />
                       </div>
                       <div>
                         <Input
-                          placeholder="Empresa (opcional)"
+                          placeholder={t('contact.company_placeholder')}
                           {...register('company')}
                           className="text-base"
                         />
@@ -267,7 +272,7 @@ const ContactForm = () => {
                         onValueChange={(value) => setValue('service', value)}
                       >
                         <SelectTrigger className={`text-base ${errors.service ? 'border-red-500' : watchedFields.service ? 'border-green-500' : ''}`}>
-                          <SelectValue placeholder="Selecione o serviço de interesse" />
+                          <SelectValue placeholder={t('contact.service_placeholder')} />
                         </SelectTrigger>
                         <SelectContent className="bg-white border shadow-lg z-50">
                           {serviceOptions.map((option) => (
@@ -280,7 +285,7 @@ const ContactForm = () => {
                       <FormValidation 
                         errors={errors} 
                         field="service"
-                        successMessage="Serviço selecionado"
+                        successMessage={t('validation.service_selected')}
                         showSuccess={!!watchedFields.service}
                       />
                     </div>
@@ -292,7 +297,7 @@ const ContactForm = () => {
                         variant="outline"
                         className="flex-1 py-3 text-base touch-manipulation"
                       >
-                        Voltar
+                        {t('contact.back')}
                       </Button>
                       <EnhancedButton
                         type="button"
@@ -300,7 +305,7 @@ const ContactForm = () => {
                         className="flex-1 bg-blue-900 hover:bg-blue-800 text-white py-3 text-base touch-manipulation"
                         hoverEffect="scale"
                       >
-                        Continuar
+                        {t('contact.continue')}
                       </EnhancedButton>
                     </div>
                   </div>
@@ -311,7 +316,7 @@ const ContactForm = () => {
                   <div className="space-y-3 sm:space-y-4 animate-fade-in">
                     <div>
                       <Textarea
-                        placeholder="Conte-nos mais sobre suas necessidades..."
+                        placeholder={t('contact.message_placeholder')}
                         rows={4}
                         {...register('message')}
                         className={`text-base resize-none ${errors.message ? 'border-red-500' : watchedFields.message?.length >= 10 ? 'border-green-500' : ''}`}
@@ -319,7 +324,7 @@ const ContactForm = () => {
                       <FormValidation 
                         errors={errors} 
                         field="message"
-                        successMessage="Mensagem adequada"
+                        successMessage={t('validation.message_adequate')}
                         showSuccess={watchedFields.message?.length >= 10}
                       />
                     </div>
@@ -331,7 +336,7 @@ const ContactForm = () => {
                         variant="outline"
                         className="flex-1 py-3 text-base touch-manipulation"
                       >
-                        Voltar
+                        {t('contact.back')}
                       </Button>
                       
                       <EnhancedButton
@@ -341,7 +346,7 @@ const ContactForm = () => {
                         hoverEffect="glow"
                         icon={!isSubmitting && <Send className="h-4 w-4" />}
                       >
-                        {isSubmitting ? 'Enviando...' : 'Enviar'}
+                        {isSubmitting ? t('contact.sending') : t('contact.send')}
                       </EnhancedButton>
                       
                       <EnhancedButton
@@ -350,7 +355,7 @@ const ContactForm = () => {
                         className="bg-green-600 hover:bg-green-700 text-white px-4 sm:px-6 py-3 text-base touch-manipulation"
                         hoverEffect="scale"
                       >
-                        WhatsApp
+                        {t('contact.whatsapp')}
                       </EnhancedButton>
                     </div>
                   </div>

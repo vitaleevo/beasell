@@ -1,0 +1,91 @@
+
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact",
+    "testimonials": "Testimonials",
+    "blog": "Blog",
+    "training": "Training"
+  },
+  "hero": {
+    "title": "Beasell transforms small businesses into great successes",
+    "subtitle": "Specialist in management consulting and sales training for small entrepreneurs",
+    "description": "We develop customized solutions to boost your business growth through specialized training and strategic consulting.",
+    "cta_services": "View Services",
+    "cta_about": "About Beasell",
+    "cta_contact": "Contact"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "We're Here to Help",
+    "description": "Ready to transform your career or sales team? Contact us and discover how we can boost your commercial results.",
+    "form_title": "Send us a Message",
+    "step_info": "Step {step} of 3",
+    "interested_in": "Interested in:",
+    "name_placeholder": "Your full name",
+    "email_placeholder": "Your email",
+    "phone_placeholder": "Phone (ex: 930 010 002)",
+    "company_placeholder": "Company (optional)",
+    "service_placeholder": "Select service of interest",
+    "message_placeholder": "Tell us more about your needs...",
+    "continue": "Continue",
+    "back": "Back",
+    "send": "Send",
+    "sending": "Sending...",
+    "whatsapp": "WhatsApp",
+    "success_title": "Message Sent!",
+    "success_message": "Thank you for your contact. Our team will respond shortly.",
+    "new_message": "Send New Message",
+    "newsletter_placeholder": "Subscribe to our newsletter",
+    "newsletter_button": "Subscribe"
+  },
+  "contact_info": {
+    "location": "Location",
+    "email": "Email",
+    "phone": "Phone",
+    "hours": "Hours",
+    "hours_content": "Mon-Fri: 8am to 5pm",
+    "address": "Rua Marechal Brós Tito Nº 35, Edifício Skyone 4th floor, Luanda, Angola"
+  },
+  "services": {
+    "individual": "Individual Training",
+    "empresarial": "Corporate Training",
+    "workshop": "Intensive Workshops",
+    "consultoria": "Commercial Consulting",
+    "curso": "Specific Courses",
+    "modalidade": "Information about Modalities",
+    "outro": "Other"
+  },
+  "validation": {
+    "name_min": "Name must have at least 2 characters",
+    "email_invalid": "Invalid email",
+    "phone_min": "Phone must have at least 9 digits",
+    "service_required": "Please select a service",
+    "message_min": "Message must have at least 10 characters",
+    "name_valid": "Valid name",
+    "email_valid": "Valid email",
+    "phone_valid": "Valid phone",
+    "service_selected": "Service selected",
+    "message_adequate": "Adequate message"
+  },
+  "footer": {
+    "company_name": "BEASELL - TRAINING AND CONSULTING, LTD",
+    "company_description": "Angolan company dedicated to business management consulting, focused on supporting small entrepreneurs, sales teams and organizations in structuring or growth phase.",
+    "services_oriented": "Services oriented towards practical results and close monitoring."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "more": "More",
+    "less": "Less"
+  }
+}

@@ -12,9 +12,12 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import { useLanguage } from '@/hooks/useLanguage';
+import LanguageSelector from '@/components/ui/language-selector';
 
 const DesktopNav = () => {
   const location = useLocation();
+  const { t } = useLanguage();
   const isActive = (path: string) => location.pathname === path;
 
   return (
@@ -30,7 +33,7 @@ const DesktopNav = () => {
                   isActive('/') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
                 )}
               >
-                Início
+                {t('navigation.home')}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -44,7 +47,7 @@ const DesktopNav = () => {
                   isActive('/sobre') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
                 )}
               >
-                Sobre Nós
+                {t('navigation.about')}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -58,7 +61,7 @@ const DesktopNav = () => {
                   isActive('/servicos') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
                 )}
               >
-                Serviços
+                {t('navigation.services')}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -72,7 +75,7 @@ const DesktopNav = () => {
                   isActive('/testemunhos') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
                 )}
               >
-                Testemunhos
+                {t('navigation.testimonials')}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -86,19 +89,24 @@ const DesktopNav = () => {
                   isActive('/blog') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
                 )}
               >
-                Blog
+                {t('navigation.blog')}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
       
+      {/* Language Selector */}
+      <div className="ml-2">
+        <LanguageSelector variant="compact" />
+      </div>
+      
       <Link to="/contacto" className="ml-4">
         <Button 
           size="lg" 
           className="bg-orange-500 hover:bg-orange-600 text-white px-4 xl:px-6 py-2 xl:py-2.5 text-sm xl:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
         >
-          Contacto
+          {t('navigation.contact')}
         </Button>
       </Link>
     </div>
