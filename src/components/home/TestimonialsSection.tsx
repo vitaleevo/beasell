@@ -3,8 +3,11 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Quote } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const TestimonialsSection = () => {
+  const { t } = useLanguage();
+
   const testimonials = [
     {
       name: "Carlos Mendes",
@@ -62,7 +65,7 @@ const TestimonialsSection = () => {
         <div className="text-center max-w-7xl mx-auto">
           <Link to="/testemunhos">
             <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
-              Ver Mais Testemunhos
+              {t('testimonials.see_more')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>

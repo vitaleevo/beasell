@@ -2,8 +2,11 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Star } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const TrainingTestimonials = () => {
+  const { t } = useLanguage();
+
   const testimonials = [
     {
       name: "Carlos Mendes",
@@ -26,7 +29,7 @@ const TrainingTestimonials = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            O que nossos <span className="text-orange-500">Alunos</span> dizem
+            {t('training.what_students_say')}
           </h2>
         </div>
 

@@ -4,29 +4,32 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, Clock, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const CoursesSection = () => {
+  const { t } = useLanguage();
+
   const courses = [
     {
-      title: "Técnicas Avançadas de Vendas",
-      duration: "40 horas",
+      title: t('courses.advanced_sales'),
+      duration: `40 ${t('courses.duration')}`,
       price: "150.000 Kz",
-      description: "Domine as técnicas mais eficazes para fechar vendas",
-      highlights: ["Psicologia do Cliente", "Técnicas de Persuasão", "Gestão de Objeções"]
+      description: t('courses.advanced_sales_desc'),
+      highlights: [t('courses.client_psychology'), t('courses.persuasion_techniques'), t('courses.objection_handling')]
     },
     {
-      title: "Liderança Comercial",
-      duration: "32 horas",
+      title: t('courses.commercial_leadership'),
+      duration: `32 ${t('courses.duration')}`,
       price: "120.000 Kz",
-      description: "Desenvolva habilidades de liderança para equipas comerciais",
-      highlights: ["Gestão de Equipas", "Motivação", "Definição de Metas"]
+      description: t('courses.commercial_leadership_desc'),
+      highlights: [t('courses.team_management'), t('courses.motivation'), t('courses.goal_setting')]
     },
     {
-      title: "Atendimento ao Cliente Excellence",
-      duration: "24 horas",
+      title: t('courses.customer_service'),
+      duration: `24 ${t('courses.duration')}`,
       price: "80.000 Kz",
-      description: "Aprenda a criar experiências excepcionais para os clientes",
-      highlights: ["Comunicação Eficaz", "Resolução de Conflitos", "Fidelização"]
+      description: t('courses.customer_service_desc'),
+      highlights: [t('courses.effective_communication'), t('courses.conflict_resolution'), t('courses.customer_loyalty')]
     }
   ];
 
@@ -35,10 +38,10 @@ const CoursesSection = () => {
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16 max-w-7xl mx-auto">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Nossos <span className="text-blue-900">Cursos</span> Populares
+            {t('courses.title')}
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-            Formações desenhadas para acelerar o seu crescimento profissional
+            {t('courses.subtitle')}
           </p>
         </div>
 
@@ -66,7 +69,7 @@ const CoursesSection = () => {
                   ))}
                 </div>
                 <Button className="w-full bg-blue-900 hover:bg-blue-800">
-                  Saber Mais
+                  {t('courses.know_more')}
                 </Button>
               </CardContent>
             </Card>
@@ -76,7 +79,7 @@ const CoursesSection = () => {
         <div className="text-center max-w-7xl mx-auto">
           <Link to="/servicos">
             <Button size="lg" variant="outline" className="border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white">
-              Ver Todos os Cursos
+              {t('courses.see_all_courses')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>

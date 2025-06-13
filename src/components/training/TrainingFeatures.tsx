@@ -2,38 +2,41 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlayCircle, Download, Award, Heart, Globe, Shield } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const TrainingFeatures = () => {
+  const { t } = useLanguage();
+
   const features = [
     {
       icon: PlayCircle,
-      title: "Aulas em Vídeo HD",
-      description: "Conteúdo em alta qualidade com explicações práticas e dinâmicas"
+      title: t('training.hd_video_classes'),
+      description: t('training.hd_video_desc')
     },
     {
       icon: Download,
-      title: "Material Complementar",
-      description: "PDFs, exercícios e ferramentas para aplicação imediata"
+      title: t('training.complementary_material'),
+      description: t('training.complementary_material_desc')
     },
     {
       icon: Award,
-      title: "Certificado Reconhecido",
-      description: "Certificação válida no mercado angolano e internacional"
+      title: t('training.recognized_certificate'),
+      description: t('training.recognized_certificate_desc')
     },
     {
       icon: Heart,
-      title: "Suporte Personalizado",
-      description: "Acompanhamento direto da instrutora Beatriz Chavier"
+      title: t('training.personalized_support'),
+      description: t('training.personalized_support_desc')
     },
     {
       icon: Globe,
-      title: "Acesso Vitalício",
-      description: "Estude no seu ritmo com acesso ilimitado ao conteúdo"
+      title: t('training.lifetime_access'),
+      description: t('training.lifetime_access_desc')
     },
     {
       icon: Shield,
-      title: "Garantia 30 Dias",
-      description: "Satisfação garantida ou devolvemos seu investimento"
+      title: t('training.30_day_guarantee'),
+      description: t('training.30_day_guarantee_desc')
     }
   ];
 
@@ -42,10 +45,10 @@ const TrainingFeatures = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Por que Escolher a <span className="text-orange-500">Beasell</span>?
+            {t('training.why_choose_beasell')}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Nossa plataforma oferece uma experiência de aprendizado completa e resultados comprovados
+            {t('training.complete_learning')}
           </p>
         </div>
 
