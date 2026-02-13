@@ -50,3 +50,5 @@ Error: Can't resolve 'tailwindcss' in 'C:\Users\alexa\Documents\GitHub\beasel'
  GET /sobre 200 in 5.7s (compile: 5.4s, proxy.ts: 46ms, render: 223ms)
 Γ£ô Finished filesystem cache database compaction in 10.5s
 Γ£ô Compiled in 640ms
+Γ£ô Compiled in 755ms
+Γ£ô Compiled in 557ms
