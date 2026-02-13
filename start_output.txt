@@ -1,0 +1,52 @@
+
+> beasell-next@0.1.0 dev
+> next dev
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.251.1:3000
+- Environments: .env.local
+
+Γ£ô Starting...
+ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+Γ£ô Ready in 2.5s
+Γùï Compiling / ...
+ΓÜá metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Error: Can't resolve 'tailwindcss' in 'C:\Users\alexa\Documents\GitHub\beasel'
+    [at finishWithoutResolve (C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\enhanced-resolve\lib\Resolver.js:586:18)]
+    [at C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\enhanced-resolve\lib\Resolver.js:678:14]
+    [at C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\enhanced-resolve\lib\Resolver.js:739:5]
+    [at eval (eval at create (C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)]
+    [at C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\enhanced-resolve\lib\Resolver.js:739:5]
+    [at eval (eval at create (C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:27:1)]
+    [at C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\enhanced-resolve\lib\DescriptionFilePlugin.js:89:43]
+    [at C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\enhanced-resolve\lib\Resolver.js:739:5]
+    [at eval (eval at create (C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)]
+    [at C:\Users\alexa\Documents\GitHub\beasel\beasell-angola-vendas\node_modules\enhanced-resolve\lib\Resolver.js:739:5] {
+  details: "resolve 'tailwindcss' in 'C:\\Users\\alexa\\Documents\\GitHub\\beasel'\n" +
+    '  Parsed request is a module\n' +
+    '  using description file: C:\\Users\\alexa\\package.json (relative path: ./Documents/GitHub/beasel)\n' +
+    '    resolve as module\n' +
+    "      C:\\Users\\alexa\\Documents\\GitHub\\beasel\\node_modules doesn't exist or is not a directory\n" +
+    "      C:\\Users\\alexa\\Documents\\GitHub\\node_modules doesn't exist or is not a directory\n" +
+    "      C:\\Users\\alexa\\Documents\\node_modules doesn't exist or is not a directory\n" +
+    '      looking for modules in C:\\Users\\alexa\\node_modules\n' +
+    '        single file module\n' +
+    '          using description file: C:\\Users\\alexa\\package.json (relative path: ./node_modules/tailwindcss)\n' +
+    '            no extension\n' +
+    "              C:\\Users\\alexa\\node_modules\\tailwindcss doesn't exist\n" +
+    '            .css\n' +
+    "              C:\\Users\\alexa\\node_modules\\tailwindcss.css doesn't exist\n" +
+    "        C:\\Users\\alexa\\node_modules\\tailwindcss doesn't exist\n" +
+    "      C:\\Users\\node_modules doesn't exist or is not a directory\n" +
+    "      C:\\node_modules doesn't exist or is not a directory"
+}
+ GET / 200 in 11.8s (compile: 7.3s, proxy.ts: 156ms, render: 4.3s)
+ GET / 200 in 4.3s (compile: 1823ms, proxy.ts: 204ms, render: 2.2s)
+ POST / 200 in 246ms (compile: 15ms, proxy.ts: 32ms, render: 199ms)
+Γ¿» upstream image response failed for https://images.unsplash.com/photo-1553028826-f4804151e2b2?w=600&h=400&fit=crop 404
+Γùï Compiling /sobre ...
+Γ£ô Finished filesystem cache database compaction in 11.3s
+ GET /sobre 200 in 5.7s (compile: 5.4s, proxy.ts: 46ms, render: 223ms)
+Γ£ô Finished filesystem cache database compaction in 10.5s
+Γ£ô Compiled in 640ms
