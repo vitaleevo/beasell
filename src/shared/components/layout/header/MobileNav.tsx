@@ -105,14 +105,14 @@ const MobileNav = ({ isMenuOpen, setIsMenuOpen }: MobileNavProps) => {
 
         {/* Mobile CTA Button */}
         <div className="pt-6 px-4">
-          <Link href="/contacto" onClick={() => setIsMenuOpen(false)}>
-            <Button 
-              size="lg" 
-              className="bg-orange-500 hover:bg-orange-600 text-white w-full py-4 text-base font-semibold shadow-lg touch-manipulation min-h-[48px]"
-            >
+          <Button asChild
+            size="lg" 
+            className="bg-orange-500 hover:bg-orange-600 text-white w-full py-4 text-base font-semibold shadow-lg touch-manipulation min-h-[48px]"
+          >
+            <Link href="/contacto" onClick={() => setIsMenuOpen(false)}>
               Contacto
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
 
         {/* Quick Actions */}

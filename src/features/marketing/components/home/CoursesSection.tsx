@@ -85,8 +85,10 @@ const CoursesSection = () => {
                   ))}
                 </div>
 
-                <Button className="w-full bg-[#1A2A49] hover:bg-[#1A2A49]/90 text-white font-medium py-2 rounded-lg transition-colors">
-                  Saber Mais
+                <Button asChild className="w-full bg-brand-blue-900 hover:bg-[#1A2A49]/90 text-white font-medium py-2 rounded-lg transition-colors mt-auto">
+                  <Link href="/treinamento">
+                    Saber Mais
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -94,12 +96,12 @@ const CoursesSection = () => {
         </div>
 
         <div className="text-center max-w-7xl mx-auto">
-          <Link href="/treinamento">
-            <Button size="lg" className="bg-[#F39200] hover:bg-[#d68000] text-white px-8 py-6 h-auto text-lg font-semibold rounded-full shadow-lg transition-all hover:scale-105">
+          <Button asChild size="lg" className="bg-brand-orange-500 hover:bg-[#d68000] text-white px-8 py-6 h-auto text-lg font-semibold rounded-full shadow-lg transition-all hover:scale-105">
+            <Link href="/treinamento">
               Ver Todos os Cursos
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

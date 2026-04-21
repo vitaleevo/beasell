@@ -86,14 +86,14 @@ const DesktopNav = () => {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <Link href="/contacto" className="ml-4">
-        <Button
-          size="lg"
-          className="bg-orange-500 hover:bg-orange-600 text-white px-4 xl:px-6 py-2 xl:py-2.5 text-sm xl:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
-        >
+      <Button asChild
+        size="lg"
+        className="bg-orange-500 hover:bg-orange-600 text-white px-4 xl:px-6 py-2 xl:py-2.5 text-sm xl:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 ml-4"
+      >
+        <Link href="/contacto">
           Contacto
-        </Button>
-      </Link>
+        </Link>
+      </Button>
     </div>
   );
 };

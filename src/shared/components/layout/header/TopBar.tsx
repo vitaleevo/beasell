@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin } from 'lucide-react';
 
 const TopBar = () => {
   return (
-    <div className="bg-blue-900 text-white py-1.5 sm:py-2 text-xs sm:text-sm">
+    <div className="bg-brand-blue-900 text-white py-1.5 sm:py-2 text-xs sm:text-sm">
       <div className="container mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 lg:gap-6">

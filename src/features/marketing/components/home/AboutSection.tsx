@@ -1,7 +1,7 @@
 
 import Image from 'next/image';
 import { Button } from '@/shared/components/ui/button';
-import { ArrowRight, Target, Award, Users } from 'lucide-react';
+import { ArrowRight, Target, Award, Users, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
 const AboutSection = () => {
@@ -10,45 +10,40 @@ const AboutSection = () => {
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center max-w-7xl mx-auto">
           <div className="space-y-6">
-            <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A2A49] mb-4">
-                Sobre a <span className="text-[#F39200]">Beasell</span>
-              </h2>
-              <p className="text-lg sm:text-xl text-gray-600">
-                Especialistas em formação comercial e consultoria empresarial
-              </p>
-            </div>
-
-            <p className="text-gray-600 leading-relaxed">
-              A Beasell é uma empresa angolana dedicada à consultoria em gestão de negócios,
-              com foco no apoio a pequenos empreendedores, equipas comerciais e organizações
-              em fase de estruturação ou crescimento.
+            <h2 className="text-3xl md:text-5xl font-bold text-brand-blue-900 mb-6 leading-tight">
+              Transformamos a Cultura de Vendas em <span className="text-brand-orange-500">Angola</span>
+            </h2>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              A Beasell nasceu da necessidade de elevar o padrão comercial no mercado angolano. Combinamos metodologias internacionais com um profundo conhecimento das dinâmicas locais para entregar resultados reais e sustentáveis.
             </p>
 
-            <div className="grid grid-cols-3 gap-4">
-              <div className="text-center">
-                <Target className="h-8 w-8 text-[#F39200] mx-auto mb-2" />
-                <div className="text-2xl font-bold text-[#1A2A49]">10+</div>
-                <div className="text-sm text-gray-600">Anos de Experiência</div>
+            <div className="grid grid-cols-2 gap-6 mb-10">
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-lg bg-brand-orange-500/10">
+                  <Target className="h-5 w-5 text-brand-orange-500" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-brand-blue-900">Missão</h4>
+                  <p className="text-sm text-gray-500">Capacitar profissionais para a excelência.</p>
+                </div>
               </div>
-              <div className="text-center">
-                <Users className="h-8 w-8 text-[#F39200] mx-auto mb-2" />
-                <div className="text-2xl font-bold text-[#1A2A49]">500+</div>
-                <div className="text-sm text-gray-600">Profissionais Formados</div>
-              </div>
-              <div className="text-center">
-                <Award className="h-8 w-8 text-[#F39200] mx-auto mb-2" />
-                <div className="text-2xl font-bold text-[#1A2A49]">95%</div>
-                <div className="text-sm text-gray-600">Satisfação</div>
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-lg bg-blue-100">
+                  <TrendingUp className="h-5 w-5 text-brand-blue-900" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-brand-blue-900">Visão</h4>
+                  <p className="text-sm text-gray-500">Ser referência em formação comercial.</p>
+                </div>
               </div>
             </div>
 
-            <Link href="/sobre">
-              <Button size="lg" className="bg-[#1A2A49] hover:bg-[#1A2A49]/90 text-white transition-transform hover:scale-105">
+            <Button asChild size="lg" className="bg-brand-blue-900 hover:bg-[#1A2A49]/90 text-white transition-transform hover:scale-105">
+              <Link href="/sobre">
                 Conhecer a Beasell
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           <div className="relative aspect-video lg:aspect-square">

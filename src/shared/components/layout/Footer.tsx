@@ -73,19 +73,19 @@ const Footer = () => {
 
             <div className="space-y-2 sm:space-y-3">
               <div className="flex items-start text-gray-300 text-sm sm:text-base">
-                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange mt-0.5 flex-shrink-0" />
+                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange-500 mt-0.5 flex-shrink-0" />
                 <span className="leading-relaxed">Rua Marechal Brós Tito Nº 35, Edifício Skyone 4º andar, Município de Ingombota, Bairro Kinaxixi Luanda-Angola</span>
               </div>
               <div className="flex items-center text-gray-300 text-sm sm:text-base">
-                <Phone className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange flex-shrink-0" />
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange-500 flex-shrink-0" />
                 <span>(244) 930 010 002</span>
               </div>
               <div className="flex items-center text-gray-300 text-sm sm:text-base">
-                <Mail className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange flex-shrink-0" />
+                <Mail className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange-500 flex-shrink-0" />
                 <span>info@beasell.ao</span>
               </div>
               <div className="flex items-center text-gray-300 text-sm sm:text-base">
-                <FileText className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange flex-shrink-0" />
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-brand-orange-500 flex-shrink-0" />
                 <span>NIF: 5002528509</span>
               </div>
             </div>
@@ -96,32 +96,32 @@ const Footer = () => {
             <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Links Rápidos</h4>
             <ul className="space-y-2 sm:space-y-3">
               <li>
-                <Link href="/" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                <Link href="/" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
                   Início
                 </Link>
               </li>
               <li>
-                <Link href="/sobre" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                <Link href="/sobre" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
                   Sobre Nós
                 </Link>
               </li>
               <li>
-                <Link href="/servicos" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                <Link href="/servicos" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
                   Serviços
                 </Link>
               </li>
               <li>
-                <Link href="/experiencia-cliente" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                <Link href="/experiencia-cliente" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
                   Experiência do Cliente
                 </Link>
               </li>
               <li>
-                <Link href="/conteudos" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                <Link href="/conteudos" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
                   Conteúdos
                 </Link>
               </li>
               <li>
-                <Link href="/contacto" className="text-gray-300 hover:text-brand-orange transition-colors duration-200 text-sm sm:text-base">
+                <Link href="/contacto" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
                   Contacto
                 </Link>
               </li>
@@ -133,22 +133,22 @@ const Footer = () => {
             <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Nossos Serviços</h4>
             <ul className="space-y-2 sm:space-y-3">
               <li>
-                <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
+                <span className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
                   Consultoria em Gestão de Negócios
                 </span>
               </li>
               <li>
-                <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
+                <span className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
                   Treinamento para Vendedores
                 </span>
               </li>
               <li>
-                <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
+                <span className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
                   Prospecção e Apoio Comercial
                 </span>
               </li>
               <li>
-                <span className="text-gray-300 hover:text-brand-orange transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
+                <span className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
                   Formações para Pequenos Negócios
                 </span>
               </li>
@@ -167,24 +167,24 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Seu email"
-                  className="flex-1 px-3 sm:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-brand-orange text-white text-sm sm:text-base"
+                  className="flex-1 px-3 sm:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-brand-orange-500 text-white text-sm sm:text-base"
                 />
-                <button className="bg-brand-orange hover:bg-brand-orange-600 px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm sm:text-base font-medium">
+                <button className="bg-brand-orange-500 hover:bg-brand-orange-600 px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm sm:text-base font-medium text-white">
                   OK
                 </button>
               </div>
 
               <div className="flex space-x-3 sm:space-x-4 pt-1 sm:pt-2">
-                <a href="#" className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label="Facebook">
+                <a href="#" className="bg-gray-800 hover:bg-brand-orange-500 p-2 rounded-lg transition-colors duration-200" aria-label="Facebook">
                   <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
                 </a>
-                <a href="#" className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label="Instagram">
+                <a href="#" className="bg-gray-800 hover:bg-brand-orange-500 p-2 rounded-lg transition-colors duration-200" aria-label="Instagram">
                   <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
                 </a>
-                <a href="#" className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label="LinkedIn">
+                <a href="#" className="bg-gray-800 hover:bg-brand-orange-500 p-2 rounded-lg transition-colors duration-200" aria-label="LinkedIn">
                   <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
                 </a>
-                <a href="#" className="bg-gray-800 hover:bg-brand-orange p-2 rounded-lg transition-colors duration-200" aria-label="YouTube">
+                <a href="#" className="bg-gray-800 hover:bg-brand-orange-500 p-2 rounded-lg transition-colors duration-200" aria-label="YouTube">
                   <Youtube className="h-4 w-4 sm:h-5 sm:w-5" />
                 </a>
               </div>

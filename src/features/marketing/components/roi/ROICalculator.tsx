@@ -54,8 +54,8 @@ const ROICalculator = () => {
                         <TrendingUp className="w-4 h-4" />
                         Simulador de Resultados
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-bold text-[#1A2A49] mb-6 tracking-tight">
-                        Calcule o seu <span className="text-[#F39200]">Potencial de Crescimento</span>
+                    <h2 className="text-3xl md:text-5xl font-bold text-brand-blue-900 mb-6 tracking-tight">
+                        Calcule o seu <span className="text-brand-orange-500">Potencial de Crescimento</span>
                     </h2>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
                         Descubra quanto a sua empresa pode lucrar a mais com uma equipa de vendas de alta performance treinada pela Beasell.
@@ -66,7 +66,7 @@ const ROICalculator = () => {
                     {/* Input Section */}
                     <Card className="lg:col-span-5 border-0 shadow-lg bg-white overflow-hidden ring-1 ring-gray-100">
                         <CardHeader className="bg-gray-50/50 pb-6 border-b border-gray-100">
-                            <CardTitle className="text-xl flex items-center gap-3 text-[#1A2A49]">
+                            <CardTitle className="text-xl flex items-center gap-3 text-brand-blue-900">
                                 <div className="p-2 bg-blue-100 rounded-lg">
                                     <Target className="h-5 w-5 text-blue-700" />
                                 </div>

@@ -28,19 +28,12 @@ export default function UserNav() {
             <SignedIn>
                 <div className="flex items-center gap-3">
                     {isAdmin && (
-                        <Link href="/admin/dashboard" className="hidden sm:block">
-                            <Button variant="outline" size="sm" className="border-blue-900 text-blue-900 hover:bg-blue-50">
+                        <Button asChild variant="outline" size="sm" className="border-blue-900 text-blue-900 hover:bg-blue-50 hidden sm:inline-flex">
+                            <Link href="/admin/dashboard">
                                 <LayoutDashboard className="h-4 w-4 mr-2" />
                                 Painel Admin
-                            </Button>
-                        </Link>
-                    )}
-                    {!isAdmin && (
-                        <Link href="/aluno/dashboard" className="hidden sm:block">
-                            <Button variant="outline" size="sm" className="border-orange-500 text-orange-500 hover:bg-orange-50">
-                                Meus Cursos
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                     )}
                     <UserButton
                         afterSignOutUrl="/"
