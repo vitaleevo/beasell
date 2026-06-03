@@ -55,9 +55,9 @@ Incremento fase 5:
 - Verificacao publica de certificados deixou de expor email do aluno e IDs internos.
 - Validacao executada: `npx convex codegen`, `npm run test`, `npm run lint`, `NEXT_TELEMETRY_DISABLED=1 npm run build`, `scripts/qa/run-smokes.sh`, `qa:production-smoke`, `monitor:production`, `monitor:production -- --require-sentry --warn-only`, `VISUAL_ROUTE_FILTER=admin-alunos` no runner Docker, `VISUAL_ROUTE_FILTER=admin-settings` no runner Docker e `scripts/qa/run-visual-docker.sh` completo com `failedCount=0` em 26 cenarios.
 - PR remoto confirmado em `https://github.com/vitaleevo/beasell/pull/1`, draft, mergeable, com Quality gate, Vercel, Vercel Preview Comments e CodeRabbit verdes no commit `128c7c8`.
-- Preview Vercel encontrada: `https://beasell-64z6uc2zf-vitaleevos-projects.vercel.app`; smoke remoto anonimo retornou 401 por Vercel Deployment Protection.
+- Preview Vercel mais recente: `https://beasell-p4bbpjomy-vitaleevos-projects.vercel.app`; smoke remoto anonimo retornou 401 por Vercel Deployment Protection.
 - Scripts `qa:production-smoke` e `monitor:production` passaram a suportar `VERCEL_AUTOMATION_BYPASS_SECRET`/`--vercel-bypass-secret` e a reportar preview protegida de forma explicita.
-- Criado workflow `.github/workflows/remote-smoke.yml` para validar previews Vercel por `deployment_status` e por disparo manual, usando `VERCEL_AUTOMATION_BYPASS_SECRET` quando configurado no GitHub.
+- Criado workflow `.github/workflows/remote-smoke.yml` para validar previews Vercel por `deployment_status` e por disparo manual, usando `VERCEL_AUTOMATION_BYPASS_SECRET` quando configurado no GitHub. O check `Remote smoke` ja dispara e passa com notice controlado quando a preview protegida nao tem bypass configurado.
 
 Foi feito:
 
@@ -137,7 +137,7 @@ Resultado:
 - `monitor:production`: passou com health, redirects, headers e Convex auth.
 - `monitor:production -- --require-sentry --warn-only`: executou sem quebrar localmente e reportou `sentryConfigured=false`, esperado sem DSN local.
 - `scripts/qa/run-visual-docker.sh`: passou com `failedCount=0` em 26 cenarios desktop/mobile.
-- Smoke remoto na preview Vercel: bloqueado por Deployment Protection 401 sem bypass configurado; nao prova falha da aplicacao, mas impede declarar producao remota validada.
+- Smoke remoto na preview Vercel: check automatico `Remote smoke` passou com notice, mas foi bloqueado por Deployment Protection 401 sem bypass configurado; nao prova falha da aplicacao, mas impede declarar producao remota validada.
 - Browser QA confirmou `/admin/precos` com controlo/historico e sem overflow no viewport atual.
 - Browser QA confirmou `/admin/pagamentos` renderizando e botoes bloqueados para pagamentos que nao estao `submitted`.
 - Browser QA confirmou dashboard com painel de saude e sem overflow no viewport atual.
