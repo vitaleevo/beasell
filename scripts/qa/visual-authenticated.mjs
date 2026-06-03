@@ -138,7 +138,10 @@ async function inspectPage(page, route, viewportName, label) {
     });
   });
   page.on("pageerror", (error) => {
-    diagnostics.pageErrors.push(error.message.slice(0, 300));
+    diagnostics.pageErrors.push({
+      message: error.message.slice(0, 300),
+      stack: error.stack?.slice(0, 1000) ?? "",
+    });
   });
   page.on("requestfailed", (request) => {
     diagnostics.requestFailures.push({
@@ -152,27 +155,51 @@ async function inspectPage(page, route, viewportName, label) {
   let gotoError = "";
   await page
     .goto(`${nextOrigin}${route.path}`, {
-      timeout: 15000,
+      timeout: 30000,
       waitUntil: "domcontentloaded",
     })
     .catch((error) => {
       gotoError = error instanceof Error ? error.message : String(error);
     });
-  await page.waitForLoadState("networkidle", { timeout: 5000 }).catch(() => {});
-  await page
-    .waitForFunction(
-      () => {
-        const text = document.body.innerText.trim();
-        return (
-          (text !== "A carregar..." && text.length > 40) ||
-          location.pathname.startsWith("/sign-in") ||
-          location.pathname.startsWith("/unauthorized")
-        );
-      },
-      { timeout: 16000 },
-    )
-    .catch(() => {});
-  await page.waitForTimeout(500);
+
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    await page.waitForLoadState("networkidle", { timeout: 8000 }).catch(() => {});
+    await page
+      .waitForFunction(
+        () => {
+          const text = document.body.innerText.trim();
+          return (
+            (text !== "A carregar..." && text.length > 40) ||
+            location.pathname.startsWith("/sign-in") ||
+            location.pathname.startsWith("/unauthorized")
+          );
+        },
+        { timeout: 30000 },
+      )
+      .catch(() => {});
+    await page.waitForTimeout(700);
+
+    const bodyText = await page
+      .evaluate(() => document.body.innerText.trim())
+      .catch(() => "");
+    const currentPath = new URL(page.url()).pathname;
+    if (
+      bodyText.length > 40 ||
+      currentPath.startsWith("/sign-in") ||
+      currentPath.startsWith("/unauthorized")
+    ) {
+      break;
+    }
+
+    if (attempt < 2) {
+      await page
+        .reload({ timeout: 30000, waitUntil: "domcontentloaded" })
+        .catch((error) => {
+          const message = error instanceof Error ? error.message : String(error);
+          gotoError = gotoError ? `${gotoError}\nreload: ${message}` : `reload: ${message}`;
+        });
+    }
+  }
 
   const screenshot = path.join(screenshotsDir, screenshotName(viewportName, label));
   await page.screenshot({ path: screenshot, fullPage: true });

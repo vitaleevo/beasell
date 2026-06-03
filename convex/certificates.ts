@@ -54,24 +54,26 @@ export const verifyByCode = query({
     if (!certificate || certificate.status !== "active") return null;
 
     const course = await ctx.db.get(certificate.courseId);
-    const user = await ctx.db.get(certificate.userId);
 
     return {
-      certificate,
+      certificate: {
+        certificateNumber: certificate.certificateNumber,
+        recipientName: certificate.recipientName,
+        courseTitle: certificate.courseTitle,
+        instructorName: certificate.instructorName,
+        issuedAt: certificate.issuedAt,
+        completedAt: certificate.completedAt,
+        progress: certificate.progress,
+        totalLessons: certificate.totalLessons,
+        completedLessons: certificate.completedLessons,
+        status: certificate.status,
+      },
       course: course
         ? {
-            _id: course._id,
             title: course.title,
             slug: course.slug,
             thumbnailUrl: course.thumbnailUrl,
             isPublished: course.isPublished === true || course.status === "published",
-          }
-        : null,
-      user: user
-        ? {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
           }
         : null,
     };

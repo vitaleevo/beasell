@@ -2,7 +2,7 @@
 
 Atualizado em 2026-06-03.
 
-## Ultima etapa concluida: hardening profissional fase 1
+## Ultima etapa concluida: hardening profissional fase 5 local
 
 Objetivo: iniciar o plano profissional + seguro do MVP com controlos reais de producao, sem tentar resolver todas as fases de uma vez.
 
@@ -36,12 +36,24 @@ Incremento fase 4:
 
 - Adicionado `@sentry/nextjs` com configuracao opcional para client, server e edge.
 - Criados `src/instrumentation.ts`, `src/instrumentation-client.ts`, `src/sentry.server.config.ts`, `src/sentry.edge.config.ts` e scrubber `src/sentry.shared.ts`.
-- `src/app/error.tsx` e `src/app/global-error.tsx` capturam excecoes no Sentry quando DSN estiver configurado.
+- `src/app/error.tsx` captura excecoes no Sentry quando DSN estiver configurado.
+- `src/app/global-error.tsx` foi removido apos QA visual porque gerava erro de manifesto client no Next 16 local; a observabilidade fica em `app/error.tsx` e nos arquivos de instrumentation.
 - `sendDefaultPii` fica desligado e o scrubber remove email, IP, cookies, headers de autorizacao, tokens, secrets e campos de comprovativo.
 - `/api/health` agora mostra apenas booleanos de observabilidade, incluindo `sentryConfigured`, sem expor DSN, org, projeto ou token.
 - `monitor:production` ganhou `--require-sentry` para exigir Sentry no ambiente real.
 - Documentacao e templates de env foram atualizados com as variaveis Sentry opcionais e regra de nao enviar PII.
 - Validacao executada: `npm run test`, `npm run lint`, `NEXT_TELEMETRY_DISABLED=1 npm run build`, `npm run qa:env:example`, `npm run monitor:production`, `npm run monitor:production -- --require-sentry --warn-only` e `qa:production-smoke`.
+
+Incremento fase 5:
+
+- QA visual ampla autenticada foi executada em ambiente Docker limpo cobrindo 26 rotas/cenarios em desktop e mobile.
+- O runner `scripts/qa/visual-authenticated.mjs` ganhou retry controlado para paginas que ficam em loader durante recompilacao fria/HMR do Next dev, sem esconder falhas permanentes de renderizacao.
+- A remocao de `src/app/global-error.tsx` eliminou os 500s e erros de manifest vistos na fase 4.
+- Audit final de mutations reforcou rate limit e validacao server-side em cursos, modulos, aulas e artigos do blog.
+- Seed mutations destrutivas foram bloqueadas fora de deployments Convex locais/anonimos.
+- Novas submissoes por link externo de comprovativo foram bloqueadas; upload por storage continua sendo o caminho correto.
+- Verificacao publica de certificados deixou de expor email do aluno e IDs internos.
+- Validacao executada: `npx convex codegen`, `npm run test`, `npm run lint`, `NEXT_TELEMETRY_DISABLED=1 npm run build`, `scripts/qa/run-smokes.sh`, `qa:production-smoke`, `monitor:production`, `monitor:production -- --require-sentry --warn-only`, `VISUAL_ROUTE_FILTER=admin-alunos` no runner Docker, `VISUAL_ROUTE_FILTER=admin-settings` no runner Docker e `scripts/qa/run-visual-docker.sh` completo com `failedCount=0` em 26 cenarios.
 
 Foi feito:
 
@@ -51,7 +63,9 @@ Foi feito:
 - Aprovacao agora so aceita pagamento `submitted`; rejeicao exige motivo com minimo de 8 caracteres; pagamento aprovado/rejeitado bloqueia transicoes indevidas.
 - Reenvio de comprovativo limpa nota/revisao anterior e volta para `submitted`.
 - O aluno passa a ver a orientacao do admin quando o pagamento e rejeitado.
-- Cursos, modulos e aulas geram auditoria em criacao/edicao/remocao.
+- Cursos, modulos e aulas geram auditoria em criacao/edicao/remocao e tem rate limit admin.
+- Artigos do blog geram auditoria em criacao/edicao e tem rate limit admin.
+- Novos comprovativos por URL externa sao bloqueados; o fallback de URL fica apenas para dados legados.
 - `/admin/precos` passou a ter historico recente, confirmacao interna para alteracao de preco, modal de remocao e indicadores de controlo.
 - `services` agora valida categoria/moeda/preco/features no backend, aplica rate limit admin e audita criacao/alteracao/remocao.
 - Dashboard admin ganhou painel de saude operacional com pagamentos para rever, cursos publicados, pacotes de preco e auditoria 24h.
@@ -68,6 +82,10 @@ Arquivos principais:
 - `convex/operations.ts`
 - `convex/payments.ts`
 - `convex/courses.ts`
+- `convex/blog.ts`
+- `convex/certificates.ts`
+- `convex/paymentProof.ts`
+- `convex/seed.ts`
 - `convex/services.ts`
 - `convex/users.ts`
 - `src/instrumentation.ts`
@@ -93,7 +111,11 @@ wsl -d Ubuntu --cd /home/alexandre/beasell -- env NEXT_TELEMETRY_DISABLED=1 npm 
 wsl -d Ubuntu --cd /home/alexandre/beasell -- npm run qa:env
 wsl -d Ubuntu --cd /home/alexandre/beasell -- npm run qa:env:example
 wsl -d Ubuntu --cd /home/alexandre/beasell -- NEXT_PUBLIC_SITE_URL=http://localhost:3002 NEXT_PUBLIC_CONVEX_SITE_URL=http://127.0.0.1:3211 npm run qa:production-smoke
-Browser QA em `/admin/precos`, `/admin/pagamentos` e `/admin/dashboard`
+wsl -d Ubuntu --cd /home/alexandre/beasell -- bash scripts/qa/run-smokes.sh
+wsl -d Ubuntu --cd /home/alexandre/beasell -- npm run monitor:production -- --base-url http://localhost:3002 --convex-site-url http://127.0.0.1:3211
+wsl -d Ubuntu --cd /home/alexandre/beasell -- npm run monitor:production -- --base-url http://localhost:3002 --convex-site-url http://127.0.0.1:3211 --require-sentry --warn-only
+wsl -d Ubuntu --cd /home/alexandre/beasell -- scripts/qa/run-visual-docker.sh
+Browser QA em `/admin/precos`, `/admin/pagamentos`, `/admin/dashboard` e runner visual Docker completo
 ```
 
 Resultado:
@@ -104,29 +126,33 @@ Resultado:
 - `npm run build`: passou.
 - `qa:env` e `qa:env:example`: passaram.
 - `qa:production-smoke`: passou usando `next start` local em `http://localhost:3002`.
+- `scripts/qa/run-smokes.sh`: passou, incluindo bloqueios negativos de aluno contra admin/pagamentos/cursos/saude.
+- `monitor:production`: passou com health, redirects, headers e Convex auth.
+- `monitor:production -- --require-sentry --warn-only`: executou sem quebrar localmente e reportou `sentryConfigured=false`, esperado sem DSN local.
+- `scripts/qa/run-visual-docker.sh`: passou com `failedCount=0` em 26 cenarios desktop/mobile.
 - Browser QA confirmou `/admin/precos` com controlo/historico e sem overflow no viewport atual.
 - Browser QA confirmou `/admin/pagamentos` renderizando e botoes bloqueados para pagamentos que nao estao `submitted`.
 - Browser QA confirmou dashboard com painel de saude e sem overflow no viewport atual.
 
 Estado atual:
 
-- As fases 1, 1.1, 2, 3 e 4 de hardening estao implementadas e validadas localmente.
-- O objetivo maior ainda nao terminou: faltam QA visual amplo em ambiente limpo, revisao de todas as mutations para cobertura exaustiva e deploy remoto final.
-- O PR draft precisa ser atualizado com esta tranche fase 4.
+- As fases 1, 1.1, 2, 3, 4 e 5 local de hardening estao implementadas e validadas localmente.
+- O objetivo maior ainda nao terminou apenas por dependencia externa: falta deploy remoto final com variaveis reais, dominio real e smoke no dominio publicado.
+- O PR draft precisa ser atualizado com esta tranche fase 5.
 - Continuam existindo alteracoes locais unstaged de ruido/logs/final de linha fora deste escopo; nao foram revertidas.
 
 Estado do projeto:
 
-- Fase/trilha atual: hardening profissional e seguranca de producao, fim da fase 4.
+- Fase/trilha atual: hardening profissional e seguranca de producao, fase 5 local concluida.
 - Solido agora: auth, LMS, upload de comprovativos, aulas YouTube/Vimeo, auditoria base, rate limit base, CI, docs de dados sensiveis, dashboard de saude, smoke negativo versionado, `/api/health`, monitor operacional, Sentry opcional com scrubber e backoffice com exportacao/filtros em pagamentos e alunos.
-- Falta imediato: executar QA visual amplo em ambiente limpo, rever mutations restantes para cobertura exaustiva e fazer deploy remoto com smoke no dominio final.
-- Distancia do fim: esta trilha esta no meio; o MVP esta forte localmente, mas o produto completo ainda precisa hardening externo e operacao real.
+- Falta imediato: fazer deploy remoto com smoke no dominio final, configurar Sentry/Convex/Vercel reais e confirmar `ADMIN_EMAILS` do dono.
+- Distancia do fim: MVP esta forte e validado localmente; producao real depende da publicacao remota e operacao externa.
 
 ## Proximo passo recomendado
 
-Continuar com hardening fase 5: QA visual amplo em ambiente limpo, revisao final de mutations e deploy remoto com smoke no dominio final.
+Continuar com deploy remoto real: aplicar variaveis, validar Convex/Vercel, configurar Sentry e rodar smoke no dominio final.
 
-AVISO: O proximo passo e criar/implementar hardening fase 5 do MVP Beasell com QA visual amplo em ambiente limpo, revisao final de mutations e deploy remoto com smoke no dominio final. Antes de iniciar, leia `MEMORIA_BEASELL.md` para continuar exatamente de onde o projeto parou, entender o que ja foi feito e integrar a solucao com o sistema atual sem reler todo o repositorio.
+AVISO: O proximo passo e executar deploy remoto real do MVP Beasell com variaveis de producao, Convex/Vercel/Sentry configurados e smoke no dominio final. Antes de iniciar, leia `MEMORIA_BEASELL.md` para continuar exatamente de onde o projeto parou, entender o que ja foi feito e integrar a solucao com o sistema atual sem reler todo o repositorio.
 
 ## Ultima etapa concluida: editor rico de cursos e aulas com YouTube/Vimeo
 

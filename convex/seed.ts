@@ -4,12 +4,8 @@ import { validateAdmin } from "./authorization";
 
 function validateLocalSeed() {
   const deployment = process.env.CONVEX_DEPLOYMENT ?? "";
-  const localSeedAllowed = process.env.ALLOW_LOCAL_SEED === "true";
-  if (
-    !localSeedAllowed &&
-    !deployment.startsWith("anonymous:") &&
-    !deployment.startsWith("local:")
-  ) {
+  const isLocalDeployment = deployment.startsWith("anonymous:") || deployment.startsWith("local:");
+  if (!isLocalDeployment) {
     throw new Error("Seed local bloqueada fora de um deployment Convex local/anonimo.");
   }
 }
@@ -18,6 +14,7 @@ export const seedBlog = mutation({
   args: {},
   handler: async (ctx) => {
     await validateAdmin(ctx);
+    validateLocalSeed();
 
     const posts = [
       {
@@ -98,6 +95,7 @@ export const seedCourses = mutation({
   args: {},
   handler: async (ctx) => {
     await validateAdmin(ctx);
+    validateLocalSeed();
 
     // Clear existing
     const existingCourses = await ctx.db.query("courses").collect();

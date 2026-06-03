@@ -29,6 +29,7 @@ Controlos atuais:
 - Tamanho maximo: 8 MB.
 - Admin abre o comprovativo, aprova ou rejeita.
 - Rejeicao exige motivo para orientar o aluno.
+- Novas submissoes por link externo sao bloqueadas; comprovativo novo deve entrar por upload.
 
 Politica recomendada:
 
@@ -41,6 +42,7 @@ Politica recomendada:
 Eventos criticos que devem ser auditados:
 
 - Criacao, edicao e remocao de cursos, modulos e aulas.
+- Criacao e edicao de artigos do blog.
 - Criacao, edicao e remocao de pacotes de preco.
 - Submissao, aprovacao e rejeicao de pagamentos.
 - Futuramente: alteracoes de perfil/role de utilizadores e revogacao de certificados.
@@ -61,7 +63,7 @@ Antes de producao:
 - Confirmar processo de backup do deployment Convex.
 - Documentar como restaurar dados ou exportar tabelas criticas.
 - Testar rollback de deploy Next.js.
-- Nunca executar seed local em producao.
+- Nunca executar seed local em producao; as seed mutations destrutivas ficam bloqueadas fora de deployments Convex `local:` ou `anonymous:`.
 
 Tabelas criticas:
 
@@ -73,6 +75,12 @@ Tabelas criticas:
 - `payments`
 - `certificates`
 - `auditLogs`
+
+## Certificados Publicos
+
+- A verificacao publica por codigo deve expor apenas os dados necessarios para confirmar autenticidade.
+- Nao devolver email do aluno, `userId`, `enrollmentId`, `courseId` ou outros IDs internos em respostas publicas.
+- O nome do destinatario, curso, numero do certificado, datas e progresso sao suficientes para a pagina publica.
 
 ## Monitorizacao
 

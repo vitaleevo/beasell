@@ -3,7 +3,11 @@ import { mutation, query } from "./_generated/server";
 import type { MutationCtx } from "./_generated/server";
 import type { Id } from "./_generated/dataModel";
 import { getCurrentAppUser, validateAdmin } from "./authorization";
-import { getPaymentProofUrl, validatePaymentProofStorage } from "./paymentProof";
+import {
+  getPaymentProofUrl,
+  rejectLegacyPaymentProofUrl,
+  validatePaymentProofStorage,
+} from "./paymentProof";
 import { writeAuditLog } from "./audit";
 import { assertRateLimit, identityRateLimitKey, userRateLimitKey } from "./rateLimit";
 
@@ -138,6 +142,7 @@ export const submitProof = mutation({
       throw new Error("Este pagamento ja foi aprovado.");
     }
 
+    rejectLegacyPaymentProofUrl(args.paymentProofUrl);
     await validatePaymentProofStorage(ctx, args.paymentProofStorageId);
 
     const payment = await getPaymentForEnrollment(ctx, enrollment._id);

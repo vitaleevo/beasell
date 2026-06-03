@@ -10,7 +10,11 @@ import {
   validateAdmin,
 } from "./authorization";
 import { calculateCourseProgress } from "./courseProgress";
-import { getPaymentProofUrl, validatePaymentProofStorage } from "./paymentProof";
+import {
+  getPaymentProofUrl,
+  rejectLegacyPaymentProofUrl,
+  validatePaymentProofStorage,
+} from "./paymentProof";
 import { getChangedFields, writeAuditLog } from "./audit";
 import { assertRateLimit, userRateLimitKey } from "./rateLimit";
 
@@ -128,9 +132,62 @@ function cleanOptionalString(value: string | undefined) {
   return trimmed ? trimmed : undefined;
 }
 
+function cleanRequiredString(value: string, field: string, maxLength = 5000) {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    throw new Error(`${field} e obrigatorio.`);
+  }
+  if (trimmed.length > maxLength) {
+    throw new Error(`${field} deve ter no maximo ${maxLength} caracteres.`);
+  }
+
+  return trimmed;
+}
+
 function cleanStringList(value: string[] | undefined) {
   const list = (value ?? []).map((item) => item.trim()).filter(Boolean);
   return list.length > 0 ? list : undefined;
+}
+
+function cleanSlug(value: string) {
+  const slug = cleanRequiredString(value, "Slug", 120).toLowerCase();
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+    throw new Error("Slug deve conter apenas letras, numeros e hifens.");
+  }
+
+  return slug;
+}
+
+function cleanCurrency(value: string | undefined) {
+  const currency = cleanOptionalString(value)?.toUpperCase() ?? "AOA";
+  if (!/^[A-Z]{3}$/.test(currency)) {
+    throw new Error("Moeda deve usar codigo ISO de 3 letras.");
+  }
+
+  return currency;
+}
+
+function validateNonNegativeNumber(value: number, field: string) {
+  if (!Number.isFinite(value) || value < 0) {
+    throw new Error(`${field} deve ser um numero valido maior ou igual a zero.`);
+  }
+
+  return Math.round(value);
+}
+
+async function requireRateLimitedAdmin(ctx: MutationCtx) {
+  await validateAdmin(ctx);
+  const admin = await getCurrentAppUser(ctx);
+  if (admin) {
+    await assertRateLimit(ctx, {
+      key: userRateLimitKey(admin._id),
+      action: "course.admin_write",
+      limit: 80,
+      windowMs: 60 * 60 * 1000,
+    });
+  }
+
+  return admin;
 }
 
 function detectVideoProvider(source: string | undefined) {
@@ -817,11 +874,11 @@ export const createCourse = mutation({
     certificateEnabled: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
-    await validateAdmin(ctx);
-    const admin = await getCurrentAppUser(ctx);
+    const admin = await requireRateLimitedAdmin(ctx);
+    const slug = cleanSlug(args.slug);
     const existing = await ctx.db
       .query("courses")
-      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .withIndex("by_slug", (q) => q.eq("slug", slug))
       .unique();
 
     if (existing) {
@@ -829,20 +886,25 @@ export const createCourse = mutation({
     }
 
     const now = Date.now();
+    const title = cleanRequiredString(args.title, "Titulo", 160);
+    const description = cleanRequiredString(args.description, "Descricao", 5000);
+    const thumbnailUrl = cleanRequiredString(args.thumbnailUrl, "Imagem do curso", 1000);
+    const price = validateNonNegativeNumber(args.price, "Preco");
+    const currency = cleanCurrency(args.currency);
     const instructorName = cleanOptionalString(args.instructorName);
-    const isFree = args.isFree ?? args.price <= 0;
+    const isFree = args.isFree ?? price <= 0;
 
     const courseId = await ctx.db.insert("courses", {
-      title: args.title,
-      slug: args.slug,
-      description: args.description,
-      shortDescription: args.description,
+      title,
+      slug,
+      description,
+      shortDescription: description,
       fullDescription: cleanOptionalString(args.fullDescription),
-      thumbnailUrl: args.thumbnailUrl,
-      price: isFree ? 0 : args.price,
+      thumbnailUrl,
+      price: isFree ? 0 : price,
       status: args.isPublished ? "published" : "draft",
       isPublished: args.isPublished,
-      currency: cleanOptionalString(args.currency) ?? "AOA",
+      currency,
       category: cleanOptionalString(args.category),
       language: cleanOptionalString(args.language) ?? "pt",
       level: cleanOptionalString(args.level),
@@ -873,11 +935,11 @@ export const createCourse = mutation({
       action: "course.created",
       resourceType: "course",
       resourceId: courseId,
-      summary: `${admin?.email ?? "Admin"} criou o curso '${args.title}'.`,
+      summary: `${admin?.email ?? "Admin"} criou o curso '${title}'.`,
       metadata: {
         courseId,
-        price: isFree ? 0 : args.price,
-        currency: cleanOptionalString(args.currency) ?? "AOA",
+        price: isFree ? 0 : price,
+        currency,
         isPublished: args.isPublished,
       },
     });
@@ -910,15 +972,14 @@ export const updateCourse = mutation({
     slug: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    await validateAdmin(ctx);
-    const admin = await getCurrentAppUser(ctx);
+    const admin = await requireRateLimitedAdmin(ctx);
     const { id, instructorName, ...rest } = args;
     const courseBefore = await ctx.db.get(id);
     if (!courseBefore) {
       throw new Error("Curso nao encontrado.");
     }
 
-    const nextSlug = rest.slug;
+    const nextSlug = rest.slug === undefined ? undefined : cleanSlug(rest.slug);
     if (nextSlug !== undefined) {
       const existing = await ctx.db
         .query("courses")
@@ -935,14 +996,18 @@ export const updateCourse = mutation({
       updatedBy: admin?._id,
     };
 
-    if (rest.title !== undefined) patch.title = rest.title;
-    if (rest.slug !== undefined) patch.slug = rest.slug;
-    if (rest.description !== undefined) patch.description = rest.description;
+    if (rest.title !== undefined) patch.title = cleanRequiredString(rest.title, "Titulo", 160);
+    if (nextSlug !== undefined) patch.slug = nextSlug;
+    if (rest.description !== undefined) {
+      patch.description = cleanRequiredString(rest.description, "Descricao", 5000);
+    }
     if (rest.fullDescription !== undefined) {
       patch.fullDescription = cleanOptionalString(rest.fullDescription);
     }
-    if (rest.thumbnailUrl !== undefined) patch.thumbnailUrl = rest.thumbnailUrl;
-    if (rest.currency !== undefined) patch.currency = cleanOptionalString(rest.currency) ?? "AOA";
+    if (rest.thumbnailUrl !== undefined) {
+      patch.thumbnailUrl = cleanRequiredString(rest.thumbnailUrl, "Imagem do curso", 1000);
+    }
+    if (rest.currency !== undefined) patch.currency = cleanCurrency(rest.currency);
     if (rest.category !== undefined) patch.category = cleanOptionalString(rest.category);
     if (rest.language !== undefined) patch.language = cleanOptionalString(rest.language) ?? "pt";
     if (rest.level !== undefined) patch.level = cleanOptionalString(rest.level);
@@ -957,11 +1022,11 @@ export const updateCourse = mutation({
     }
 
     if (rest.description !== undefined) {
-      patch.shortDescription = rest.description;
+      patch.shortDescription = patch.description;
     }
 
     if (rest.price !== undefined) {
-      patch.price = rest.isFree ? 0 : rest.price;
+      patch.price = rest.isFree ? 0 : validateNonNegativeNumber(rest.price, "Preco");
     } else if (rest.isFree === true) {
       patch.price = 0;
     }
@@ -1032,10 +1097,13 @@ export const addModule = mutation({
     order: v.number(),
   },
   handler: async (ctx, args) => {
-    await validateAdmin(ctx);
-    const admin = await getCurrentAppUser(ctx);
+    const admin = await requireRateLimitedAdmin(ctx);
+    const title = cleanRequiredString(args.title, "Titulo do modulo", 160);
+    const order = validateNonNegativeNumber(args.order, "Ordem do modulo");
     const moduleId = await ctx.db.insert("modules", {
       ...args,
+      title,
+      order,
       status: "published",
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -1051,11 +1119,11 @@ export const addModule = mutation({
       action: "module.created",
       resourceType: "course",
       resourceId: args.courseId,
-      summary: `${admin?.email ?? "Admin"} criou o modulo '${args.title}'.`,
+      summary: `${admin?.email ?? "Admin"} criou o modulo '${title}'.`,
       metadata: {
         courseId: args.courseId,
         moduleId,
-        order: args.order,
+        order,
       },
     });
 
@@ -1070,20 +1138,19 @@ export const updateModule = mutation({
     order: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    await validateAdmin(ctx);
-    const admin = await getCurrentAppUser(ctx);
+    const admin = await requireRateLimitedAdmin(ctx);
     const moduleBefore = await ctx.db.get(args.id);
     if (!moduleBefore) {
       throw new Error("Modulo nao encontrado.");
     }
 
     const patch: { title: string; order?: number; updatedAt: number } = {
-      title: args.title,
+      title: cleanRequiredString(args.title, "Titulo do modulo", 160),
       updatedAt: Date.now(),
     };
 
     if (args.order !== undefined) {
-      patch.order = args.order;
+      patch.order = validateNonNegativeNumber(args.order, "Ordem do modulo");
     }
 
     await ctx.db.patch(args.id, patch);
@@ -1093,7 +1160,7 @@ export const updateModule = mutation({
       action: "module.updated",
       resourceType: "course",
       resourceId: moduleBefore.courseId,
-      summary: `${admin?.email ?? "Admin"} actualizou o modulo '${args.title}'.`,
+      summary: `${admin?.email ?? "Admin"} actualizou o modulo '${patch.title}'.`,
       metadata: {
         courseId: moduleBefore.courseId,
         moduleId: args.id,
@@ -1117,24 +1184,31 @@ export const addLesson = mutation({
     allowDownload: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
-    await validateAdmin(ctx);
-    const admin = await getCurrentAppUser(ctx);
+    const admin = await requireRateLimitedAdmin(ctx);
     const moduleDoc = await ctx.db.get(args.moduleId);
     if (!moduleDoc) {
       throw new Error("Modulo nao encontrado.");
     }
+    const title = cleanRequiredString(args.title, "Titulo da aula", 160);
+    const contentUrl = cleanRequiredString(args.contentUrl, "Conteudo da aula", 50000);
+    const duration = validateNonNegativeNumber(args.duration, "Duracao da aula");
+    const order = validateNonNegativeNumber(args.order, "Ordem da aula");
     const videoProvider = resolveVideoProvider({
       type: args.type,
-      contentUrl: args.contentUrl,
+      contentUrl,
       videoProvider: args.videoProvider,
     });
 
     const lessonId = await ctx.db.insert("lessons", {
       ...args,
+      title,
+      contentUrl,
       courseId: moduleDoc.courseId,
-      videoUrl: args.type === "video" ? args.contentUrl : undefined,
+      videoUrl: args.type === "video" ? contentUrl : undefined,
       videoProvider,
-      videoDuration: args.duration,
+      duration,
+      order,
+      videoDuration: duration,
       isRequired: args.isRequired ?? true,
       isFree: args.isFree ?? false,
       allowDownload: args.allowDownload ?? false,
@@ -1153,7 +1227,7 @@ export const addLesson = mutation({
       action: "lesson.created",
       resourceType: "course",
       resourceId: moduleDoc.courseId,
-      summary: `${admin?.email ?? "Admin"} criou a aula '${args.title}'.`,
+      summary: `${admin?.email ?? "Admin"} criou a aula '${title}'.`,
       metadata: {
         courseId: moduleDoc.courseId,
         moduleId: args.moduleId,
@@ -1182,8 +1256,7 @@ export const updateLesson = mutation({
     allowDownload: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
-    await validateAdmin(ctx);
-    const admin = await getCurrentAppUser(ctx);
+    const admin = await requireRateLimitedAdmin(ctx);
     const lesson = await ctx.db.get(args.id);
     if (!lesson) {
       throw new Error("Aula nao encontrada.");
@@ -1193,9 +1266,12 @@ export const updateLesson = mutation({
       lesson.videoProvider === "youtube" || lesson.videoProvider === "vimeo"
         ? lesson.videoProvider
         : undefined;
-    const nextContentUrl = args.contentUrl ?? lesson.contentUrl ?? lesson.videoUrl;
+    const nextContentUrl =
+      args.contentUrl === undefined
+        ? lesson.contentUrl ?? lesson.videoUrl
+        : cleanRequiredString(args.contentUrl, "Conteudo da aula", 50000);
     const patch: Partial<Omit<LessonDoc, "_id" | "_creationTime">> = {
-      title: args.title,
+      title: cleanRequiredString(args.title, "Titulo da aula", 160),
       type: args.type,
       isFree: args.isFree ?? lesson.isFree ?? false,
       updatedAt: Date.now(),
@@ -1207,9 +1283,9 @@ export const updateLesson = mutation({
     });
 
     if (args.contentUrl !== undefined) {
-      patch.contentUrl = args.contentUrl;
+      patch.contentUrl = nextContentUrl;
       if (args.type === "video") {
-        patch.videoUrl = args.contentUrl;
+        patch.videoUrl = nextContentUrl;
         patch.videoProvider = videoProvider;
       } else {
         patch.videoUrl = undefined;
@@ -1218,12 +1294,12 @@ export const updateLesson = mutation({
     }
 
     if (args.duration !== undefined) {
-      patch.duration = args.duration;
-      patch.videoDuration = args.duration;
+      patch.duration = validateNonNegativeNumber(args.duration, "Duracao da aula");
+      patch.videoDuration = patch.duration;
     }
 
     if (args.order !== undefined) {
-      patch.order = args.order;
+      patch.order = validateNonNegativeNumber(args.order, "Ordem da aula");
     }
 
     if (args.isRequired !== undefined) {
@@ -1241,7 +1317,7 @@ export const updateLesson = mutation({
       action: "lesson.updated",
       resourceType: "course",
       resourceId: lesson.courseId,
-      summary: `${admin?.email ?? "Admin"} actualizou a aula '${args.title}'.`,
+      summary: `${admin?.email ?? "Admin"} actualizou a aula '${patch.title}'.`,
       metadata: {
         courseId: lesson.courseId,
         moduleId: lesson.moduleId,
@@ -1266,8 +1342,7 @@ export const updateLesson = mutation({
 export const deleteModule = mutation({
   args: { id: v.id("modules") },
   handler: async (ctx, args) => {
-    await validateAdmin(ctx);
-    const admin = await getCurrentAppUser(ctx);
+    const admin = await requireRateLimitedAdmin(ctx);
     const moduleDoc = await ctx.db.get(args.id);
     if (!moduleDoc) {
       throw new Error("Modulo nao encontrado.");
@@ -1302,8 +1377,7 @@ export const deleteModule = mutation({
 export const deleteLesson = mutation({
   args: { id: v.id("lessons") },
   handler: async (ctx, args) => {
-    await validateAdmin(ctx);
-    const admin = await getCurrentAppUser(ctx);
+    const admin = await requireRateLimitedAdmin(ctx);
     const lesson = await ctx.db.get(args.id);
     if (!lesson) {
       throw new Error("Aula nao encontrada.");
@@ -1443,6 +1517,7 @@ export const enroll = mutation({
 
     const now = Date.now();
     const requiresPayment = isPaymentRequired(course);
+    rejectLegacyPaymentProofUrl(args.paymentProofUrl);
     await validatePaymentProofStorage(ctx, args.paymentProofStorageId);
     const hasPaymentSubmission = Boolean(
       args.paymentReference || args.paymentProofUrl || args.paymentProofStorageId,

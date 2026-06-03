@@ -29,6 +29,12 @@ export async function validatePaymentProofStorage(
   }
 }
 
+export function rejectLegacyPaymentProofUrl(value: string | undefined) {
+  if (value?.trim()) {
+    throw new Error("Envie o comprovativo por upload de ficheiro, nao por link externo.");
+  }
+}
+
 export async function getPaymentProofUrl(
   ctx: QueryCtx | MutationCtx,
   storageId: Id<"_storage"> | undefined,
