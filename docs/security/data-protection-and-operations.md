@@ -94,6 +94,24 @@ Monitores minimos:
 - Rotas admin anonimas devem redirecionar para login.
 - Alertar se pagamentos submetidos ficarem acumulados sem revisao.
 
+## Rate Limit De Autenticacao
+
+Controlo atual:
+
+- Better Auth rate limit fica sempre ativo.
+- O contador e persistido na tabela local `betterAuth.rateLimit` do componente Convex.
+- Login limita tentativas repetidas por IP em `/sign-in/*` e `/api/auth/sign-in/*`.
+- Signup limita criacao repetida por IP em `/sign-up/*` e `/api/auth/sign-up/*`.
+- O rate limit usa headers de proxy confiaveis, incluindo `x-forwarded-for`, `x-real-ip`, `x-vercel-forwarded-for`, `cf-connecting-ip`, `true-client-ip` e `x-client-ip`.
+
+Validacao local:
+
+```bash
+npm run qa:auth-rate-limit
+```
+
+Nota operacional: se o runtime/proxy nao encaminhar um header de IP confiavel, o Better Auth ignora o rate limit por seguranca. Confirmar isto no deploy real antes do go-live.
+
 Comando recomendado:
 
 ```bash
@@ -133,6 +151,7 @@ Antes de publicar:
 
 ```bash
 npm run qa:env:production
+npm run qa:auth-rate-limit
 npm run lint
 npm run test
 NEXT_TELEMETRY_DISABLED=1 npm run build

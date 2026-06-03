@@ -6,6 +6,7 @@ cd "$ROOT"
 
 "$ROOT/scripts/qa/start-local.sh"
 
+node scripts/qa/auth-rate-limit.mjs
 node scripts/qa/security-negative.mjs
 
 if [[ "${RUN_LEGACY_TMP_SMOKES:-0}" == "1" ]]; then

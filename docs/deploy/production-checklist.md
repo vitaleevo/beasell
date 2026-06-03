@@ -15,7 +15,7 @@ Resultado esperado:
 - Lint sem erros e sem warnings.
 - Testes Convex verdes.
 - Build Next.js verde.
-- Smokes autenticados e smoke negativo de seguranca verdes.
+- Smokes autenticados, rate limit de auth e smoke negativo de seguranca verdes.
 - QA visual autenticada com `failedCount=0`.
 
 ## 2. Variaveis de producao
@@ -62,6 +62,8 @@ Regras:
 - `NEXT_PUBLIC_CONVEX_SITE_URL` deve apontar para o endpoint HTTP do mesmo deployment.
 - `ADMIN_EMAILS` deve conter o email unico do dono/professor.
 - `BETTER_AUTH_SECRET` nunca deve ser colocado em ficheiros versionados.
+- O deployment Convex deve incluir a tabela local `betterAuth.rateLimit`, usada pelo Better Auth para persistir tentativas de login/signup.
+- O proxy/runtime deve preservar IP do cliente em `x-forwarded-for` ou outro header listado em `advanced.ipAddress.ipAddressHeaders`, senao o rate limit de login/signup e ignorado pelo Better Auth.
 - `BEASELL_MONITOR_WEBHOOK_URL` e opcional; se usado, configurar apenas no ambiente seguro do monitor.
 - `VERCEL_AUTOMATION_BYPASS_SECRET` e opcional e so deve existir no ambiente seguro que roda smokes contra previews Vercel protegidas.
 - Sentry e opcional em local/CI, mas recomendado em producao. Usar `sendDefaultPii=false`; nunca enviar comprovativos, cookies, tokens ou emails em eventos.
@@ -151,6 +153,7 @@ Validar no browser:
 Smoke HTTP minimo:
 
 ```bash
+NEXT_ORIGIN=https://<dominio> TRUSTED_ORIGIN=https://<dominio> npm run qa:auth-rate-limit
 NEXT_PUBLIC_SITE_URL=https://<dominio> NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site npm run qa:production-smoke
 ```
 
@@ -165,6 +168,7 @@ O workflow `Beasell Remote Smoke` tambem roda automaticamente quando a Vercel pu
 Este smoke confirma:
 
 - Home, sign-in, sign-up e listagem publica de cursos com HTTP 200.
+- Rate limit de login retorna `429` apos tentativas repetidas do mesmo IP.
 - Redirecionamento anonimo para sign-in em todas as rotas admin principais.
 - Redirecionamento anonimo em `/plataforma/meus-cursos`.
 - Endpoint HTTP/Auth do Convex em `/api/auth/get-session`.
@@ -214,6 +218,7 @@ Confirmar:
 - Alteracoes em `/admin/precos` ficam no historico.
 - Comprovativos usam upload autenticado e validacao de tipo/tamanho.
 - Smoke negativo `npm run qa:security:negative` bloqueia aluno em acoes admin e so libera aula apos aprovacao.
+- Smoke de auth `npm run qa:auth-rate-limit` bloqueia tentativas repetidas de login pelo mesmo IP.
 - `/api/health` nao devolve valores de variaveis, apenas booleanos de configuracao.
 - Eventos Sentry passam por scrubber para remover headers/cookies/tokens/comprovativos e PII basica.
 - O processo de backup/exportacao do deployment Convex esta conhecido pelo dono tecnico.

@@ -14,6 +14,7 @@ docker run --rm \
   -w /app \
   "$IMAGE" \
   sh -lc '
+    node scripts/qa/auth-rate-limit.mjs
     node scripts/qa/security-negative.mjs
     if [ "${RUN_LEGACY_TMP_SMOKES:-0}" = "1" ]; then
       for smoke in .tmp/payment-smoke.mjs .tmp/student-detail-smoke.mjs .tmp/admin-route-smoke.mjs; do

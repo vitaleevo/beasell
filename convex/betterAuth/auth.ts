@@ -42,6 +42,51 @@ export const createAuthOptions = (ctx: GenericCtx<DataModel>) => {
         emailAndPassword: {
             enabled: true,
         },
+        rateLimit: {
+            enabled: true,
+            storage: "database",
+            window: 60,
+            max: 100,
+            customRules: {
+                "/api/auth/sign-in/*": {
+                    window: 60,
+                    max: 5,
+                },
+                "/api/auth/sign-up/*": {
+                    window: 300,
+                    max: 5,
+                },
+                "/sign-in/*": {
+                    window: 60,
+                    max: 5,
+                },
+                "/sign-up/*": {
+                    window: 300,
+                    max: 5,
+                },
+                "/request-password-reset": {
+                    window: 300,
+                    max: 3,
+                },
+                "/forget-password": {
+                    window: 300,
+                    max: 3,
+                },
+            },
+        },
+        advanced: {
+            ipAddress: {
+                ipAddressHeaders: [
+                    "x-forwarded-for",
+                    "x-real-ip",
+                    "x-vercel-forwarded-for",
+                    "cf-connecting-ip",
+                    "true-client-ip",
+                    "x-client-ip",
+                ],
+                ipv6Subnet: 64,
+            },
+        },
         plugins: [convex({ authConfig })],
     } satisfies BetterAuthOptions;
 };

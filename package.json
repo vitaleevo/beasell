@@ -12,6 +12,7 @@
     "qa:env:example": "node scripts/deploy/check-env.mjs --file .env.example --mode example",
     "qa:env:production": "node scripts/deploy/check-env.mjs --mode production",
     "qa:preflight": "bash scripts/deploy/preflight-docker.sh",
+    "qa:auth-rate-limit": "node scripts/qa/auth-rate-limit.mjs",
     "qa:security:negative": "node scripts/qa/security-negative.mjs",
     "qa:production-smoke": "node scripts/deploy/production-smoke.mjs",
     "monitor:production": "node scripts/monitor/production-health.mjs",
