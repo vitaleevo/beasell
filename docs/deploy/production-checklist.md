@@ -150,6 +150,8 @@ Se a preview Vercel estiver protegida por Deployment Protection, configure `VERC
 NEXT_PUBLIC_SITE_URL=https://<preview-vercel> VERCEL_AUTOMATION_BYPASS_SECRET=<secret> npm run qa:production-smoke
 ```
 
+O workflow `Beasell Remote Smoke` tambem roda automaticamente quando a Vercel publica uma preview e pode ser disparado manualmente em GitHub Actions. Para validar previews protegidas no CI remoto, adicione `VERCEL_AUTOMATION_BYPASS_SECRET` como secret do repositorio GitHub. Sem esse secret, o workflow detecta a protecao da Vercel e registra um notice em vez de tratar o 401 como falha da aplicacao.
+
 Este smoke confirma:
 
 - Home, sign-in, sign-up e listagem publica de cursos com HTTP 200.

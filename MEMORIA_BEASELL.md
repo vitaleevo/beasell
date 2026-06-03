@@ -57,6 +57,7 @@ Incremento fase 5:
 - PR remoto confirmado em `https://github.com/vitaleevo/beasell/pull/1`, draft, mergeable, com Quality gate, Vercel, Vercel Preview Comments e CodeRabbit verdes no commit `128c7c8`.
 - Preview Vercel encontrada: `https://beasell-64z6uc2zf-vitaleevos-projects.vercel.app`; smoke remoto anonimo retornou 401 por Vercel Deployment Protection.
 - Scripts `qa:production-smoke` e `monitor:production` passaram a suportar `VERCEL_AUTOMATION_BYPASS_SECRET`/`--vercel-bypass-secret` e a reportar preview protegida de forma explicita.
+- Criado workflow `.github/workflows/remote-smoke.yml` para validar previews Vercel por `deployment_status` e por disparo manual, usando `VERCEL_AUTOMATION_BYPASS_SECRET` quando configurado no GitHub.
 
 Foi feito:
 
@@ -91,6 +92,7 @@ Arquivos principais:
 - `convex/seed.ts`
 - `scripts/deploy/production-smoke.mjs`
 - `scripts/monitor/production-health.mjs`
+- `.github/workflows/remote-smoke.yml`
 - `convex/services.ts`
 - `convex/users.ts`
 - `src/instrumentation.ts`
@@ -143,7 +145,7 @@ Resultado:
 Estado atual:
 
 - As fases 1, 1.1, 2, 3, 4 e 5 local de hardening estao implementadas e validadas localmente.
-- O objetivo maior ainda nao terminou apenas por dependencia externa: falta remover/fornecer bypass da Deployment Protection, configurar variaveis reais, dominio real e smoke no dominio publicado.
+- O objetivo maior ainda nao terminou apenas por dependencia externa: falta remover/fornecer bypass da Deployment Protection como secret GitHub/Vercel, configurar variaveis reais, dominio real e smoke no dominio publicado.
 - O PR draft precisa ser atualizado com esta tranche fase 5.
 - Continuam existindo alteracoes locais unstaged de ruido/logs/final de linha fora deste escopo; nao foram revertidas.
 
