@@ -53,6 +53,13 @@ jobs:
         run: NEXT_TELEMETRY_DISABLED=1 npm run build
 
       - name: Local auth and security smokes
+        env:
+          CONVEX_DEPLOYMENT: ""
+          SITE_URL: http://localhost:3002
+          NEXT_PUBLIC_SITE_URL: http://localhost:3002
+          BETTER_AUTH_TRUSTED_ORIGINS: http://localhost:3002
+          NEXT_PUBLIC_CONVEX_URL: http://127.0.0.1:3210
+          NEXT_PUBLIC_CONVEX_SITE_URL: http://127.0.0.1:3211
         run: |
           trap 'bash scripts/qa/stop-local.sh >/dev/null 2>&1 || true' EXIT
           bash scripts/qa/run-smokes.sh
