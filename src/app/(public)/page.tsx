@@ -8,23 +8,39 @@ import AboutSection from "@/features/marketing/components/home/AboutSection";
 import CTASection from "@/features/marketing/components/home/CTASection";
 import ROICalculator from "@/features/marketing/components/roi/ROICalculator";
 import { Metadata } from "next";
+import JsonLd from "@/shared/components/seo/JsonLd";
+import { breadcrumbJsonLd, buildPageMetadata, webPageJsonLd } from "@/shared/lib/seo";
 
-export const metadata: Metadata = {
-    title: "Beasell - Formação de Excelência em Vendas | Angola",
-    description: "A Beasell oferece formação especializada em vendas para profissionais e empresas em Angola. Transforme sua carreira comercial com metodologia comprovada.",
-    keywords: "formação vendas angola, curso vendas luanda, treinamento comercial, consultoria vendas, beasell",
-    openGraph: {
-        title: "Beasell - Formação de Excelência em Vendas | Angola",
-        description: "A Beasell oferece formação especializada em vendas para profissionais e empresas em Angola. Transforme sua carreira comercial com metodologia comprovada.",
-        url: "https://beasell.ao",
-        type: "website",
-        images: [{ url: "/lovable-uploads/aabccf71-2753-49b9-82b4-62156d717089.png" }],
-    },
-};
+const title = "Beasell Angola | Formacao de Vendas, Consultoria e Gestao Comercial";
+const description =
+    "Formacao em vendas, consultoria comercial, prospeccao e atendimento ao cliente para empresas, empreendedores e equipas comerciais em Angola.";
+
+export const metadata: Metadata = buildPageMetadata({
+    title,
+    description,
+    path: "/",
+    keywords: [
+        "beasell formacao de vendas",
+        "consultoria comercial angola",
+        "curso de vendas luanda",
+        "treinamento de vendedores angola",
+    ],
+});
 
 export default function HomePage() {
     return (
         <>
+            <JsonLd
+                data={[
+                    webPageJsonLd({
+                        title,
+                        description,
+                        path: "/",
+                        about: ["vendas em Angola", "formacao comercial", "consultoria de gestao"],
+                    }),
+                    breadcrumbJsonLd([{ name: "Inicio", path: "/" }]),
+                ]}
+            />
             <Hero />
             <FeaturesSection />
             <VideoSection />

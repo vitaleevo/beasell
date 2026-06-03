@@ -1,16 +1,42 @@
 import AboutHero from "@/features/marketing/components/heroes/AboutHero";
 import About from "@/features/marketing/components/About";
 import { Metadata } from "next";
+import JsonLd from "@/shared/components/seo/JsonLd";
+import { breadcrumbJsonLd, buildPageMetadata, webPageJsonLd } from "@/shared/lib/seo";
 
-export const metadata: Metadata = {
-    title: "Sobre Nós - Beasell | Especialistas em Formação de Vendas",
-    description: "Conheça a equipa da Beasell e nossa missão de transformar profissionais de vendas em Angola. Experiência, dedicação e resultados comprovados.",
-    keywords: "sobre beasell, equipa vendas angola, formadores vendas luanda, beatriz chavier",
-};
+const title = "Sobre a Beasell | Especialistas em Vendas e Gestao em Angola";
+const description =
+    "Conheca a Beasell, empresa angolana de consultoria, formacao comercial e apoio a empreendedores, equipas de vendas e negocios em crescimento.";
+
+export const metadata: Metadata = buildPageMetadata({
+    title,
+    description,
+    path: "/sobre",
+    keywords: [
+        "sobre beasell",
+        "beasell lda",
+        "equipa vendas angola",
+        "formadores vendas luanda",
+    ],
+});
 
 export default function AboutPage() {
     return (
         <>
+            <JsonLd
+                data={[
+                    webPageJsonLd({
+                        title,
+                        description,
+                        path: "/sobre",
+                        about: ["Beasell", "consultoria em Angola", "formacao em vendas"],
+                    }),
+                    breadcrumbJsonLd([
+                        { name: "Inicio", path: "/" },
+                        { name: "Sobre", path: "/sobre" },
+                    ]),
+                ]}
+            />
             <AboutHero />
             <About />
         </>

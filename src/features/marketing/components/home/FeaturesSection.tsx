@@ -5,6 +5,7 @@ import { Button } from '@/shared/components/ui/button';
 import { ArrowRight, Target, Users, Rocket } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 
 const FeaturesSection = () => {
   const features = [
@@ -28,7 +29,7 @@ const FeaturesSection = () => {
     }
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -38,14 +39,14 @@ const FeaturesSection = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   };

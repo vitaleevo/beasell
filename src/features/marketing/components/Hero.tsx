@@ -6,6 +6,7 @@ import { ArrowRight, Play, Users, Award, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 
 const Hero = () => {
   const stats = [{
@@ -22,7 +23,7 @@ const Hero = () => {
     icon: TrendingUp
   }];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -33,7 +34,7 @@ const Hero = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,

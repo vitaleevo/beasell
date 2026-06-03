@@ -1,12 +1,10 @@
 "use client"
 
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { AdminUser, ServicePackage, AdminStats } from '@/shared/types/admin';
+import { ServicePackage, AdminStats } from '@/shared/types/admin';
 import { ContactSettings, ContactSubmission } from '@/shared/types/contact';
 
 interface AdminState {
-  user: AdminUser | null;
-  isAuthenticated: boolean;
   services: ServicePackage[];
   stats: AdminStats;
   loading: boolean;
@@ -15,8 +13,6 @@ interface AdminState {
 }
 
 type AdminAction =
-  | { type: 'LOGIN'; payload: AdminUser }
-  | { type: 'LOGOUT' }
   | { type: 'SET_SERVICES'; payload: ServicePackage[] }
   | { type: 'UPDATE_SERVICE'; payload: ServicePackage }
   | { type: 'SET_STATS'; payload: AdminStats }
@@ -25,8 +21,6 @@ type AdminAction =
   | { type: 'ADD_CONTACT_SUBMISSION'; payload: ContactSubmission };
 
 const initialState: AdminState = {
-  user: null,
-  isAuthenticated: false,
   services: [],
   stats: { totalPosts: 0, publishedPosts: 0, totalServices: 0, monthlyViews: 0 },
   loading: false,
@@ -79,10 +73,6 @@ const mockServices: ServicePackage[] = [
 
 const adminReducer = (state: AdminState, action: AdminAction): AdminState => {
   switch (action.type) {
-    case 'LOGIN':
-      return { ...state, user: action.payload, isAuthenticated: true };
-    case 'LOGOUT':
-      return { ...state, user: null, isAuthenticated: false };
     case 'SET_SERVICES':
       return { ...state, services: action.payload };
     case 'UPDATE_SERVICE':
@@ -117,12 +107,6 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [state, dispatch] = useReducer(adminReducer, initialState);
 
   useEffect(() => {
-    // Check for saved authentication
-    const savedUser = localStorage.getItem('beasell-admin-user');
-    if (savedUser) {
-      dispatch({ type: 'LOGIN', payload: JSON.parse(savedUser) });
-    }
-
     // Load services
     const savedServices = localStorage.getItem('beasell-services');
     if (savedServices) {

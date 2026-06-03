@@ -1,19 +1,18 @@
 "use client";
 
-
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import { useToast } from '@/shared/hooks/use-toast';
-import { Mail, CheckCircle } from 'lucide-react';
-import LoadingSpinner from './loading-spinner';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
+import { useToast } from "@/shared/hooks/use-toast";
+import { Mail, CheckCircle } from "lucide-react";
+import LoadingSpinner from "./loading-spinner";
 
 const newsletterSchema = z.object({
-  email: z.string().email('Email inválido'),
-  name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres').optional(),
+  email: z.string().email("Email inválido"),
+  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres").optional(),
 });
 
 type NewsletterFormData = z.infer<typeof newsletterSchema>;
@@ -27,9 +26,9 @@ interface NewsletterSignupProps {
 
 const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
   showName = false,
-  className = '',
-  placeholder = 'Seu email',
-  buttonText = 'Subscrever'
+  className = "",
+  placeholder = "Seu email",
+  buttonText = "Subscrever",
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -39,42 +38,41 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<NewsletterFormData>({
     resolver: zodResolver(newsletterSchema),
   });
 
   const onSubmit = async (data: NewsletterFormData) => {
     setIsSubmitting(true);
-    
+
     try {
       // Simular envio para newsletter
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       // Salvar no localStorage para demonstração
-      const newsletters = JSON.parse(localStorage.getItem('beasell-newsletters') || '[]');
+      const newsletters = JSON.parse(localStorage.getItem("beasell-newsletters") || "[]");
       newsletters.push({
         ...data,
-        subscribedAt: new Date().toISOString()
+        subscribedAt: new Date().toISOString(),
       });
-      localStorage.setItem('beasell-newsletters', JSON.stringify(newsletters));
-      
+      localStorage.setItem("beasell-newsletters", JSON.stringify(newsletters));
+
       setIsSubscribed(true);
       toast({
-        title: 'Subscrição Realizada!',
-        description: 'Obrigado por se juntar à nossa newsletter.',
+        title: "Subscrição Realizada!",
+        description: "Obrigado por se juntar à nossa newsletter.",
       });
-      
+
       reset();
-      
+
       // Reset success state after 3 seconds
       setTimeout(() => setIsSubscribed(false), 3000);
-      
-    } catch (error) {
+    } catch {
       toast({
-        title: 'Erro na Subscrição',
-        description: 'Ocorreu um erro. Tente novamente.',
-        variant: 'destructive',
+        title: "Erro na Subscrição",
+        description: "Ocorreu um erro. Tente novamente.",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -96,38 +94,34 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
         <div>
           <Input
             placeholder="Seu nome"
-            {...register('name')}
-            className={errors.name ? 'border-red-500' : ''}
+            {...register("name")}
+            className={errors.name ? "border-red-500" : ""}
           />
-          {errors.name && (
-            <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
-          )}
+          {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
         </div>
       )}
-      
+
       <div className="flex space-x-2">
         <div className="flex-1">
           <Input
             type="email"
             placeholder={placeholder}
-            {...register('email')}
-            className={errors.email ? 'border-red-500' : ''}
+            {...register("email")}
+            className={errors.email ? "border-red-500" : ""}
           />
-          {errors.email && (
-            <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
         </div>
-        
-        <Button 
-          type="submit" 
+
+        <Button
+          type="submit"
           disabled={isSubmitting}
-          className="bg-orange-500 hover:bg-orange-600 text-white px-6"
+          className="bg-orange-500 px-6 text-white hover:bg-orange-600"
         >
           {isSubmitting ? (
             <LoadingSpinner size="sm" />
           ) : (
             <>
-              <Mail className="h-4 w-4 mr-2" />
+              <Mail className="mr-2 h-4 w-4" />
               {buttonText}
             </>
           )}
@@ -138,5 +132,3 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 };
 
 export default NewsletterSignup;
-
-

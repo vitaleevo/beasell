@@ -1,17 +1,14 @@
 "use client";
 
-
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Button } from '@/shared/components/ui/button';
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "@/shared/components/ui/button";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/shared/components/ui/navigation-menu";
 import { cn } from "@/shared/lib/utils";
@@ -21,15 +18,18 @@ const DesktopNav = () => {
   const isActive = (path: string) => location === path;
 
   return (
-    <div className="hidden lg:flex items-center space-x-2">
+    <div className="hidden items-center space-x-2 lg:flex">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink asChild
+            <NavigationMenuLink
+              asChild
               className={cn(
                 navigationMenuTriggerStyle(),
-                "text-sm xl:text-base font-medium px-3 xl:px-4 py-2",
-                isActive('/') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
+                "px-3 py-2 text-sm font-medium xl:px-4 xl:text-base",
+                isActive("/")
+                  ? "bg-blue-900/10 text-blue-900"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-blue-900",
               )}
             >
               <Link href="/">Início</Link>
@@ -37,11 +37,14 @@ const DesktopNav = () => {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuLink asChild
+            <NavigationMenuLink
+              asChild
               className={cn(
                 navigationMenuTriggerStyle(),
-                "text-sm xl:text-base font-medium px-3 xl:px-4 py-2",
-                isActive('/sobre') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
+                "px-3 py-2 text-sm font-medium xl:px-4 xl:text-base",
+                isActive("/sobre")
+                  ? "bg-blue-900/10 text-blue-900"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-blue-900",
               )}
             >
               <Link href="/sobre">Sobre</Link>
@@ -49,11 +52,14 @@ const DesktopNav = () => {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuLink asChild
+            <NavigationMenuLink
+              asChild
               className={cn(
                 navigationMenuTriggerStyle(),
-                "text-sm xl:text-base font-medium px-3 xl:px-4 py-2",
-                isActive('/servicos') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
+                "px-3 py-2 text-sm font-medium xl:px-4 xl:text-base",
+                isActive("/servicos")
+                  ? "bg-blue-900/10 text-blue-900"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-blue-900",
               )}
             >
               <Link href="/servicos">Serviços</Link>
@@ -61,11 +67,14 @@ const DesktopNav = () => {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuLink asChild
+            <NavigationMenuLink
+              asChild
               className={cn(
                 navigationMenuTriggerStyle(),
-                "text-sm xl:text-base font-medium px-3 xl:px-4 py-2",
-                isActive('/experiencia-cliente') || isActive('/testemunhos') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
+                "px-3 py-2 text-sm font-medium xl:px-4 xl:text-base",
+                isActive("/experiencia-cliente") || isActive("/testemunhos")
+                  ? "bg-blue-900/10 text-blue-900"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-blue-900",
               )}
             >
               <Link href="/experiencia-cliente">Experiência do Cliente</Link>
@@ -73,11 +82,14 @@ const DesktopNav = () => {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuLink asChild
+            <NavigationMenuLink
+              asChild
               className={cn(
                 navigationMenuTriggerStyle(),
-                "text-sm xl:text-base font-medium px-3 xl:px-4 py-2",
-                isActive('/conteudos') || isActive('/blog') ? 'text-blue-900 bg-blue-900/10' : 'text-gray-700 hover:text-blue-900 hover:bg-gray-50'
+                "px-3 py-2 text-sm font-medium xl:px-4 xl:text-base",
+                isActive("/conteudos") || isActive("/blog")
+                  ? "bg-blue-900/10 text-blue-900"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-blue-900",
               )}
             >
               <Link href="/conteudos">Conteúdos</Link>
@@ -86,13 +98,12 @@ const DesktopNav = () => {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <Button asChild
+      <Button
+        asChild
         size="lg"
-        className="bg-orange-500 hover:bg-orange-600 text-white px-4 xl:px-6 py-2 xl:py-2.5 text-sm xl:text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 ml-4"
+        className="ml-4 bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-orange-600 hover:shadow-xl xl:px-6 xl:py-2.5 xl:text-base"
       >
-        <Link href="/contacto">
-          Contacto
-        </Link>
+        <Link href="/contacto">Contacto</Link>
       </Button>
     </div>
   );

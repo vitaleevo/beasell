@@ -1,0 +1,207 @@
+# Beasell Production Checklist
+
+Esta checklist prepara o LMS/backoffice para producao sem expor segredos no repositorio.
+
+## 1. Estado local obrigatorio
+
+Antes de publicar, estes comandos devem passar em Ubuntu + Docker:
+
+```bash
+RUN_VISUAL=1 bash scripts/deploy/preflight-docker.sh
+```
+
+Resultado esperado:
+
+- Lint sem erros e sem warnings.
+- Testes Convex verdes.
+- Build Next.js verde.
+- Smokes autenticados e smoke negativo de seguranca verdes.
+- QA visual autenticada com `failedCount=0`.
+
+## 2. Variaveis de producao
+
+Configure no ambiente remoto da aplicacao Next.js:
+
+```bash
+CONVEX_DEPLOYMENT=prod:<deployment-name>
+SITE_URL=https://<dominio>
+NEXT_PUBLIC_SITE_URL=https://<dominio>
+BETTER_AUTH_TRUSTED_ORIGINS=https://<dominio>
+NEXT_PUBLIC_CONVEX_URL=https://<deployment>.convex.cloud
+NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site
+BETTER_AUTH_SECRET=<secret-com-pelo-menos-32-caracteres>
+ADMIN_EMAILS=<email-do-dono>
+BEASELL_MONITOR_WEBHOOK_URL=<opcional-webhook-de-alerta>
+NEXT_PUBLIC_SENTRY_DSN=<opcional-dsn-publico-sentry>
+SENTRY_DSN=<opcional-dsn-servidor-sentry>
+SENTRY_ORG=<opcional-org-sentry>
+SENTRY_PROJECT=<opcional-project-sentry>
+SENTRY_AUTH_TOKEN=<opcional-token-upload-sourcemaps>
+```
+
+Use o inicializador seguro para gerar o ficheiro temporario fora do repositorio, com `BETTER_AUTH_SECRET` forte e permissoes `0600`:
+
+```bash
+npm run deploy:init-env -- --domain <dominio> --deployment <deployment> --owner-email <email-do-dono>
+```
+
+O ficheiro padrao gerado e `/tmp/beasell.env.production`.
+
+Tambem pode usar o template versionado como ponto de partida manual:
+
+```bash
+cp docs/deploy/env.production.example /tmp/beasell.env.production
+```
+
+Regras:
+
+- `SITE_URL`, `NEXT_PUBLIC_SITE_URL` e `BETTER_AUTH_TRUSTED_ORIGINS` devem usar o mesmo dominio publico em HTTPS.
+- `NEXT_PUBLIC_CONVEX_URL` deve apontar para o deployment Convex de producao.
+- `NEXT_PUBLIC_CONVEX_SITE_URL` deve apontar para o endpoint HTTP do mesmo deployment.
+- `ADMIN_EMAILS` deve conter o email unico do dono/professor.
+- `BETTER_AUTH_SECRET` nunca deve ser colocado em ficheiros versionados.
+- `BEASELL_MONITOR_WEBHOOK_URL` e opcional; se usado, configurar apenas no ambiente seguro do monitor.
+- Sentry e opcional em local/CI, mas recomendado em producao. Usar `sendDefaultPii=false`; nunca enviar comprovativos, cookies, tokens ou emails em eventos.
+
+Validacao local de um ficheiro de producao temporario:
+
+```bash
+node scripts/deploy/check-env.mjs --file /tmp/beasell.env.production --mode production
+```
+
+Preflight Docker com esse mesmo ficheiro:
+
+```bash
+PRODUCTION_ENV_FILE=/tmp/beasell.env.production RUN_VISUAL=1 bash scripts/deploy/preflight-docker.sh
+```
+
+Validacao dentro do ambiente remoto, quando as variaveis ja existem no processo:
+
+```bash
+npm run qa:env:production
+```
+
+## 3. Convex remoto
+
+Passos:
+
+1. Confirmar que o deployment remoto e de producao.
+2. Rodar o dry-run de variaveis Convex. Este comando nao escreve valores:
+
+```bash
+bash scripts/deploy/apply-convex-env.sh /tmp/beasell.env.production
+```
+
+3. Aplicar variaveis Convex apenas depois de conferir o alvo:
+
+```bash
+APPLY=1 bash scripts/deploy/apply-convex-env.sh /tmp/beasell.env.production
+```
+
+Use `FORCE=1` apenas se precisar sobrescrever valores ja existentes.
+
+4. Rodar o dry-run Convex:
+
+```bash
+bash scripts/deploy/convex-prod-dry-run.sh /tmp/beasell.env.production
+```
+
+5. Publicar funcoes/schema com o Convex CLI apenas depois do dry-run passar.
+6. Confirmar que o endpoint `https://<deployment>.convex.site/api/auth/get-session` responde.
+
+Nao correr seed local contra producao. O ficheiro `convex/seed.ts` ja bloqueia deployments que nao sejam locais/anonimos.
+
+## 4. Deploy Next.js
+
+Passos:
+
+1. Publicar a aplicacao Next.js com as variaveis acima.
+2. Confirmar que `/sign-in` carrega.
+3. Criar/entrar com o email listado em `ADMIN_EMAILS`.
+4. Confirmar acesso a `/admin/dashboard`.
+5. Confirmar que um email fora de `ADMIN_EMAILS` entra como aluno.
+
+## 5. Smoke manual pos-deploy
+
+Validar no browser:
+
+- `/admin/dashboard`
+- `/admin/cursos`
+- `/admin/alunos`
+- `/admin/conteudos`
+- `/admin/analise`
+- `/admin/pagamentos`
+- `/admin/precos`
+- `/admin/settings`
+- `/plataforma/cursos`
+- `/plataforma/meus-cursos`
+
+Smoke HTTP minimo:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://<dominio> NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site npm run qa:production-smoke
+```
+
+Este smoke confirma:
+
+- Home, sign-in, sign-up e listagem publica de cursos com HTTP 200.
+- Redirecionamento anonimo para sign-in em todas as rotas admin principais.
+- Redirecionamento anonimo em `/plataforma/meus-cursos`.
+- Endpoint HTTP/Auth do Convex em `/api/auth/get-session`.
+- Headers de seguranca basicos: `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` e `Strict-Transport-Security`.
+
+Monitor operacional:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://<dominio> NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site npm run monitor:production
+```
+
+Para exigir Sentry no ambiente real:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://<dominio> NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site npm run monitor:production -- --require-sentry
+```
+
+Este monitor confirma:
+
+- `/api/health` com estado `ok`, sem expor secrets ou emails.
+- Estado de configuracao do Sentry sem expor DSN, org, projeto ou token.
+- Home publica online.
+- `/admin/dashboard` redireciona anonimos para login.
+- Headers de seguranca continuam presentes.
+- Endpoint HTTP/Auth do Convex responde.
+
+Se `BEASELL_MONITOR_WEBHOOK_URL` estiver configurado, falhas enviam alerta com apenas nome dos checks falhados.
+
+Fluxos minimos:
+
+- Dono cria curso, modulo e aula.
+- Aluno inscreve-se num curso pago.
+- Dono aprova pagamento.
+- Aluno consegue abrir aulas depois da aprovacao.
+- Dono rejeita um pagamento e o aluno continua sem acesso.
+
+## 6. Dados sensiveis, auditoria e operacao
+
+Antes de liberar uso real, ler e aplicar `docs/security/data-protection-and-operations.md`.
+
+Confirmar:
+
+- Eventos criticos aparecem em `auditLogs`.
+- Rejeicao de pagamento exige motivo e o aluno ve a orientacao.
+- Alteracoes em `/admin/precos` ficam no historico.
+- Comprovativos usam upload autenticado e validacao de tipo/tamanho.
+- Smoke negativo `npm run qa:security:negative` bloqueia aluno em acoes admin e so libera aula apos aprovacao.
+- `/api/health` nao devolve valores de variaveis, apenas booleanos de configuracao.
+- Eventos Sentry passam por scrubber para remover headers/cookies/tokens/comprovativos e PII basica.
+- O processo de backup/exportacao do deployment Convex esta conhecido pelo dono tecnico.
+- Logs e audit metadata nao guardam tokens, secrets nem URLs de comprovativos.
+
+## 7. Rollback
+
+Se o deploy falhar:
+
+- Reverter o deploy Next.js para a ultima versao verde.
+- Manter o Convex deployment sem seed de teste.
+- Rever `SITE_URL`, `BETTER_AUTH_TRUSTED_ORIGINS` e URLs Convex antes de nova tentativa.
+- Reexecutar a checklist local antes de publicar novamente.

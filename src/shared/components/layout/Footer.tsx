@@ -13,6 +13,9 @@ const Footer = () => {
     name: "Serviços",
     path: "/servicos"
   }, {
+    name: "Vendas em Angola",
+    path: "/vendas-angola"
+  }, {
     name: "Experiência do Cliente",
     path: "/experiencia-cliente"
   }, {
@@ -95,36 +98,13 @@ const Footer = () => {
           <div>
             <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Links Rápidos</h4>
             <ul className="space-y-2 sm:space-y-3">
-              <li>
-                <Link href="/" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
-                  Início
-                </Link>
-              </li>
-              <li>
-                <Link href="/sobre" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
-                  Sobre Nós
-                </Link>
-              </li>
-              <li>
-                <Link href="/servicos" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
-                  Serviços
-                </Link>
-              </li>
-              <li>
-                <Link href="/experiencia-cliente" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
-                  Experiência do Cliente
-                </Link>
-              </li>
-              <li>
-                <Link href="/conteudos" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
-                  Conteúdos
-                </Link>
-              </li>
-              <li>
-                <Link href="/contacto" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
-                  Contacto
-                </Link>
-              </li>
+              {quickLinks.map((link) => (
+                <li key={link.path}>
+                  <Link href={link.path} className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -132,26 +112,13 @@ const Footer = () => {
           <div>
             <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Nossos Serviços</h4>
             <ul className="space-y-2 sm:space-y-3">
-              <li>
-                <span className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
-                  Consultoria em Gestão de Negócios
-                </span>
-              </li>
-              <li>
-                <span className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
-                  Treinamento para Vendedores
-                </span>
-              </li>
-              <li>
-                <span className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
-                  Prospecção e Apoio Comercial
-                </span>
-              </li>
-              <li>
-                <span className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 cursor-pointer text-sm sm:text-base leading-relaxed block">
-                  Formações para Pequenos Negócios
-                </span>
-              </li>
+              {services.map((service) => (
+                <li key={service}>
+                  <Link href="/servicos" className="text-gray-300 hover:text-brand-orange-500 transition-colors duration-200 text-sm sm:text-base leading-relaxed block">
+                    {service}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -175,18 +142,11 @@ const Footer = () => {
               </div>
 
               <div className="flex space-x-3 sm:space-x-4 pt-1 sm:pt-2">
-                <a href="#" className="bg-gray-800 hover:bg-brand-orange-500 p-2 rounded-lg transition-colors duration-200" aria-label="Facebook">
-                  <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
-                </a>
-                <a href="#" className="bg-gray-800 hover:bg-brand-orange-500 p-2 rounded-lg transition-colors duration-200" aria-label="Instagram">
-                  <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
-                </a>
-                <a href="#" className="bg-gray-800 hover:bg-brand-orange-500 p-2 rounded-lg transition-colors duration-200" aria-label="LinkedIn">
-                  <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
-                </a>
-                <a href="#" className="bg-gray-800 hover:bg-brand-orange-500 p-2 rounded-lg transition-colors duration-200" aria-label="YouTube">
-                  <Youtube className="h-4 w-4 sm:h-5 sm:w-5" />
-                </a>
+                {socialLinks.map((social) => (
+                  <a key={social.name} href={social.url} className="bg-gray-800 hover:bg-brand-orange-500 p-2 rounded-lg transition-colors duration-200" aria-label={social.name}>
+                    <social.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </a>
+                ))}
               </div>
             </div>
           </div>

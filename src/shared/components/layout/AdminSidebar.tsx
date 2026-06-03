@@ -1,138 +1,146 @@
 "use client";
 
-import * as React from "react";
 import {
-    BarChart3,
-    BookOpen,
-    FileText,
-    Users,
-    DollarSign,
-    Settings,
-    LayoutDashboard,
-    LogOut,
-    ChevronRight
+  BarChart3,
+  BookOpen,
+  CreditCard,
+  FileText,
+  Users,
+  DollarSign,
+  Settings,
+  LayoutDashboard,
+  LogOut,
+  ChevronRight,
+  GraduationCap,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { SignOutButton } from "@clerk/nextjs";
+import { usePathname, useRouter } from "next/navigation";
+import { authClient } from "@/shared/lib/auth-client";
+import { cn } from "@/shared/lib/utils";
 
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarGroup,
-    SidebarGroupLabel,
-    SidebarGroupContent,
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
 } from "@/shared/components/ui/sidebar";
 
-const adminNav = [
-    { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-    { name: "Cursos", href: "/admin/cursos", icon: BookOpen },
-    { name: "Alunos", href: "/admin/alunos", icon: Users },
-    { name: "Blog", href: "/admin/conteudos", icon: FileText },
-    { name: "Análise", href: "/admin/analise", icon: BarChart3 },
-];
-
-const secondaryNav = [
-    { name: "Preços", href: "/admin/precos", icon: DollarSign },
-    { name: "Definições", href: "/admin/settings", icon: Settings },
+const navSections = [
+  {
+    label: "Visão geral",
+    items: [{ name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard }],
+  },
+  {
+    label: "Operação",
+    items: [
+      { name: "Cursos", href: "/admin/cursos", icon: BookOpen },
+      { name: "Alunos", href: "/admin/alunos", icon: Users },
+      { name: "Pagamentos", href: "/admin/pagamentos", icon: CreditCard },
+      { name: "Blog", href: "/admin/conteudos", icon: FileText },
+      { name: "Análise", href: "/admin/analise", icon: BarChart3 },
+    ],
+  },
+  {
+    label: "Configurações",
+    items: [
+      { name: "Preços", href: "/admin/precos", icon: DollarSign },
+      { name: "Definições", href: "/admin/settings", icon: Settings },
+    ],
+  },
 ];
 
 export function AdminSidebar() {
-    const pathname = usePathname();
+  const pathname = usePathname();
+  const router = useRouter();
 
-    return (
-        <Sidebar className="border-r border-gray-200">
-            <SidebarHeader className="h-20 flex items-center px-6">
-                <Link href="/admin/dashboard" className="flex items-center gap-3 group">
-                    <div className="h-8 w-8 bg-blue-900 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform">
-                        B
-                    </div>
-                    <span className="font-bold text-xl text-gray-900 tracking-tight">Beasell Admin</span>
-                </Link>
-            </SidebarHeader>
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    router.push("/");
+    router.refresh();
+  };
 
-            <SidebarContent className="px-3">
-                <SidebarGroup>
-                    <SidebarGroupLabel className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                        Gestão Principal
-                    </SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {adminNav.map((item) => {
-                                const isActive = pathname === item.href;
-                                return (
-                                    <SidebarMenuItem key={item.name}>
-                                        <SidebarMenuButton
-                                            asChild
-                                            isActive={isActive}
-                                            className={`
-                          my-1 h-11 px-4 rounded-xl transition-all duration-200
-                          ${isActive
-                                                    ? "bg-blue-900 text-white shadow-md hover:bg-blue-800"
-                                                    : "text-gray-600 hover:bg-gray-100/80 hover:text-gray-900"
-                                                }
-                        `}
-                                        >
-                                            <Link href={item.href} className="flex items-center gap-3 font-medium">
-                                                <item.icon className={`h-5 w-5 ${isActive ? "text-white" : "text-gray-400"}`} />
-                                                <span>{item.name}</span>
-                                                {isActive && <ChevronRight className="ml-auto h-4 w-4 text-blue-200" />}
-                                            </Link>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                );
-                            })}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
+  const isActiveRoute = (href: string) => {
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
-                <SidebarGroup className="mt-4">
-                    <SidebarGroupLabel className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                        Configurações
-                    </SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu>
-                            {secondaryNav.map((item) => {
-                                const isActive = pathname === item.href;
-                                return (
-                                    <SidebarMenuItem key={item.name}>
-                                        <SidebarMenuButton
-                                            asChild
-                                            isActive={isActive}
-                                            className={`
-                          my-1 h-11 px-4 rounded-xl transition-all duration-200
-                          ${isActive
-                                                    ? "bg-blue-900 text-white shadow-md hover:bg-blue-800"
-                                                    : "text-gray-600 hover:bg-gray-100/80 hover:text-gray-900"
-                                                }
-                        `}
-                                        >
-                                            <Link href={item.href} className="flex items-center gap-3 font-medium">
-                                                <item.icon className="h-5 w-5 text-gray-400 group-data-[active=true]:text-white" />
-                                                <span>{item.name}</span>
-                                            </Link>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                );
-                            })}
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
-            </SidebarContent>
+  return (
+    <Sidebar className="border-r border-slate-900 bg-slate-950 text-white [&_[data-sidebar=sidebar]]:bg-slate-950">
+      <SidebarHeader className="flex h-24 justify-center px-5">
+        <Link href="/admin/dashboard" className="group flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-500 text-white shadow-lg shadow-orange-950/30 transition-transform group-hover:scale-105">
+            <GraduationCap className="h-6 w-6" />
+          </div>
+          <div className="min-w-0">
+            <span className="block text-lg font-black tracking-tight text-white">Beasell</span>
+            <span className="block text-xs font-semibold tracking-[0.2em] text-slate-400 uppercase">
+              Backoffice
+            </span>
+          </div>
+        </Link>
+      </SidebarHeader>
 
-            <SidebarFooter className="p-4 border-t border-gray-100">
-                <SignOutButton>
-                    <button className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors">
-                        <LogOut className="h-5 w-5" />
-                        <span>Sair do Painel</span>
-                    </button>
-                </SignOutButton>
-            </SidebarFooter>
-        </Sidebar>
-    );
+      <SidebarContent className="px-3 pb-4">
+        {navSections.map((section) => (
+          <SidebarGroup key={section.label} className="py-3">
+            <SidebarGroupLabel className="px-3 text-[11px] font-bold tracking-[0.18em] text-slate-500 uppercase">
+              {section.label}
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu className="mt-2 gap-1">
+                {section.items.map((item) => {
+                  const isActive = isActiveRoute(item.href);
+                  return (
+                    <SidebarMenuItem key={item.name}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={isActive}
+                        className={cn(
+                          "h-11 rounded-xl px-3 text-sm font-semibold transition-all",
+                          isActive
+                            ? "bg-white text-slate-950 shadow-lg shadow-black/20 hover:bg-white"
+                            : "text-slate-300 hover:bg-white/10 hover:text-white",
+                        )}
+                      >
+                        <Link href={item.href} className="flex items-center gap-3">
+                          <item.icon
+                            className={cn(
+                              "h-5 w-5",
+                              isActive ? "text-orange-500" : "text-slate-500",
+                            )}
+                          />
+                          <span>{item.name}</span>
+                          {isActive && <ChevronRight className="ml-auto h-4 w-4 text-slate-400" />}
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
+      </SidebarContent>
+
+      <SidebarFooter className="border-t border-white/10 p-4">
+        <div className="mb-3 rounded-2xl border border-white/10 bg-white/[0.04] p-3">
+          <p className="text-xs font-bold tracking-[0.16em] text-slate-500 uppercase">Sessão</p>
+          <p className="mt-1 text-sm font-semibold text-slate-200">Dono / Professor</p>
+        </div>
+        <button
+          type="button"
+          onClick={handleSignOut}
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-red-200 transition-colors hover:bg-red-500/10 hover:text-red-100"
+        >
+          <LogOut className="h-5 w-5" />
+          <span>Sair do Painel</span>
+        </button>
+      </SidebarFooter>
+    </Sidebar>
+  );
 }

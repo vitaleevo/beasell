@@ -1,8 +1,7 @@
-
-import Image from 'next/image';
-import { Button } from '@/shared/components/ui/button';
-import { ArrowRight, Clock, Users, Award } from 'lucide-react';
-import Link from 'next/link';
+import Image from "next/image";
+import { Button } from "@/shared/components/ui/button";
+import { ArrowRight, Clock, Users, Award } from "lucide-react";
+import Link from "next/link";
 
 const CoursesSection = () => {
   const courses = [
@@ -13,7 +12,7 @@ const CoursesSection = () => {
       students: "200+",
       rating: 4.9,
       image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop",
-      topics: ["Psicologia do Cliente", "Técnicas de Persuasão", "Gestão de Objeções"]
+      topics: ["Psicologia do Cliente", "Técnicas de Persuasão", "Gestão de Objeções"],
     },
     {
       title: "Liderança Comercial",
@@ -22,7 +21,7 @@ const CoursesSection = () => {
       students: "150+",
       rating: 4.8,
       image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&h=400&fit=crop",
-      topics: ["Gestão de Equipas", "Motivação", "Definição de Metas"]
+      topics: ["Gestão de Equipas", "Motivação", "Definição de Metas"],
     },
     {
       title: "Atendimento ao Cliente Excellence",
@@ -31,26 +30,29 @@ const CoursesSection = () => {
       students: "300+",
       rating: 4.9,
       image: "https://images.unsplash.com/photo-1553028826-f4804151e2b2?w=600&h=400&fit=crop",
-      topics: ["Comunicação Eficaz", "Resolução de Conflitos", "Fidelização"]
-    }
+      topics: ["Comunicação Eficaz", "Resolução de Conflitos", "Fidelização"],
+    },
   ];
 
   return (
-    <section className="py-12 sm:py-20 bg-gray-50 w-full">
+    <section className="w-full bg-gray-50 py-12 sm:py-20">
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 sm:mb-16 max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        <div className="mx-auto mb-12 max-w-7xl text-center sm:mb-16">
+          <h2 className="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
             Nossos Cursos Populares
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="mx-auto max-w-3xl text-lg text-gray-600 sm:text-xl">
             Formações desenhadas para acelerar o seu crescimento profissional
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 max-w-7xl mx-auto">
+        <div className="mx-auto mb-12 grid max-w-7xl gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
           {courses.map((course, index) => (
-            <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full">
-              <div className="aspect-video overflow-hidden relative">
+            <div
+              key={index}
+              className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            >
+              <div className="relative aspect-video overflow-hidden">
                 <Image
                   src={course.image}
                   alt={course.title}
@@ -61,10 +63,10 @@ const CoursesSection = () => {
               </div>
 
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{course.title}</h3>
-                <p className="text-gray-600 mb-4">{course.description}</p>
+                <h3 className="mb-2 text-xl font-bold text-gray-900">{course.title}</h3>
+                <p className="mb-4 text-gray-600">{course.description}</p>
 
-                <div className="flex items-center gap-4 mb-4 text-sm text-gray-500">
+                <div className="mb-4 flex items-center gap-4 text-sm text-gray-500">
                   <div className="flex items-center gap-1">
                     <Clock className="h-4 w-4" />
                     <span>{course.duration}</span>
@@ -79,25 +81,32 @@ const CoursesSection = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2 mb-6">
+                <div className="mb-6 space-y-2">
                   {course.topics.map((topic, topicIndex) => (
-                    <div key={topicIndex} className="text-sm text-gray-600">• {topic}</div>
+                    <div key={topicIndex} className="text-sm text-gray-600">
+                      • {topic}
+                    </div>
                   ))}
                 </div>
 
-                <Button asChild className="w-full bg-brand-blue-900 hover:bg-[#1A2A49]/90 text-white font-medium py-2 rounded-lg transition-colors mt-auto">
-                  <Link href="/treinamento">
-                    Saber Mais
-                  </Link>
+                <Button
+                  asChild
+                  className="bg-brand-blue-900 mt-auto w-full rounded-lg py-2 font-medium text-white transition-colors hover:bg-[#1A2A49]/90"
+                >
+                  <Link href="/plataforma/cursos">Saber Mais</Link>
                 </Button>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="text-center max-w-7xl mx-auto">
-          <Button asChild size="lg" className="bg-brand-orange-500 hover:bg-[#d68000] text-white px-8 py-6 h-auto text-lg font-semibold rounded-full shadow-lg transition-all hover:scale-105">
-            <Link href="/treinamento">
+        <div className="mx-auto max-w-7xl text-center">
+          <Button
+            asChild
+            size="lg"
+            className="bg-brand-orange-500 h-auto rounded-full px-8 py-6 text-lg font-semibold text-white shadow-lg transition-all hover:scale-105 hover:bg-[#d68000]"
+          >
+            <Link href="/plataforma/cursos">
               Ver Todos os Cursos
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

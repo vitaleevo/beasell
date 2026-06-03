@@ -1,6 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
-import { validateAdmin } from "./utils";
+import { canReadRestrictedContent, getCurrentAppUser, validateAdmin } from "./authorization";
 
 export const list = query({
     args: {},
@@ -16,10 +16,17 @@ export const list = query({
 export const getBySlug = query({
     args: { slug: v.string() },
     handler: async (ctx, args) => {
-        return await ctx.db
+        const post = await ctx.db
             .query("posts")
             .withIndex("by_slug", (q) => q.eq("slug", args.slug))
             .unique();
+
+        if (!post || post.isPublished) {
+            return post;
+        }
+
+        const user = await getCurrentAppUser(ctx);
+        return canReadRestrictedContent(user?.role) ? post : null;
     },
 });
 
@@ -47,6 +54,7 @@ export const listCategories = query({
 export const listAll = query({
     args: {},
     handler: async (ctx) => {
+        await validateAdmin(ctx);
         return await ctx.db.query("posts").order("desc").collect();
     },
 });

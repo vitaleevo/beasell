@@ -1,27 +1,25 @@
 "use client";
 
-
-import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-import TopBar from './header/TopBar';
-import DesktopNav from './header/DesktopNav';
-import TabletNav from './header/TabletNav';
-import MobileNav from './header/MobileNav';
-import UserNav from './header/UserNav';
+import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import TopBar from "./header/TopBar";
+import DesktopNav from "./header/DesktopNav";
+import TabletNav from "./header/TabletNav";
+import MobileNav from "./header/MobileNav";
+import UserNav from "./header/UserNav";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
-      <header className="hidden md:block fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100 shadow-sm">
+      <header className="fixed top-0 z-50 hidden w-full border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur-sm md:block">
         <TopBar />
         <nav className="container mx-auto px-4 sm:px-6">
-          <div className="flex justify-between items-center py-3 lg:py-4">
-            <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
-              <div className="relative h-8 sm:h-10 md:h-12 lg:h-14 w-32 sm:w-40 md:w-48 lg:w-56">
+          <div className="flex items-center justify-between py-3 lg:py-4">
+            <Link href="/" className="flex flex-shrink-0 items-center space-x-2">
+              <div className="relative h-8 w-32 sm:h-10 sm:w-40 md:h-12 md:w-48 lg:h-14 lg:w-56">
                 <Image
                   src="/lovable-uploads/06b8610c-4417-45a9-a695-12f10b09eeab.png"
                   alt="Beasell Logo"
@@ -34,7 +32,7 @@ const Header = () => {
             </Link>
             <DesktopNav />
             <TabletNav />
-            <div className="hidden md:flex items-center ml-4">
+            <div className="ml-4 hidden items-center md:flex">
               <UserNav />
             </div>
           </div>
@@ -42,7 +40,7 @@ const Header = () => {
       </header>
 
       {/* Mobile Top Header - Single line minimal */}
-      <header className="md:hidden fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 border-b border-gray-50 h-[60px] flex items-center px-4 justify-between">
+      <header className="fixed top-0 right-0 left-0 z-50 flex h-[60px] items-center justify-between border-b border-gray-50 bg-white/90 px-4 backdrop-blur-md md:hidden">
         <Link href="/">
           <Image
             src="/lovable-uploads/06b8610c-4417-45a9-a695-12f10b09eeab.png"

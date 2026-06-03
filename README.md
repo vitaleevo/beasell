@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Beasell Next
 
-## Getting Started
+Sistema da Beasell Angola para site publico, blog, backoffice e plataforma de cursos.
 
-First, run the development server:
+## Stack
+
+- Next.js 16
+- React 19
+- Convex
+- Better Auth
+- Tailwind CSS 4
+- shadcn/ui
+
+## Configuracao Local
+
+1. Copie `.env.example` para `.env.local`.
+2. Preencha as variaveis do Convex e Better Auth.
+3. Coloque o email do dono/professor em `ADMIN_EMAILS`.
+
+Variaveis principais:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+CONVEX_DEPLOYMENT=dev:your-deployment-name
+SITE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+BETTER_AUTH_TRUSTED_ORIGINS=http://localhost:3000
+NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
+NEXT_PUBLIC_CONVEX_SITE_URL=https://your-deployment.convex.site
+BETTER_AUTH_SECRET=replace-with-a-long-random-secret
+ADMIN_EMAILS=admin@example.com
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Desenvolvimento
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Abra `http://localhost:3000`.
 
-## Learn More
+Para validar a build:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para validar a configuracao sem expor segredos:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run qa:env
+npm run qa:env:example
+```
 
-## Deploy on Vercel
+Para executar o preflight local em Docker:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run qa:preflight
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Para incluir screenshots Playwright de todas as paginas principais:
+
+```bash
+RUN_VISUAL=1 npm run qa:preflight
+```
+
+## Backoffice
+
+O painel fica em `/admin/dashboard`. O acesso depende de autenticar com um email listado em `ADMIN_EMAILS`; outros utilizadores entram como alunos.
+
+Use `/admin/settings` para confirmar se o ambiente local tem as variaveis essenciais configuradas sem expor segredos.
+
+## Producao
+
+A checklist de publicacao fica em `docs/deploy/production-checklist.md`.
+
+Antes de publicar, valide as variaveis de producao com:
+
+```bash
+npm run deploy:init-env -- --domain <dominio> --deployment <deployment> --owner-email <email-do-dono>
+node scripts/deploy/check-env.mjs --file /tmp/beasell.env.production --mode production
+```
+
+Para conferir as variaveis Convex server-side sem escrever no remoto:
+
+```bash
+npm run deploy:convex:env -- /tmp/beasell.env.production
+```
+
+Depois de publicar, rode o smoke HTTP minimo do dominio:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://<dominio> NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site npm run qa:production-smoke
+```
+
+## Convex
+
+As funcoes e o schema ficam em `convex/`.
+
+Principais dominios:
+
+- `courses`: cursos, modulos, aulas, inscricoes e conclusoes.
+- `users`: utilizadores e estatisticas administrativas.
+- `blog`: artigos e categorias.
+- `services`: pacotes e precos.
