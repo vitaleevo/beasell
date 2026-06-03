@@ -213,8 +213,20 @@ if (mode === "production") {
     errors.push("BETTER_AUTH_TRUSTED_ORIGINS must include SITE_URL");
   }
 
-  if (trustedOrigins.some(isLocalUrl)) {
-    errors.push("BETTER_AUTH_TRUSTED_ORIGINS cannot include localhost in production");
+  for (const origin of trustedOrigins) {
+    const parsed = parseUrl(origin);
+    if (!parsed) {
+      errors.push(`BETTER_AUTH_TRUSTED_ORIGINS contains an invalid URL: ${origin}`);
+      continue;
+    }
+
+    if (parsed.protocol !== "https:") {
+      errors.push(`BETTER_AUTH_TRUSTED_ORIGINS must use https in production: ${origin}`);
+    }
+
+    if (isLocalUrl(origin)) {
+      errors.push("BETTER_AUTH_TRUSTED_ORIGINS cannot include localhost in production");
+    }
   }
 
   if (String(env.BETTER_AUTH_SECRET ?? "").length < 32) {

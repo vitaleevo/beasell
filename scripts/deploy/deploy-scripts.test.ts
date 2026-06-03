@@ -135,6 +135,10 @@ describe("deployment scripts", () => {
       "beasell-prod",
       "--owner-email",
       "owner@beasell.invalid",
+      "--trusted-origin",
+      "aluno.beasell.invalid",
+      "--trusted-origin",
+      "https://professor.beasell.invalid",
       "--output",
       outputFile,
     ]);
@@ -146,6 +150,9 @@ describe("deployment scripts", () => {
     expect(result.stdout).toContain(`Production env file created: ${outputFile}`);
     expect(generated).toContain("CONVEX_DEPLOYMENT=prod:beasell-prod");
     expect(generated).toContain("SITE_URL=https://beasell.invalid");
+    expect(generated).toContain(
+      "BETTER_AUTH_TRUSTED_ORIGINS=https://beasell.invalid,https://aluno.beasell.invalid,https://professor.beasell.invalid",
+    );
     expect(generated).toContain("NEXT_PUBLIC_CONVEX_URL=https://beasell-prod.convex.cloud");
     expect(generated).toContain("ADMIN_EMAILS=owner@beasell.invalid");
     expect(secretMatch?.[1]).toHaveLength(64);

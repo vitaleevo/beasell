@@ -14,6 +14,17 @@ function readArg(name, fallback = undefined) {
   return args[index + 1] ?? fallback;
 }
 
+function readArgs(name) {
+  const values = [];
+  for (let index = 0; index < args.length; index += 1) {
+    if (args[index] === name && args[index + 1]) {
+      values.push(args[index + 1]);
+      index += 1;
+    }
+  }
+  return values;
+}
+
 function hasFlag(name) {
   return args.includes(name);
 }
@@ -24,6 +35,7 @@ if (hasFlag("--help") || hasFlag("-h")) {
 
 Options:
   --output /tmp/beasell.env.production  Path to write. Defaults to PRODUCTION_ENV_FILE or /tmp/beasell.env.production.
+  --trusted-origin https://sub.domain    Extra Better Auth trusted origin. Can be repeated.
   --force                               Overwrite an existing output file.
 
 This writes a production env file outside the repository with mode 0600,
@@ -108,6 +120,17 @@ function ensureOutputOutsideRepo(outputPath) {
 const siteUrl = normalizeSiteUrl(requireArg("--domain", "PRODUCTION_DOMAIN"));
 const deployment = normalizeDeployment(requireArg("--deployment", "CONVEX_PRODUCTION_DEPLOYMENT"));
 const ownerEmail = normalizeOwnerEmail(requireArg("--owner-email", "PRODUCTION_OWNER_EMAIL"));
+const trustedOrigins = Array.from(
+  new Set([
+    siteUrl,
+    ...String(process.env.PRODUCTION_TRUSTED_ORIGINS ?? "")
+      .split(",")
+      .map((origin) => origin.trim())
+      .filter(Boolean)
+      .map(normalizeSiteUrl),
+    ...readArgs("--trusted-origin").map(normalizeSiteUrl),
+  ]),
+);
 const output = ensureOutputOutsideRepo(
   readArg("--output", process.env.PRODUCTION_ENV_FILE ?? "/tmp/beasell.env.production"),
 );
@@ -125,7 +148,7 @@ const content = [
   `CONVEX_DEPLOYMENT=prod:${deployment}`,
   `SITE_URL=${siteUrl}`,
   `NEXT_PUBLIC_SITE_URL=${siteUrl}`,
-  `BETTER_AUTH_TRUSTED_ORIGINS=${siteUrl}`,
+  `BETTER_AUTH_TRUSTED_ORIGINS=${trustedOrigins.join(",")}`,
   `NEXT_PUBLIC_CONVEX_URL=https://${deployment}.convex.cloud`,
   `NEXT_PUBLIC_CONVEX_SITE_URL=https://${deployment}.convex.site`,
   `BETTER_AUTH_SECRET=${secret}`,

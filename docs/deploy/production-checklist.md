@@ -26,7 +26,7 @@ Configure no ambiente remoto da aplicacao Next.js:
 CONVEX_DEPLOYMENT=prod:<deployment-name>
 SITE_URL=https://<dominio>
 NEXT_PUBLIC_SITE_URL=https://<dominio>
-BETTER_AUTH_TRUSTED_ORIGINS=https://<dominio>
+BETTER_AUTH_TRUSTED_ORIGINS=https://<dominio>,https://aluno.<dominio>,https://professor.<dominio>
 NEXT_PUBLIC_CONVEX_URL=https://<deployment>.convex.cloud
 NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site
 BETTER_AUTH_SECRET=<secret-com-pelo-menos-32-caracteres>
@@ -43,7 +43,7 @@ SENTRY_AUTH_TOKEN=<opcional-token-upload-sourcemaps>
 Use o inicializador seguro para gerar o ficheiro temporario fora do repositorio, com `BETTER_AUTH_SECRET` forte e permissoes `0600`:
 
 ```bash
-npm run deploy:init-env -- --domain <dominio> --deployment <deployment> --owner-email <email-do-dono>
+npm run deploy:init-env -- --domain <dominio> --deployment <deployment> --owner-email <email-do-dono> --trusted-origin https://aluno.<dominio> --trusted-origin https://professor.<dominio>
 ```
 
 O ficheiro padrao gerado e `/tmp/beasell.env.production`.
@@ -56,7 +56,8 @@ cp docs/deploy/env.production.example /tmp/beasell.env.production
 
 Regras:
 
-- `SITE_URL`, `NEXT_PUBLIC_SITE_URL` e `BETTER_AUTH_TRUSTED_ORIGINS` devem usar o mesmo dominio publico em HTTPS.
+- `SITE_URL` e `NEXT_PUBLIC_SITE_URL` devem usar o dominio canonico publico em HTTPS.
+- `BETTER_AUTH_TRUSTED_ORIGINS` deve incluir o dominio canonico e todos os subdominios que servem auth, aluno ou admin. Para o setup Beasell atual: `https://beasell.co.ao,https://aluno.beasell.co.ao,https://professor.beasell.co.ao`.
 - `NEXT_PUBLIC_CONVEX_URL` deve apontar para o deployment Convex de producao.
 - `NEXT_PUBLIC_CONVEX_SITE_URL` deve apontar para o endpoint HTTP do mesmo deployment.
 - `ADMIN_EMAILS` deve conter o email unico do dono/professor.
@@ -117,11 +118,20 @@ Nao correr seed local contra producao. O ficheiro `convex/seed.ts` ja bloqueia d
 
 Passos:
 
-1. Publicar a aplicacao Next.js com as variaveis acima.
-2. Confirmar que `/sign-in` carrega.
-3. Criar/entrar com o email listado em `ADMIN_EMAILS`.
-4. Confirmar acesso a `/admin/dashboard`.
-5. Confirmar que um email fora de `ADMIN_EMAILS` entra como aluno.
+1. Confirmar que o PR/commit que sera publicado passou nos checks.
+2. Publicar a aplicacao Next.js com as variaveis acima.
+3. Confirmar que `/sign-in` carrega.
+4. Criar/entrar com o email listado em `ADMIN_EMAILS`.
+5. Confirmar acesso a `/admin/dashboard`.
+6. Confirmar que um email fora de `ADMIN_EMAILS` entra como aluno.
+7. Confirmar que `/admin` redireciona para `/admin/dashboard` e `/plataforma` redireciona para `/plataforma/meus-cursos`.
+
+Estado publico verificado em 2026-06-03:
+
+- `beasell.co.ao`, `www.beasell.co.ao`, `aluno.beasell.co.ao` e `professor.beasell.co.ao` resolvem para Vercel.
+- O ultimo deployment GitHub marcado como `Production` era de 2026-04-21, portanto nao representa automaticamente o PR atual.
+- A producao antiga ainda usava a camada Clerk em algumas rotas; antes de substituir por Better Auth, confirmar as variaveis `BETTER_AUTH_*`, `ADMIN_EMAILS` e URLs Convex no ambiente Vercel de producao.
+- Chaves privadas SSH e tokens cPanel/API que tenham sido partilhados em chat devem ser revogados e recriados antes do go-live real.
 
 ## 5. Smoke manual pos-deploy
 

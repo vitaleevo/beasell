@@ -1728,6 +1728,15 @@ Plano inicial da proxima etapa:
 
 ## Estado atual
 
+- Validacao publica de producao em 2026-06-03:
+  - `beasell.co.ao`, `www.beasell.co.ao`, `aluno.beasell.co.ao` e `professor.beasell.co.ao` resolvem para Vercel.
+  - O ultimo deployment GitHub marcado como `Production` era de 2026-04-21; os commits do MVP/hardening estao em previews do PR #1.
+  - `beasell.co.ao/api/health` responde, mas a producao antiga ainda mostra sinais da camada Clerk; o codigo atual da branch usa Better Auth.
+  - Antes do go-live final, confirmar no ambiente Vercel de producao `BETTER_AUTH_SECRET`, `BETTER_AUTH_TRUSTED_ORIGINS`, `ADMIN_EMAILS`, `NEXT_PUBLIC_CONVEX_URL` e `NEXT_PUBLIC_CONVEX_SITE_URL`.
+  - Para o setup com subdominios, `BETTER_AUTH_TRUSTED_ORIGINS` deve incluir `https://beasell.co.ao`, `https://aluno.beasell.co.ao` e `https://professor.beasell.co.ao`.
+  - A chave privada SSH e token cPanel/API partilhados no chat devem ser revogados/rotacionados antes de uso real.
+  - Adicionadas entradas `/admin` -> `/admin/dashboard` e `/plataforma` -> `/plataforma/meus-cursos` para evitar 404 em links/subdominios de entrada.
+
 - Clerk foi removido do fluxo da aplicacao e substituido por Better Auth com Convex.
 - Nesta validacao, `.env.local` foi apontado para o Convex local anonimo (`127.0.0.1:3210/3211`), e continua ignorado pelo Git.
 - As variaveis de servidor exigidas pelo Better Auth foram gravadas no Convex local para permitir signup/signin e JWT Convex.
