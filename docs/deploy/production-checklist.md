@@ -15,6 +15,7 @@ Resultado esperado:
 - Lint sem erros e sem warnings.
 - Testes Convex verdes.
 - Build Next.js verde.
+- CI com secret scan, lint, testes, build e smoke local autenticado verde.
 - Smokes autenticados, rate limit de auth e smoke negativo de seguranca verdes.
 - QA visual autenticada com `failedCount=0`.
 

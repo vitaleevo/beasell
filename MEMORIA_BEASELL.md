@@ -1737,6 +1737,7 @@ Plano inicial da proxima etapa:
   - A chave privada SSH e token cPanel/API partilhados no chat devem ser revogados/rotacionados antes de uso real.
   - Adicionadas entradas `/admin` -> `/admin/dashboard` e `/plataforma` -> `/plataforma/meus-cursos` para evitar 404 em links/subdominios de entrada.
   - Better Auth agora tem rate limit sempre ativo para login/signup, persistido em `betterAuth.rateLimit`, com smoke `npm run qa:auth-rate-limit` validando `429` apos tentativas repetidas.
+  - CI passou a incluir smoke local autenticado/seguranca; `npm run qa:preflight` passou em Docker com env, lint, testes, build, smokes e health.
 
 - Clerk foi removido do fluxo da aplicacao e substituido por Better Auth com Convex.
 - Nesta validacao, `.env.local` foi apontado para o Convex local anonimo (`127.0.0.1:3210/3211`), e continua ignorado pelo Git.

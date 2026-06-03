@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -26,12 +26,21 @@ const reportPath = path.join(outputDir, "visual-report.json");
 const password = "Teste12345!";
 const stamp = Date.now();
 const routeFilter = process.env.VISUAL_ROUTE_FILTER?.trim() ?? "";
-const envText = readFileSync(path.join(root, ".env.local"), "utf8");
-const originalAdminEmails = envText.match(/^ADMIN_EMAILS=(.*)$/m)?.[1]?.trim() ?? "";
+const originalAdminEmails = readOriginalAdminEmails();
 const adminEmail = `visual-admin-${stamp}@beasell.test`;
 const studentEmail = `visual-student-${stamp}@beasell.test`;
 
 mkdirSync(screenshotsDir, { recursive: true });
+
+function readOriginalAdminEmails() {
+  const envFile = path.join(root, ".env.local");
+  if (!existsSync(envFile)) {
+    return process.env.ADMIN_EMAILS?.trim() ?? "";
+  }
+
+  const envText = readFileSync(envFile, "utf8");
+  return envText.match(/^ADMIN_EMAILS=(.*)$/m)?.[1]?.trim() ?? process.env.ADMIN_EMAILS?.trim() ?? "";
+}
 
 function setConvexEnv(name, value) {
   execFileSync("./node_modules/.bin/convex", ["env", "set", name, value], {

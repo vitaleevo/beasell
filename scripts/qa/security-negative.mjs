@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -16,11 +16,20 @@ const trustedOrigin = process.env.TRUSTED_ORIGIN ?? "http://localhost:3002";
 const convexUrl = process.env.CONVEX_URL ?? "http://127.0.0.1:3210";
 const password = "Teste12345!";
 const stamp = Date.now();
-const envText = readFileSync(path.join(root, ".env.local"), "utf8");
-const originalAdminEmails = envText.match(/^ADMIN_EMAILS=(.*)$/m)?.[1]?.trim() ?? "";
+const originalAdminEmails = readOriginalAdminEmails();
 const adminEmail = `security-admin-${stamp}@beasell.test`;
 const studentEmail = `security-student-${stamp}@beasell.test`;
 const otherStudentEmail = `security-other-${stamp}@beasell.test`;
+
+function readOriginalAdminEmails() {
+  const envFile = path.join(root, ".env.local");
+  if (!existsSync(envFile)) {
+    return process.env.ADMIN_EMAILS?.trim() ?? "";
+  }
+
+  const envText = readFileSync(envFile, "utf8");
+  return envText.match(/^ADMIN_EMAILS=(.*)$/m)?.[1]?.trim() ?? process.env.ADMIN_EMAILS?.trim() ?? "";
+}
 
 function setConvexEnv(name, value) {
   execFileSync("./node_modules/.bin/convex", ["env", "set", name, value], {
