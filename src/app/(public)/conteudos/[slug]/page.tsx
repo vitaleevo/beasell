@@ -1,200 +1,251 @@
-import React from "react";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../../convex/_generated/api";
 import Link from "next/link";
 import { Button } from "@/shared/components/ui/button";
 import { Badge } from "@/shared/components/ui/badge";
-import {
-    ArrowLeft,
-    Calendar,
-    User,
-    Clock,
-    Layout,
-} from "lucide-react";
-import { Card, CardContent } from "@/shared/components/ui/card";
+import { ArrowLeft, Calendar, Clock, Layout } from "lucide-react";
 import ShareButtons from "@/features/blog/components/blog/ShareButtons";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import JsonLd from "@/shared/components/seo/JsonLd";
+import { RemoteImageFrame } from "@/shared/components/ui/remote-image-frame";
+import {
+  articleJsonLd,
+  breadcrumbJsonLd,
+  buildPageMetadata,
+  noIndexRobots,
+  webPageJsonLd,
+} from "@/shared/lib/seo";
+import { toSlug } from "@/shared/lib/slug";
 
 interface PageProps {
-    params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const { slug } = await params;
-    const post = await fetchQuery(api.blog.getBySlug, { slug });
+  const { slug } = await params;
+  const post = await fetchQuery(api.blog.getBySlug, { slug });
 
-    if (!post) return { title: "Artigo não encontrado" };
-
+  if (!post || !post.isPublished) {
     return {
-        title: post.title,
-        description: post.excerpt,
-        openGraph: {
-            title: post.title,
-            description: post.excerpt,
-            images: [post.image],
-        },
+      title: "Artigo nao encontrado | Beasell Angola",
+      robots: noIndexRobots,
     };
+  }
+
+  const publishedTime = new Date(post.publishedAt).toISOString();
+
+  return buildPageMetadata({
+    title: `${post.title} | Blog Beasell`,
+    description: post.excerpt,
+    path: `/conteudos/${post.slug}`,
+    image: post.image,
+    type: "article",
+    publishedTime,
+    modifiedTime: publishedTime,
+    authors: [post.author],
+    keywords: [post.category, ...post.tags],
+  });
 }
 
 export default async function BlogPostDetail({ params }: PageProps) {
-    const { slug } = await params;
-    const post = await fetchQuery(api.blog.getBySlug, { slug });
+  const { slug } = await params;
+  const post = await fetchQuery(api.blog.getBySlug, { slug });
 
-    if (!post) {
-        return (
-            <div className="container mx-auto px-4 py-32 text-center">
-                <h1 className="text-4xl font-bold mb-4">Artigo não encontrado</h1>
-                <p className="text-gray-600 mb-8">O artigo que procura não existe ou foi removido.</p>
-                <Link href="/conteudos">
-                    <Button className="bg-[#1A2A49] hover:bg-[#2a3a59] rounded-full px-8">
-                        <ArrowLeft className="mr-2 h-4 w-4" />
-                        Voltar ao Blog
-                    </Button>
-                </Link>
-            </div>
-        );
-    }
+  if (!post || !post.isPublished) {
+    notFound();
+  }
 
-    return (
-        <div className="bg-[#f8fafc] min-h-screen">
-            {/* Premium Post Hero */}
-            <section className="relative pt-32 pb-16 overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-[#1A2A49]"></div>
-                    {post.image && (
-                        <>
-                            <img
-                                src={post.image}
-                                alt=""
-                                className="w-full h-full object-cover opacity-20 blur-sm scale-110"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-b from-[#1A2A49]/80 via-[#1A2A49] to-[#1A2A49]"></div>
-                        </>
-                    )}
-                </div>
+  const articlePath = `/conteudos/${post.slug}`;
+  const categorySlug = toSlug(post.category);
+  const publishedTime = new Date(post.publishedAt).toISOString();
 
-                <div className="container relative z-10 mx-auto px-4">
-                    <div className="max-w-4xl mx-auto">
-                        <Link href="/conteudos" className="inline-flex items-center text-blue-200 hover:text-[#F39200] mb-8 group transition-colors">
-                            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                            Voltar aos Conteúdos
-                        </Link>
-
-                        <div className="flex flex-wrap items-center gap-3 mb-6">
-                            <Badge className="bg-[#F39200] text-white border-none px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
-                                {post.category}
-                            </Badge>
-                            <span className="text-blue-300 text-sm flex items-center">
-                                <Clock className="h-4 w-4 mr-1.5" />
-                                5 min de leitura
-                            </span>
-                        </div>
-
-                        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-8 leading-[1.1] tracking-tight">
-                            {post.title}
-                        </h1>
-
-                        <div className="flex items-center gap-4 py-6 border-t border-white/10">
-                            <div className="w-12 h-12 rounded-full bg-[#F39200] flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                                {post.author.charAt(0)}
-                            </div>
-                            <div>
-                                <div className="text-white font-bold text-lg">{post.author}</div>
-                                <div className="text-blue-300 text-sm flex items-center">
-                                    <Calendar className="h-3.5 w-3.5 mr-1.5" />
-                                    {new Date(post.publishedAt).toLocaleDateString("pt-AO")}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Main Content Body */}
-            <div className="container mx-auto px-4 py-16">
-                <div className="max-w-4xl mx-auto">
-                    <div className="grid lg:grid-cols-12 gap-12">
-                        {/* Article Content */}
-                        <div className="lg:col-span-8 space-y-12">
-                            {post.image && (
-                                <div className="relative aspect-video w-full overflow-hidden rounded-3xl shadow-2xl ring-1 ring-white/10">
-                                    <img
-                                        src={post.image}
-                                        alt={post.title}
-                                        className="w-full h-full object-cover"
-                                    />
-                                </div>
-                            )}
-
-                            <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-xl border-none">
-                                <div className="prose prose-lg max-w-none">
-                                    <p className="text-2xl text-gray-600 mb-10 leading-relaxed font-light italic border-l-4 border-[#F39200] pl-6">
-                                        {post.excerpt}
-                                    </p>
-
-                                    <div className="whitespace-pre-wrap text-gray-800 leading-relaxed text-lg font-normal">
-                                        {post.content}
-                                    </div>
-                                </div>
-
-                                {/* Tags and Sharing */}
-                                <div className="mt-16 pt-12 border-t border-gray-100">
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
-                                        {post.tags && post.tags.length > 0 && (
-                                            <div>
-                                                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Tags do Artigo</h3>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {post.tags.map((tag, index) => (
-                                                        <Badge key={index} variant="secondary" className="bg-gray-100 text-gray-600 hover:bg-gray-200 border-none px-4 py-1 rounded-full transition-colors cursor-pointer">
-                                                            #{tag}
-                                                        </Badge>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <div className="md:text-right">
-                                            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Compartilhar</h3>
-                                            <ShareButtons url={`https://beasell.ao/conteudos/${post.slug}`} title={post.title} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Sidebar Column */}
-                        <div className="lg:col-span-4 space-y-8">
-                            <div className="sticky top-24 space-y-8">
-                                <div className="bg-[#1A2A49] rounded-3xl p-8 text-white shadow-2xl">
-                                    <div className="w-20 h-20 rounded-2xl bg-[#F39200] flex items-center justify-center text-white font-bold text-3xl mb-6 shadow-lg rotate-3 group-hover:rotate-0 transition-transform">
-                                        {post.author.charAt(0)}
-                                    </div>
-                                    <h3 className="text-2xl font-bold mb-2">{post.author}</h3>
-                                    <p className="text-blue-200/80 mb-6 font-light leading-relaxed">
-                                        Especialista em vendas com vasta experiência no mercado angolano, focado em transformar resultados comerciais.
-                                    </p>
-                                    <Button variant="outline" className="w-full rounded-xl border-white/20 hover:bg-white/10 text-white h-12" asChild>
-                                        <Link href="/sobre">Conhecer Autor</Link>
-                                    </Button>
-                                </div>
-
-                                <div className="bg-[#F39200] rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
-                                        <Layout size={80} />
-                                    </div>
-                                    <h3 className="text-xl font-bold mb-4 relative z-10">Precisa de ajuda com suas vendas?</h3>
-                                    <p className="text-white/90 mb-6 font-light relative z-10">
-                                        Conheça nossa metodologia e transforme sua equipe comercial.
-                                    </p>
-                                    <Button className="w-full bg-white text-[#F39200] hover:bg-blue-50 rounded-xl h-12 font-bold shadow-lg" asChild>
-                                        <Link href="/contacto">Falar com Especialista</Link>
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="min-h-screen bg-[#f8fafc]">
+      <JsonLd
+        data={[
+          webPageJsonLd({
+            title: post.title,
+            description: post.excerpt,
+            path: articlePath,
+            about: [post.category, ...post.tags],
+          }),
+          breadcrumbJsonLd([
+            { name: "Inicio", path: "/" },
+            { name: "Conteudos", path: "/conteudos" },
+            { name: post.category, path: `/conteudos/categoria/${categorySlug}` },
+            { name: post.title, path: articlePath },
+          ]),
+          articleJsonLd({
+            title: post.title,
+            description: post.excerpt,
+            path: articlePath,
+            image: post.image,
+            publishedTime,
+            modifiedTime: publishedTime,
+            author: post.author,
+            section: post.category,
+            keywords: post.tags,
+          }),
+        ]}
+      />
+      {/* Premium Post Hero */}
+      <section className="relative overflow-hidden pt-32 pb-16">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-[#1A2A49]"></div>
+          {post.image && (
+            <>
+              <RemoteImageFrame
+                src={post.image}
+                decorative
+                className="h-full w-full scale-110 opacity-20 blur-sm"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#1A2A49]/80 via-[#1A2A49] to-[#1A2A49]"></div>
+            </>
+          )}
         </div>
-    );
+
+        <div className="relative z-10 container mx-auto px-4">
+          <div className="mx-auto max-w-4xl">
+            <Link
+              href="/conteudos"
+              className="group mb-8 inline-flex items-center text-blue-200 transition-colors hover:text-[#F39200]"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              Voltar aos Conteúdos
+            </Link>
+
+            <div className="mb-6 flex flex-wrap items-center gap-3">
+              <Badge className="rounded-full border-none bg-[#F39200] px-4 py-1.5 text-xs font-bold tracking-wider text-white uppercase">
+                {post.category}
+              </Badge>
+              <span className="flex items-center text-sm text-blue-300">
+                <Clock className="mr-1.5 h-4 w-4" />5 min de leitura
+              </span>
+            </div>
+
+            <h1 className="mb-8 text-4xl leading-[1.1] font-extrabold tracking-tight text-white md:text-6xl">
+              {post.title}
+            </h1>
+
+            <div className="flex items-center gap-4 border-t border-white/10 py-6">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#F39200] text-xl font-bold text-white shadow-lg">
+                {post.author.charAt(0)}
+              </div>
+              <div>
+                <div className="text-lg font-bold text-white">{post.author}</div>
+                <div className="flex items-center text-sm text-blue-300">
+                  <Calendar className="mr-1.5 h-3.5 w-3.5" />
+                  {new Date(post.publishedAt).toLocaleDateString("pt-AO")}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content Body */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="mx-auto max-w-4xl">
+          <div className="grid gap-12 lg:grid-cols-12">
+            {/* Article Content */}
+            <div className="space-y-12 lg:col-span-8">
+              {post.image && (
+                <div className="relative aspect-video w-full overflow-hidden rounded-3xl shadow-2xl ring-1 ring-white/10">
+                  <RemoteImageFrame src={post.image} alt={post.title} className="h-full w-full" />
+                </div>
+              )}
+
+              <div className="rounded-[2rem] border-none bg-white p-8 shadow-xl md:p-12">
+                <div className="prose prose-lg max-w-none">
+                  <p className="mb-10 border-l-4 border-[#F39200] pl-6 text-2xl leading-relaxed font-light text-gray-600 italic">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="text-lg leading-relaxed font-normal whitespace-pre-wrap text-gray-800">
+                    {post.content}
+                  </div>
+                </div>
+
+                {/* Tags and Sharing */}
+                <div className="mt-16 border-t border-gray-100 pt-12">
+                  <div className="flex flex-col justify-between gap-8 md:flex-row md:items-center">
+                    {post.tags && post.tags.length > 0 && (
+                      <div>
+                        <h3 className="mb-4 text-xs font-bold tracking-widest text-gray-400 uppercase">
+                          Tags do Artigo
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                          {post.tags.map((tag, index) => (
+                            <Badge
+                              key={index}
+                              variant="secondary"
+                              className="cursor-pointer rounded-full border-none bg-gray-100 px-4 py-1 text-gray-600 transition-colors hover:bg-gray-200"
+                            >
+                              #{tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="md:text-right">
+                      <h3 className="mb-4 text-xs font-bold tracking-widest text-gray-400 uppercase">
+                        Compartilhar
+                      </h3>
+                      <ShareButtons
+                        url={`https://beasell.ao/conteudos/${post.slug}`}
+                        title={post.title}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar Column */}
+            <div className="space-y-8 lg:col-span-4">
+              <div className="sticky top-24 space-y-8">
+                <div className="rounded-3xl bg-[#1A2A49] p-8 text-white shadow-2xl">
+                  <div className="mb-6 flex h-20 w-20 rotate-3 items-center justify-center rounded-2xl bg-[#F39200] text-3xl font-bold text-white shadow-lg transition-transform group-hover:rotate-0">
+                    {post.author.charAt(0)}
+                  </div>
+                  <h3 className="mb-2 text-2xl font-bold">{post.author}</h3>
+                  <p className="mb-6 leading-relaxed font-light text-blue-200/80">
+                    Especialista em vendas com vasta experiência no mercado angolano, focado em
+                    transformar resultados comerciais.
+                  </p>
+                  <Button
+                    variant="outline"
+                    className="h-12 w-full rounded-xl border-white/20 text-white hover:bg-white/10"
+                    asChild
+                  >
+                    <Link href="/sobre">Conhecer Autor</Link>
+                  </Button>
+                </div>
+
+                <div className="group relative overflow-hidden rounded-3xl bg-[#F39200] p-8 text-white shadow-2xl">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 transition-transform group-hover:scale-110">
+                    <Layout size={80} />
+                  </div>
+                  <h3 className="relative z-10 mb-4 text-xl font-bold">
+                    Precisa de ajuda com suas vendas?
+                  </h3>
+                  <p className="relative z-10 mb-6 font-light text-white/90">
+                    Conheça nossa metodologia e transforme sua equipe comercial.
+                  </p>
+                  <Button
+                    className="h-12 w-full rounded-xl bg-white font-bold text-[#F39200] shadow-lg hover:bg-blue-50"
+                    asChild
+                  >
+                    <Link href="/contacto">Falar com Especialista</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

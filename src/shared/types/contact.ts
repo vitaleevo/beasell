@@ -1,9 +1,17 @@
+export type ContactInterest =
+  | "individual"
+  | "empresarial"
+  | "workshop"
+  | "consultoria"
+  | "curso"
+  | "outro"
+  | "geral";
 
 export interface ContactFormData {
   name: string;
   email: string;
   phone?: string;
-  interest: 'individual' | 'empresarial' | 'workshop' | 'consultoria' | 'geral';
+  interest: ContactInterest;
   message: string;
 }
 
@@ -22,5 +30,5 @@ export interface ContactSubmission {
   id: string;
   data: ContactFormData;
   timestamp: string;
-  status: 'pending' | 'processed';
+  status: "pending" | "processed";
 }

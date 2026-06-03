@@ -2,16 +2,15 @@
 
 import React, { useMemo } from 'react';
 import { useQuery } from "convex/react";
-import { api } from "@/../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 import EnhancedPostCard from '@/features/blog/components/blog/EnhancedPostCard';
-import BlogFilters from '@/features/blog/components/blog/BlogFilters';
 import CategoriesWidget from '@/features/blog/components/blog/CategoriesWidget';
 import PopularPosts from '@/features/blog/components/blog/PopularPosts';
 import { Skeleton } from '@/shared/components/ui/skeleton';
-import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';
+import { toSlug } from '@/shared/lib/slug';
 
 export default function CategoryPage() {
     const params = useParams();
@@ -22,29 +21,26 @@ export default function CategoryPage() {
     const rawCategories = useQuery(api.blog.listCategories);
 
     const currentCategory = useMemo(() => {
-        return rawCategories?.find((c: any) => c.slug === slug);
+        return rawCategories?.find((category) => category.slug === slug);
     }, [rawCategories, slug]);
 
     const categories = useMemo(() => {
         if (!rawCategories || !rawPosts) return [];
-        return rawCategories.map((cat: any) => ({
+        return rawCategories.map((cat) => ({
             id: cat._id,
             name: cat.name,
             slug: cat.slug,
-            count: rawPosts.filter((p: any) => p.category === cat.slug).length
+            count: rawPosts.filter((post) => toSlug(post.category) === cat.slug).length
         }));
     }, [rawCategories, rawPosts]);
 
     const filteredPosts = useMemo(() => {
         if (!rawPosts) return [];
         return rawPosts
-            .filter((post: any) => post.category === slug)
-            .map((p: any) => ({
-                ...p,
-                id: p._id,
-                date: new Date(p.publishedAt).toLocaleDateString('pt-AO'),
+            .filter((post) => toSlug(post.category) === slug)
+            .map((post) => ({
+                ...post,
                 readTime: "5 min",
-                published: p.isPublished
             }));
     }, [rawPosts, slug]);
 
@@ -79,10 +75,10 @@ export default function CategoryPage() {
                                     <Skeleton key={i} className="h-[480px] w-full rounded-2xl shadow-sm" />
                                 ))
                             ) : filteredPosts.length > 0 ? (
-                                filteredPosts.map((post: any) => (
+                                filteredPosts.map((post) => (
                                     <EnhancedPostCard
-                                        key={post.id}
-                                        post={post as any}
+                                        key={post._id}
+                                        post={post}
                                     />
                                 ))
                             ) : (
@@ -101,13 +97,10 @@ export default function CategoryPage() {
                             <CategoriesWidget categories={categories} />
                             {rawPosts && (
                                 <PopularPosts
-                                    posts={rawPosts.slice(0, 5).map((p: any) => ({
+                                    posts={rawPosts.slice(0, 5).map((p) => ({
                                         ...p,
-                                        id: p._id,
-                                        date: new Date(p.publishedAt).toLocaleDateString('pt-AO'),
                                         readTime: "5 min",
-                                        published: p.isPublished
-                                    }) as any)}
+                                    }))}
                                 />
                             )}
                         </div>

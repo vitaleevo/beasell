@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Input } from '@/shared/components/ui/input';
 import { Label } from '@/shared/components/ui/label';
@@ -12,29 +12,21 @@ import { motion } from 'framer-motion';
 const ROICalculator = () => {
     const [revenue, setRevenue] = useState(1000000); // Kwanza
     const [reps, setReps] = useState(5);
-    const [conversionRate, setConversionRate] = useState(10); // %
     const [expectedImprovement, setExpectedImprovement] = useState(20); // %
 
-    const [results, setResults] = useState({
-        currentSales: 0,
-        newSales: 0,
-        increase: 0,
-        annualImpact: 0
-    });
-
-    useEffect(() => {
+    const results = useMemo(() => {
         const currentSales = revenue;
         const improvementFactor = 1 + (expectedImprovement / 100);
         const newSales = revenue * improvementFactor;
         const increase = newSales - currentSales;
         const annualImpact = increase * 12;
 
-        setResults({
+        return {
             currentSales,
             newSales,
             increase,
             annualImpact
-        });
+        };
     }, [revenue, expectedImprovement]);
 
     const formatCurrency = (value: number) => {

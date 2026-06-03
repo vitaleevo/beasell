@@ -1,0 +1,88 @@
+name: Beasell Remote Smoke
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "URL publica ou preview Vercel para validar"
+        required: true
+        type: string
+      convex_site_url:
+        description: "Endpoint Convex site opcional, por exemplo https://<deployment>.convex.site"
+        required: false
+        type: string
+      require_sentry:
+        description: "Exigir Sentry configurado no /api/health"
+        default: false
+        required: false
+        type: boolean
+
+jobs:
+  remote-smoke:
+    name: Remote smoke
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Preview')
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ github.event_name == 'workflow_dispatch' && inputs.base_url || github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
+      CONVEX_SITE_URL: ${{ github.event_name == 'workflow_dispatch' && inputs.convex_site_url || '' }}
+      REQUIRE_SENTRY: ${{ github.event_name == 'workflow_dispatch' && inputs.require_sentry || false }}
+      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+
+    steps:
+      - name: Checkout deployment source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.deployment.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate remote preview or domain
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${BASE_URL:-}" ]]; then
+            echo "::warning::Remote smoke skipped because deployment status did not provide a URL."
+            exit 0
+          fi
+
+          monitor_args=(--base-url "$BASE_URL" --warn-only)
+          smoke_args=(--base-url "$BASE_URL")
+
+          if [[ -n "${CONVEX_SITE_URL:-}" ]]; then
+            monitor_args+=(--convex-site-url "$CONVEX_SITE_URL")
+            smoke_args+=(--convex-site-url "$CONVEX_SITE_URL")
+          fi
+
+          if [[ "${REQUIRE_SENTRY:-false}" == "true" ]]; then
+            monitor_args+=(--require-sentry)
+          fi
+
+          node scripts/monitor/production-health.mjs "${monitor_args[@]}" | tee /tmp/beasell-remote-monitor.json
+
+          if grep -q '"deploymentProtection": "vercel"' /tmp/beasell-remote-monitor.json &&
+            [[ -z "${VERCEL_AUTOMATION_BYPASS_SECRET:-}" ]]; then
+            echo "::notice::Remote smoke skipped because Vercel Deployment Protection is enabled and VERCEL_AUTOMATION_BYPASS_SECRET is not configured."
+            exit 0
+          fi
+
+          node scripts/deploy/production-smoke.mjs "${smoke_args[@]}"
+
+          strict_monitor_args=("${monitor_args[@]}")
+          for i in "${!strict_monitor_args[@]}"; do
+            if [[ "${strict_monitor_args[$i]}" == "--warn-only" ]]; then
+              unset 'strict_monitor_args[$i]'
+            fi
+          done
+          node scripts/monitor/production-health.mjs "${strict_monitor_args[@]}"

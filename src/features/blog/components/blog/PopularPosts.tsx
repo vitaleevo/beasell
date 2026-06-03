@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui
 import { Badge } from '@/shared/components/ui/badge';
 import { TrendingUp, Eye } from 'lucide-react';
 import { BlogPost } from '@/shared/types/blog';
+import { getStableViewCount } from '@/shared/lib/post-metrics';
 
 interface PopularPostsProps {
   posts: BlogPost[];
@@ -43,7 +44,7 @@ const PopularPosts = ({ posts }: PopularPostsProps) => {
                   </Badge>
                   <div className="flex items-center text-xs text-gray-500">
                     <Eye className="h-3 w-3 mr-1" />
-                    {Math.floor(Math.random() * 1000) + 500}
+                    {getStableViewCount(post._id, 500, 1000)}
                   </div>
                 </div>
               </div>

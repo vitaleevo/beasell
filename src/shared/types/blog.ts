@@ -12,6 +12,8 @@ export interface BlogPost {
   isPublished: boolean;
   publishedAt: number;
   isFeatured?: boolean;
+  date?: string;
+  published?: boolean;
   readTime?: string; // Not in schema but used in UI
 }
 

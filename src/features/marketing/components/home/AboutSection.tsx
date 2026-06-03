@@ -1,7 +1,6 @@
 
 import Image from 'next/image';
-import { Button } from '@/shared/components/ui/button';
-import { ArrowRight, Target, Award, Users, TrendingUp } from 'lucide-react';
+import { ArrowRight, Target, Award, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
 const AboutSection = () => {
@@ -38,12 +37,13 @@ const AboutSection = () => {
               </div>
             </div>
 
-            <Button asChild size="lg" className="bg-brand-blue-900 hover:bg-[#1A2A49]/90 text-white transition-transform hover:scale-105">
-              <Link href="/sobre">
-                Conhecer a Beasell
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
+            <Link
+              href="/sobre"
+              className="inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-brand-blue-900 px-8 text-sm font-medium text-white ring-offset-background transition-transform hover:scale-105 hover:bg-[#1A2A49]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              Conhecer a Beasell
+              <ArrowRight className="ml-2 h-5 w-5 shrink-0" />
+            </Link>
           </div>
 
           <div className="relative aspect-video lg:aspect-square">

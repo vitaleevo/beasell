@@ -1,49 +1,53 @@
-
-import React from 'react';
-import Link from 'next/link';
-import { Card, CardContent, CardHeader } from '@/shared/components/ui/card';
-import { Button } from '@/shared/components/ui/button';
-import { Badge } from '@/shared/components/ui/badge';
-import { Calendar, User, Clock, ArrowRight, Eye, Bookmark } from 'lucide-react';
-import { BlogPost } from '@/shared/types/blog';
+import React from "react";
+import Link from "next/link";
+import { Card } from "@/shared/components/ui/card";
+import { Button } from "@/shared/components/ui/button";
+import { Badge } from "@/shared/components/ui/badge";
+import { Calendar, User, Clock, ArrowRight, Eye, Bookmark } from "lucide-react";
+import { BlogPost } from "@/shared/types/blog";
+import { getStableViewCount } from "@/shared/lib/post-metrics";
+import { RemoteImageFrame } from "@/shared/components/ui/remote-image-frame";
 
 interface EnhancedPostCardProps {
   post: BlogPost;
-  variant?: 'default' | 'featured' | 'compact' | 'large';
+  variant?: "default" | "featured" | "compact" | "large";
   showExcerpt?: boolean;
 }
 
 const EnhancedPostCard = ({
   post,
-  variant = 'default',
-  showExcerpt = true
+  variant = "default",
+  showExcerpt = true,
 }: EnhancedPostCardProps) => {
-  const isCompact = variant === 'compact';
-  const isFeatured = variant === 'featured';
-  const isLarge = variant === 'large';
+  const isCompact = variant === "compact";
+  const isFeatured = variant === "featured";
+  const isLarge = variant === "large";
 
-  const cardHeight = isLarge ? 'h-96' : isFeatured ? 'h-72' : 'h-56';
+  const cardHeight = isLarge ? "h-96" : isFeatured ? "h-72" : "h-56";
 
   return (
-    <Card className={`group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border-0 overflow-hidden bg-white ${isFeatured ? 'ring-2 ring-orange-200 shadow-lg' : 'shadow-md'
-      }`}>
+    <Card
+      className={`group overflow-hidden border-0 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-xl ${
+        isFeatured ? "shadow-lg ring-2 ring-orange-200" : "shadow-md"
+      }`}
+    >
       {/* Image Section */}
       {!isCompact && (
         <div className={`relative overflow-hidden ${cardHeight}`}>
-          <img
+          <RemoteImageFrame
             src={post.image}
             alt={post.title}
-            className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full transition-transform duration-500 group-hover:scale-105"
           />
 
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40"></div>
 
           {/* Category Badge */}
           <div className="absolute top-4 left-4">
             <Badge
               variant="secondary"
-              className="bg-white/90 text-gray-900 backdrop-blur-sm hover:bg-white transition-colors"
+              className="bg-white/90 text-gray-900 backdrop-blur-sm transition-colors hover:bg-white"
             >
               {post.category}
             </Badge>
@@ -52,40 +56,34 @@ const EnhancedPostCard = ({
           {/* Featured Badge */}
           {isFeatured && (
             <div className="absolute top-4 right-4">
-              <Badge className="bg-orange-500 text-white shadow-lg">
-                Em Destaque
-              </Badge>
+              <Badge className="bg-orange-500 text-white shadow-lg">Em Destaque</Badge>
             </div>
           )}
 
           {/* Reading Stats */}
-          <div className="absolute bottom-4 right-4 flex items-center space-x-3">
-            <div className="flex items-center bg-black/40 backdrop-blur-sm rounded-full px-3 py-1">
-              <Eye className="h-3 w-3 text-white mr-1" />
-              <span className="text-white text-xs font-medium">
-                {Math.floor(Math.random() * 500) + 100}
-              </span>
+          <div className="absolute right-4 bottom-4 flex items-center space-x-3">
+            <div className="flex items-center rounded-full bg-black/40 px-3 py-1 backdrop-blur-sm">
+              <Eye className="mr-1 h-3 w-3 text-white" />
+              <span className="text-xs font-medium text-white">{getStableViewCount(post._id)}</span>
             </div>
-            <button className="bg-black/40 backdrop-blur-sm p-2 rounded-full hover:bg-black/60 transition-colors">
+            <button className="rounded-full bg-black/40 p-2 backdrop-blur-sm transition-colors hover:bg-black/60">
               <Bookmark className="h-3 w-3 text-white" />
             </button>
           </div>
 
           {/* Content Overlay for Large Variant */}
           {isLarge && (
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-              <h3 className="text-2xl font-bold mb-2 leading-tight group-hover:text-orange-300 transition-colors">
-                <Link href={`/blog/${post.slug}`}>
-                  {post.title}
-                </Link>
+            <div className="absolute right-0 bottom-0 left-0 p-6 text-white">
+              <h3 className="mb-2 text-2xl leading-tight font-bold transition-colors group-hover:text-orange-300">
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
               </h3>
               <div className="flex items-center space-x-4 text-sm text-white/80">
                 <div className="flex items-center">
-                  <Calendar className="h-3 w-3 mr-1" />
-                  {new Date(post.publishedAt).toLocaleDateString('pt-AO')}
+                  <Calendar className="mr-1 h-3 w-3" />
+                  {new Date(post.publishedAt).toLocaleDateString("pt-AO")}
                 </div>
                 <div className="flex items-center">
-                  <Clock className="h-3 w-3 mr-1" />
+                  <Clock className="mr-1 h-3 w-3" />
                   {post.readTime}
                 </div>
               </div>
@@ -105,8 +103,11 @@ const EnhancedPostCard = ({
           )}
 
           {/* Title */}
-          <h3 className={`font-bold leading-tight mb-3 group-hover:text-blue-900 transition-colors ${isFeatured ? 'text-xl' : 'text-lg'
-            }`}>
+          <h3
+            className={`mb-3 leading-tight font-bold transition-colors group-hover:text-blue-900 ${
+              isFeatured ? "text-xl" : "text-lg"
+            }`}
+          >
             <Link href={`/blog/${post.slug}`} className="hover:underline">
               {post.title}
             </Link>
@@ -114,26 +115,32 @@ const EnhancedPostCard = ({
 
           {/* Excerpt */}
           {showExcerpt && (
-            <p className={`text-gray-600 mb-4 leading-relaxed ${isCompact ? 'text-sm line-clamp-2' : 'line-clamp-3'
-              }`}>
+            <p
+              className={`mb-4 leading-relaxed text-gray-600 ${
+                isCompact ? "line-clamp-2 text-sm" : "line-clamp-3"
+              }`}
+            >
               {post.excerpt}
             </p>
           )}
 
           {/* Meta Information */}
-          <div className={`flex items-center justify-between mb-4 ${isCompact ? 'text-xs' : 'text-sm'
-            } text-gray-500`}>
+          <div
+            className={`mb-4 flex items-center justify-between ${
+              isCompact ? "text-xs" : "text-sm"
+            } text-gray-500`}
+          >
             <div className="flex items-center space-x-4">
               <div className="flex items-center">
-                <User className="h-3 w-3 mr-1" />
+                <User className="mr-1 h-3 w-3" />
                 {post.author}
               </div>
               <div className="flex items-center">
-                <Calendar className="h-3 w-3 mr-1" />
-                {new Date(post.publishedAt).toLocaleDateString('pt-AO')}
+                <Calendar className="mr-1 h-3 w-3" />
+                {new Date(post.publishedAt).toLocaleDateString("pt-AO")}
               </div>
               <div className="flex items-center">
-                <Clock className="h-3 w-3 mr-1" />
+                <Clock className="mr-1 h-3 w-3" />
                 {post.readTime}
               </div>
             </div>
@@ -144,10 +151,10 @@ const EnhancedPostCard = ({
             <Button
               variant="outline"
               size={isCompact ? "sm" : "default"}
-              className="w-full group/btn border-gray-200 hover:border-blue-900 hover:bg-blue-900 hover:text-white transition-all duration-300"
+              className="group/btn w-full border-gray-200 transition-all duration-300 hover:border-blue-900 hover:bg-blue-900 hover:text-white"
             >
               Ler Artigo
-              <ArrowRight className="h-4 w-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
             </Button>
           </Link>
         </div>
@@ -157,9 +164,9 @@ const EnhancedPostCard = ({
       {isLarge && (
         <div className="absolute bottom-6 left-6">
           <Link href={`/blog/${post.slug}`}>
-            <Button className="bg-white text-gray-900 hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-lg">
+            <Button className="bg-white text-gray-900 shadow-lg transition-all duration-300 hover:bg-orange-500 hover:text-white">
               Ler Artigo
-              <ArrowRight className="h-4 w-4 ml-2" />
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         </div>
@@ -169,4 +176,3 @@ const EnhancedPostCard = ({
 };
 
 export default EnhancedPostCard;
-

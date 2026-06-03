@@ -1,4 +1,3 @@
-
 export interface Student {
   id: string;
   name: string;
@@ -23,7 +22,7 @@ export interface Course {
   thumbnail: string;
   instructor: string;
   duration: string;
-  level: 'Iniciante' | 'Intermediário' | 'Avançado';
+  level: "Iniciante" | "Intermediário" | "Avançado";
   category: string;
   modules: CourseModule[];
   price: number;
@@ -51,7 +50,7 @@ export interface Lesson {
   title: string;
   description: string;
   videoUrl: string;
-  videoType: 'youtube' | 'vimeo';
+  videoType: "youtube" | "vimeo";
   duration: string;
   order: number;
   materials?: LessonMaterial[];
@@ -62,7 +61,7 @@ export interface Lesson {
 export interface LessonMaterial {
   id: string;
   title: string;
-  type: 'pdf' | 'document' | 'link' | 'video' | 'audio';
+  type: "pdf" | "document" | "link" | "video" | "audio";
   url: string;
   size?: string;
 }
@@ -86,7 +85,7 @@ export interface Quiz {
 export interface QuizQuestion {
   id: string;
   question: string;
-  type: 'multiple-choice' | 'true-false' | 'short-answer';
+  type: "multiple-choice" | "true-false" | "short-answer";
   options?: string[];
   correctAnswer: string | number;
   explanation?: string;
@@ -122,7 +121,7 @@ export interface Badge {
   icon: string;
   color: string;
   earnedAt: string;
-  type: 'completion' | 'streak' | 'performance' | 'special';
+  type: "completion" | "streak" | "performance" | "special";
 }
 
 export interface Certificate {
@@ -150,7 +149,7 @@ export interface StudentSettings {
   autoplay: boolean;
   playbackSpeed: number;
   language: string;
-  theme: 'light' | 'dark' | 'auto';
+  theme: "light" | "dark" | "auto";
   privacy: {
     showProgress: boolean;
     showCertificates: boolean;
@@ -160,10 +159,15 @@ export interface StudentSettings {
 
 export interface Activity {
   id: string;
-  type: 'lesson_completed' | 'quiz_passed' | 'course_started' | 'certificate_earned' | 'badge_earned';
+  type:
+    | "lesson_completed"
+    | "quiz_passed"
+    | "course_started"
+    | "certificate_earned"
+    | "badge_earned";
   description: string;
   timestamp: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 export interface LearningPath {
@@ -172,6 +176,6 @@ export interface LearningPath {
   description: string;
   courses: string[];
   estimatedDuration: string;
-  difficulty: 'Iniciante' | 'Intermediário' | 'Avançado';
+  difficulty: "Iniciante" | "Intermediário" | "Avançado";
   category: string;
 }

@@ -71,7 +71,7 @@ const CustomerExperienceHero = () => {
               </div>
 
               <blockquote className="text-xl md:text-3xl font-medium text-white mb-10 leading-relaxed italic text-center md:text-left">
-                "{featuredTestimonial.content}"
+                &ldquo;{featuredTestimonial.content}&rdquo;
               </blockquote>
 
               <div className="flex flex-col md:flex-row items-center gap-6 pt-8 border-t border-white/10">
