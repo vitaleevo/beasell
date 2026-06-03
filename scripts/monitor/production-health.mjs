@@ -28,6 +28,10 @@ const timeoutMs = Number(readArg("--timeout-ms", process.env.BEASELL_MONITOR_TIM
 const warnOnly = hasFlag("--warn-only") || process.env.BEASELL_MONITOR_WARN_ONLY === "1";
 const requireSentry =
   hasFlag("--require-sentry") || process.env.BEASELL_MONITOR_REQUIRE_SENTRY === "1";
+const vercelBypassSecret = readArg(
+  "--vercel-bypass-secret",
+  process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
+);
 
 if (!baseUrl) {
   console.error("Missing --base-url or NEXT_PUBLIC_SITE_URL/SITE_URL.");
@@ -36,6 +40,40 @@ if (!baseUrl) {
 
 function url(path) {
   return `${baseUrl}${path}`;
+}
+
+function requestOptions(options = {}) {
+  if (!vercelBypassSecret) return options;
+
+  return {
+    ...options,
+    headers: {
+      ...options.headers,
+      "x-vercel-protection-bypass": vercelBypassSecret,
+    },
+  };
+}
+
+function isVercelDeploymentProtection(response, text = "") {
+  return (
+    response.status === 401 &&
+    /Authentication Required|Deployment Protection|x-vercel-protection-bypass/i.test(text)
+  );
+}
+
+async function responseText(response) {
+  return await response.clone().text().catch(() => "");
+}
+
+function deploymentProtectionResult(name, status) {
+  return {
+    name,
+    ok: false,
+    status,
+    deploymentProtection: "vercel",
+    reason:
+      "Vercel Deployment Protection blocked this check. Configure VERCEL_AUTOMATION_BYPASS_SECRET or pass --vercel-bypass-secret for protected previews.",
+  };
 }
 
 async function fetchWithTimeout(target, options = {}) {
@@ -63,7 +101,12 @@ function securityHeader(headers, name, expectedValue) {
 }
 
 async function checkHealthEndpoint() {
-  const response = await fetchWithTimeout(url("/api/health"), { redirect: "manual" });
+  const response = await fetchWithTimeout(url("/api/health"), requestOptions({ redirect: "manual" }));
+  const text = await responseText(response);
+  if (isVercelDeploymentProtection(response, text)) {
+    return deploymentProtectionResult("health-endpoint", response.status);
+  }
+
   const body = await response.json().catch(() => null);
   const sentryConfigured = body?.observability?.sentryConfigured === true;
   const ok =
@@ -81,8 +124,11 @@ async function checkHealthEndpoint() {
 }
 
 async function checkPublicPage() {
-  const response = await fetchWithTimeout(url("/"), { redirect: "follow" });
+  const response = await fetchWithTimeout(url("/"), requestOptions({ redirect: "follow" }));
   const text = await response.text();
+  if (isVercelDeploymentProtection(response, text)) {
+    return deploymentProtectionResult("public-homepage", response.status);
+  }
 
   return {
     name: "public-homepage",
@@ -93,7 +139,15 @@ async function checkPublicPage() {
 }
 
 async function checkAdminRedirect() {
-  const response = await fetchWithTimeout(url("/admin/dashboard"), { redirect: "manual" });
+  const response = await fetchWithTimeout(
+    url("/admin/dashboard"),
+    requestOptions({ redirect: "manual" }),
+  );
+  const text = await responseText(response);
+  if (isVercelDeploymentProtection(response, text)) {
+    return deploymentProtectionResult("admin-auth-redirect", response.status);
+  }
+
   const location = response.headers.get("location") ?? "";
   const redirected = [301, 302, 303, 307, 308].includes(response.status);
 
@@ -106,7 +160,12 @@ async function checkAdminRedirect() {
 }
 
 async function checkSecurityHeaders() {
-  const response = await fetchWithTimeout(url("/"), { redirect: "follow" });
+  const response = await fetchWithTimeout(url("/"), requestOptions({ redirect: "follow" }));
+  const text = await responseText(response);
+  if (isVercelDeploymentProtection(response, text)) {
+    return deploymentProtectionResult("security-headers", response.status);
+  }
+
   const headers = [
     securityHeader(response.headers, "x-content-type-options", "nosniff"),
     securityHeader(response.headers, "x-frame-options", "DENY"),
@@ -194,6 +253,7 @@ async function main() {
     baseUrl,
     checkedAt: new Date().toISOString(),
     convexSiteUrl: convexSiteUrl ? "configured" : "not-configured",
+    vercelBypassConfigured: Boolean(vercelBypassSecret),
     ok: results.every((result) => result.ok),
     results,
   };

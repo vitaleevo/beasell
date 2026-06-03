@@ -54,6 +54,9 @@ Incremento fase 5:
 - Novas submissoes por link externo de comprovativo foram bloqueadas; upload por storage continua sendo o caminho correto.
 - Verificacao publica de certificados deixou de expor email do aluno e IDs internos.
 - Validacao executada: `npx convex codegen`, `npm run test`, `npm run lint`, `NEXT_TELEMETRY_DISABLED=1 npm run build`, `scripts/qa/run-smokes.sh`, `qa:production-smoke`, `monitor:production`, `monitor:production -- --require-sentry --warn-only`, `VISUAL_ROUTE_FILTER=admin-alunos` no runner Docker, `VISUAL_ROUTE_FILTER=admin-settings` no runner Docker e `scripts/qa/run-visual-docker.sh` completo com `failedCount=0` em 26 cenarios.
+- PR remoto confirmado em `https://github.com/vitaleevo/beasell/pull/1`, draft, mergeable, com Quality gate, Vercel, Vercel Preview Comments e CodeRabbit verdes no commit `128c7c8`.
+- Preview Vercel encontrada: `https://beasell-64z6uc2zf-vitaleevos-projects.vercel.app`; smoke remoto anonimo retornou 401 por Vercel Deployment Protection.
+- Scripts `qa:production-smoke` e `monitor:production` passaram a suportar `VERCEL_AUTOMATION_BYPASS_SECRET`/`--vercel-bypass-secret` e a reportar preview protegida de forma explicita.
 
 Foi feito:
 
@@ -86,6 +89,8 @@ Arquivos principais:
 - `convex/certificates.ts`
 - `convex/paymentProof.ts`
 - `convex/seed.ts`
+- `scripts/deploy/production-smoke.mjs`
+- `scripts/monitor/production-health.mjs`
 - `convex/services.ts`
 - `convex/users.ts`
 - `src/instrumentation.ts`
@@ -130,6 +135,7 @@ Resultado:
 - `monitor:production`: passou com health, redirects, headers e Convex auth.
 - `monitor:production -- --require-sentry --warn-only`: executou sem quebrar localmente e reportou `sentryConfigured=false`, esperado sem DSN local.
 - `scripts/qa/run-visual-docker.sh`: passou com `failedCount=0` em 26 cenarios desktop/mobile.
+- Smoke remoto na preview Vercel: bloqueado por Deployment Protection 401 sem bypass configurado; nao prova falha da aplicacao, mas impede declarar producao remota validada.
 - Browser QA confirmou `/admin/precos` com controlo/historico e sem overflow no viewport atual.
 - Browser QA confirmou `/admin/pagamentos` renderizando e botoes bloqueados para pagamentos que nao estao `submitted`.
 - Browser QA confirmou dashboard com painel de saude e sem overflow no viewport atual.
@@ -137,7 +143,7 @@ Resultado:
 Estado atual:
 
 - As fases 1, 1.1, 2, 3, 4 e 5 local de hardening estao implementadas e validadas localmente.
-- O objetivo maior ainda nao terminou apenas por dependencia externa: falta deploy remoto final com variaveis reais, dominio real e smoke no dominio publicado.
+- O objetivo maior ainda nao terminou apenas por dependencia externa: falta remover/fornecer bypass da Deployment Protection, configurar variaveis reais, dominio real e smoke no dominio publicado.
 - O PR draft precisa ser atualizado com esta tranche fase 5.
 - Continuam existindo alteracoes locais unstaged de ruido/logs/final de linha fora deste escopo; nao foram revertidas.
 
@@ -145,12 +151,12 @@ Estado do projeto:
 
 - Fase/trilha atual: hardening profissional e seguranca de producao, fase 5 local concluida.
 - Solido agora: auth, LMS, upload de comprovativos, aulas YouTube/Vimeo, auditoria base, rate limit base, CI, docs de dados sensiveis, dashboard de saude, smoke negativo versionado, `/api/health`, monitor operacional, Sentry opcional com scrubber e backoffice com exportacao/filtros em pagamentos e alunos.
-- Falta imediato: fazer deploy remoto com smoke no dominio final, configurar Sentry/Convex/Vercel reais e confirmar `ADMIN_EMAILS` do dono.
+- Falta imediato: fazer deploy remoto com smoke no dominio final ou preview com `VERCEL_AUTOMATION_BYPASS_SECRET`, configurar Sentry/Convex/Vercel reais e confirmar `ADMIN_EMAILS` do dono.
 - Distancia do fim: MVP esta forte e validado localmente; producao real depende da publicacao remota e operacao externa.
 
 ## Proximo passo recomendado
 
-Continuar com deploy remoto real: aplicar variaveis, validar Convex/Vercel, configurar Sentry e rodar smoke no dominio final.
+Continuar com deploy remoto real: aplicar variaveis, obter bypass/abrir preview Vercel protegida, validar Convex/Vercel, configurar Sentry e rodar smoke no dominio final.
 
 AVISO: O proximo passo e executar deploy remoto real do MVP Beasell com variaveis de producao, Convex/Vercel/Sentry configurados e smoke no dominio final. Antes de iniciar, leia `MEMORIA_BEASELL.md` para continuar exatamente de onde o projeto parou, entender o que ja foi feito e integrar a solucao com o sistema atual sem reler todo o repositorio.
 

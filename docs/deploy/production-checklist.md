@@ -32,6 +32,7 @@ NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site
 BETTER_AUTH_SECRET=<secret-com-pelo-menos-32-caracteres>
 ADMIN_EMAILS=<email-do-dono>
 BEASELL_MONITOR_WEBHOOK_URL=<opcional-webhook-de-alerta>
+VERCEL_AUTOMATION_BYPASS_SECRET=<opcional-bypass-preview-vercel>
 NEXT_PUBLIC_SENTRY_DSN=<opcional-dsn-publico-sentry>
 SENTRY_DSN=<opcional-dsn-servidor-sentry>
 SENTRY_ORG=<opcional-org-sentry>
@@ -61,6 +62,7 @@ Regras:
 - `ADMIN_EMAILS` deve conter o email unico do dono/professor.
 - `BETTER_AUTH_SECRET` nunca deve ser colocado em ficheiros versionados.
 - `BEASELL_MONITOR_WEBHOOK_URL` e opcional; se usado, configurar apenas no ambiente seguro do monitor.
+- `VERCEL_AUTOMATION_BYPASS_SECRET` e opcional e so deve existir no ambiente seguro que roda smokes contra previews Vercel protegidas.
 - Sentry e opcional em local/CI, mas recomendado em producao. Usar `sendDefaultPii=false`; nunca enviar comprovativos, cookies, tokens ou emails em eventos.
 
 Validacao local de um ficheiro de producao temporario:
@@ -142,6 +144,12 @@ Smoke HTTP minimo:
 NEXT_PUBLIC_SITE_URL=https://<dominio> NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site npm run qa:production-smoke
 ```
 
+Se a preview Vercel estiver protegida por Deployment Protection, configure `VERCEL_AUTOMATION_BYPASS_SECRET` no ambiente seguro do runner, ou passe `--vercel-bypass-secret <valor>` localmente sem gravar o valor no repositorio:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://<preview-vercel> VERCEL_AUTOMATION_BYPASS_SECRET=<secret> npm run qa:production-smoke
+```
+
 Este smoke confirma:
 
 - Home, sign-in, sign-up e listagem publica de cursos com HTTP 200.
@@ -155,6 +163,8 @@ Monitor operacional:
 ```bash
 NEXT_PUBLIC_SITE_URL=https://<dominio> NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site npm run monitor:production
 ```
+
+O monitor tambem aceita `VERCEL_AUTOMATION_BYPASS_SECRET` ou `--vercel-bypass-secret` para previews Vercel protegidas.
 
 Para exigir Sentry no ambiente real:
 

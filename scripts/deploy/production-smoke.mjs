@@ -19,6 +19,10 @@ const baseUrl = normalizeOrigin(
 const convexSiteUrl = normalizeOrigin(
   readArg("--convex-site-url", process.env.NEXT_PUBLIC_CONVEX_SITE_URL),
 );
+const vercelBypassSecret = readArg(
+  "--vercel-bypass-secret",
+  process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
+);
 
 if (!baseUrl) {
   console.error("Missing --base-url or NEXT_PUBLIC_SITE_URL/SITE_URL.");
@@ -29,9 +33,36 @@ function url(path) {
   return `${baseUrl}${path}`;
 }
 
+function requestOptions(options = {}) {
+  if (!vercelBypassSecret) return options;
+
+  return {
+    ...options,
+    headers: {
+      ...options.headers,
+      "x-vercel-protection-bypass": vercelBypassSecret,
+    },
+  };
+}
+
+function isVercelDeploymentProtection(response, text = "") {
+  return (
+    response.status === 401 &&
+    /Authentication Required|Deployment Protection|x-vercel-protection-bypass/i.test(text)
+  );
+}
+
+function deploymentProtectionMessage(path) {
+  return `${path} is blocked by Vercel Deployment Protection. Set VERCEL_AUTOMATION_BYPASS_SECRET or pass --vercel-bypass-secret to smoke protected previews.`;
+}
+
 async function expectOk(path, expectedText) {
-  const response = await fetch(url(path), { redirect: "follow" });
+  const response = await fetch(url(path), requestOptions({ redirect: "follow" }));
   const text = await response.text();
+
+  if (isVercelDeploymentProtection(response, text)) {
+    throw new Error(deploymentProtectionMessage(path));
+  }
 
   if (response.status !== 200) {
     throw new Error(`${path} returned ${response.status}`);
@@ -66,7 +97,12 @@ function expectHeader(headers, name, expectedValue) {
 }
 
 async function expectSecurityHeaders() {
-  const response = await fetch(url("/"), { redirect: "follow" });
+  const response = await fetch(url("/"), requestOptions({ redirect: "follow" }));
+  const text = await response.clone().text().catch(() => "");
+
+  if (isVercelDeploymentProtection(response, text)) {
+    throw new Error(deploymentProtectionMessage("/"));
+  }
 
   if (response.status !== 200) {
     throw new Error(`Security header check expected / to return 200, got ${response.status}`);
@@ -104,9 +140,14 @@ async function expectAdminRedirect() {
 }
 
 async function expectSignInRedirect(path) {
-  const response = await fetch(url(path), { redirect: "manual" });
+  const response = await fetch(url(path), requestOptions({ redirect: "manual" }));
+  const text = await response.clone().text().catch(() => "");
   const location = response.headers.get("location") ?? "";
   const redirected = [301, 302, 303, 307, 308].includes(response.status);
+
+  if (isVercelDeploymentProtection(response, text)) {
+    throw new Error(deploymentProtectionMessage(path));
+  }
 
   if (!redirected || !location.includes("/sign-in")) {
     throw new Error(
@@ -171,6 +212,7 @@ console.log(
       baseUrl,
       checkedAt: new Date().toISOString(),
       convexSiteUrl: convexSiteUrl || null,
+      vercelBypassConfigured: Boolean(vercelBypassSecret),
       results,
     },
     null,
