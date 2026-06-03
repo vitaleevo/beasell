@@ -54,5 +54,5 @@ jobs:
 
       - name: Local auth and security smokes
         run: |
-          trap 'scripts/qa/stop-local.sh >/dev/null 2>&1 || true' EXIT
+          trap 'bash scripts/qa/stop-local.sh >/dev/null 2>&1 || true' EXIT
           bash scripts/qa/run-smokes.sh

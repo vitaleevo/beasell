@@ -47,12 +47,12 @@ wait_for() {
   return 1
 }
 
-if "$ROOT/scripts/qa/health-local.sh" >/dev/null 2>&1; then
+if bash "$ROOT/scripts/qa/health-local.sh" >/dev/null 2>&1; then
   echo "Beasell local QA already ready at $SITE_URL"
   exit 0
 fi
 
-"$ROOT/scripts/qa/stop-local.sh" >/dev/null 2>&1 || true
+bash "$ROOT/scripts/qa/stop-local.sh" >/dev/null 2>&1 || true
 
 convex_cmd=(./node_modules/.bin/convex dev)
 if [[ -n "$CONVEX_LOCAL_BACKEND_VERSION" ]]; then

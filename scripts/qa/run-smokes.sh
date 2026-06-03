@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
 
-"$ROOT/scripts/qa/start-local.sh"
+bash "$ROOT/scripts/qa/start-local.sh"
 
 node scripts/qa/auth-rate-limit.mjs
 node scripts/qa/security-negative.mjs
